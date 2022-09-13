@@ -38,7 +38,7 @@ public class RedDuckAutonomous extends LinearOpMode {
 
 
 
-
+/**
         everything.turnRight(.2);
         // zev says hi
         sleep(2500);
@@ -64,6 +64,8 @@ public class RedDuckAutonomous extends LinearOpMode {
         sleep(2000);
 //
         everything.Stop();
+
+        everything.goBackward(.5);
 
 
 
@@ -100,10 +102,16 @@ public class RedDuckAutonomous extends LinearOpMode {
 //        sleep(800);
 //
 //        everything.Stop();
+*/
 
+        everything.goBackward(.5);
+        sleep(5000);
 
+        everything.Stop();
 
-
+        everything.turnLeft(2.0);
+        sleep(4500);
+        everything.Stop();
 
 
 
