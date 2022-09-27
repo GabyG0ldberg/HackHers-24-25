@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorMRGyro;
 
 
-public class aaaaaaa {
+
     public class SensorMRGyro extends LinearOpMode {
         IntegratingGyroscope gyro;
         ModernRoboticsI2cGyro modernRoboticsI2cGyro;
@@ -23,11 +23,12 @@ public class aaaaaaa {
             boolean lastResetState = false;
             boolean curResetState = false;
         }
-        modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
+        ModernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class,"gyro");
+        gyro = (IntegratingGyroscope) ModernRoboticsI2cGyro;
     }
 
 
-}
+
 
 
 
