@@ -8,7 +8,8 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class NotAutonomous1 extends OpMode {
+public class
+git NotAutonomous1 extends OpMode {
     HackHers_Lib library;
     float [] omniValues = new float [4];
     int step = 1;
