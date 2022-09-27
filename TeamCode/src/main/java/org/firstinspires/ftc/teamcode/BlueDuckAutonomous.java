@@ -4,6 +4,7 @@ import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 @Autonomous
@@ -18,6 +19,8 @@ public class BlueDuckAutonomous extends LinearOpMode {
     DcMotor om;
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
+    ColorSensor cs;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -30,6 +33,7 @@ public class BlueDuckAutonomous extends LinearOpMode {
         om = hardwareMap.get(DcMotor.class, "om");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class,"ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class,"ds2");
+        cs = hardwareMap.get(ColorSensor.class, "cs");
 
         super.waitForStart();
 
