@@ -13,8 +13,11 @@ import org.firstinspires.ftc.robotcontroller.external.samples.SensorMRGyro;
 
     public class theGyroscope extends LinearOpMode {
         IntegratingGyroscope gyro;
+        gyro = hardwareMap.get;
         ModernRoboticsI2cGyro modernRoboticsI2cGyro;
         ElapsedTime timer = new ElapsedTime();
+
+        modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
 
 
 

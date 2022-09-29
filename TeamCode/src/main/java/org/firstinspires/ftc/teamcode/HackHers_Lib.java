@@ -1,13 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.hardware.Sensor;
+
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorMRGyro;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class HackHers_Lib {
+    public SensorMRGyro gyro ;
     public DcMotor frontLeft;
     public DcMotor frontRight;
     public DcMotor backLeft;
@@ -31,6 +35,8 @@ public class HackHers_Lib {
         this.distance2 = ds2;
         this.telemetry = t;
     }
+
+
 
     public void driveRaw(float fl, float fr, float bl, float br){
         frontLeft.setPower(fl);
