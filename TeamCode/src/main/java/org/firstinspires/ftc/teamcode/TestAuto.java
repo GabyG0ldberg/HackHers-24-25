@@ -47,7 +47,7 @@ public class TestAuto extends LinearOpMode {
 
         super.waitForStart();
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, dw, im, om, ds1, ds2, telemetry);
+        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry);
 
 
         //THIS IS TEST CODE FOR ENCODER FUNCTIONS
@@ -57,7 +57,7 @@ public class TestAuto extends LinearOpMode {
         //while (bR.isBusy()) {
         //sleep(1);
         //}
-        everything.DriveBackwardToDist(50);
+        //everything.DriveBackwardToDist(50);
 
         everything.Stop();
 

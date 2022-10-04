@@ -1,36 +1,42 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.hardware.Sensor;
+
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorMRGyro;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class HackHers_Lib {
+    //public SensorMRGyro gyro ;
     public DcMotor frontLeft;
     public DcMotor frontRight;
     public DcMotor backLeft;
     public DcMotor backRight;
-    public DcMotor duckWheel;
-    public DcMotor intake;
-    public DcMotor outtake;
-    public Rev2mDistanceSensor distance1;
-    public Rev2mDistanceSensor distance2;
+    //public DcMotor duckWheel;
+    //public DcMotor intake;
+    //public DcMotor outtake;
+    //public Rev2mDistanceSensor distance1;
+    //public Rev2mDistanceSensor distance2;
     public Telemetry telemetry;
 
-    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, DcMotor dw, DcMotor im, DcMotor om, Rev2mDistanceSensor ds1, Rev2mDistanceSensor ds2, Telemetry t){
+    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, Telemetry t){
         this.frontLeft= fl;
         this.frontRight = fr;
         this.backLeft= bl;
         this.backRight = br;
-        this.duckWheel = dw;
-        this.intake = im;
-        this.outtake = om;
-        this.distance1 = ds1;
-        this.distance2 = ds2;
+        //this.duckWheel = dw;
+        //this.intake = im;
+        //this.outtake = om;
+        //this.distance1 = ds1;
+        //this.distance2 = ds2;
         this.telemetry = t;
     }
+
+
 
     public void driveRaw(float fl, float fr, float bl, float br){
         frontLeft.setPower(fl);
@@ -145,17 +151,17 @@ public class HackHers_Lib {
         return false;
     }
 
-    public void DriveForwardToDist(double dist, double power){
-        while((distance1.getDistance(DistanceUnit.CM)<=dist && distance2.getDistance(DistanceUnit.CM)<=dist)){
-            goForward(power);
-        }
-    }
+//    public void DriveForwardToDist(double dist, double power){
+//        while((distance1.getDistance(DistanceUnit.CM)<=dist && distance2.getDistance(DistanceUnit.CM)<=dist)){
+//            goForward(power);
+//        }
+//    }
 
-    public void DriveBackwardToDist(double dist){
-        while((distance1.getDistance(DistanceUnit.CM)<=dist && distance2.getDistance(DistanceUnit.CM)<=dist)){
-            goBackward(.2);
-        }
-    }
+//    public void DriveBackwardToDist(double dist){
+//        while((distance1.getDistance(DistanceUnit.CM)<=dist && distance2.getDistance(DistanceUnit.CM)<=dist)){
+//            goBackward(.2);
+//        }
+//    }
 
 
 }

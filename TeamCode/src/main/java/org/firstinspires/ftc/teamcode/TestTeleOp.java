@@ -24,7 +24,7 @@ public abstract class TestTeleOp extends OpMode {
 
     public void init() {
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, dw, im, om, ds1, ds2, telemetry);
+        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class BlueDuckAutonomous extends LinearOpMode {
 
         super.waitForStart();
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, dw, im, om, ds1, ds2, telemetry);
+        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry);
 
         //THIS ABSOLUTELY FUNCTIONS AND MAKES A DUCK COME OFF BLUE SIDE
         //DO NOT EDIT
