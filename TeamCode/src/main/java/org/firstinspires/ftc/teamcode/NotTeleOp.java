@@ -41,16 +41,16 @@ public class NotTeleOp extends OpMode {
     public void loop() {
         everything.omniDrive(gamepad1.right_stick_x, gamepad1.left_stick_x, gamepad1.right_stick_y);
 
-        if (gamepad1.dpad_left) {
+        if (gamepad1.dpad_down) {
             everything.setMotorPower(fL, -1);
         }
-        if (gamepad1.dpad_right) {
+        if (gamepad1.dpad_up) {
             everything.setMotorPower(fR, -1);
         }
-        if (gamepad1.dpad_up) {
+        if (gamepad1.dpad_right) {
             everything.setMotorPower(bL, 1);
         }
-        if (gamepad1.dpad_down) {
+        if (gamepad1.dpad_left) {
             everything.setMotorPower(bR, -1);
         }
 
