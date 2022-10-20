@@ -35,6 +35,8 @@ public class BlueDuckAutonomous extends LinearOpMode {
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class,"ds2");
         cs = hardwareMap.get(ColorSensor.class, "cs");
 
+
+
         super.waitForStart();
 
         everything = new HackHers_Lib(fL, fR, bL, bR, telemetry);
