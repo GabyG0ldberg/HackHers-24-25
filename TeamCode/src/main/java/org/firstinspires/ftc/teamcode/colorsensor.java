@@ -21,7 +21,7 @@ public class colorsensor extends LinearOpMode {
 
         super.waitForStart();
 
-        everything.Color_Sensor.red();
+        //everything.Color_Sensor.red();
 
 
 
