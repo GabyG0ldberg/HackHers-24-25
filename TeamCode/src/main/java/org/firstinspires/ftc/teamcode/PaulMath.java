@@ -5,7 +5,7 @@ public class PaulMath {
 
         float[] vertical = {verticalPower, -verticalPower, -verticalPower, verticalPower};
         float[] horizontal = {-horizontalPower, -horizontalPower, horizontalPower, horizontalPower};
-        float[] rotational = {rotationalPower, -rotationalPower, rotationalPower, -rotationalPower};
+        float[] rotational = {-rotationalPower, -rotationalPower, -rotationalPower, -rotationalPower};
 
         float[] sum = new float[4];
         for (int i = 0; i < 4; i++) {
