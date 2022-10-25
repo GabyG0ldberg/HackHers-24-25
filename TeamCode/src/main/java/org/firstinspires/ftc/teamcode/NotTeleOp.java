@@ -21,6 +21,7 @@ public class NotTeleOp extends OpMode {
     //DcMotor om;
     //Rev2mDistanceSensor ds1;
     //Rev2mDistanceSensor ds2;
+    //comment for the sake of existing
 
     public void init() {
         fL = hardwareMap.get(DcMotor.class, "fl");
@@ -39,18 +40,18 @@ public class NotTeleOp extends OpMode {
 
     @Override
     public void loop() {
-        everything.omniDrive(gamepad1.right_stick_x, gamepad1.left_stick_x, gamepad1.right_stick_y);
+        everything.omniDrive(gamepad1.right_stick_y, gamepad1.right_stick_x, gamepad1.left_stick_x);
 
-        if (gamepad1.dpad_left) {
-            everything.setMotorPower(fL, -1);
-        }
-        if (gamepad1.dpad_right) {
-            everything.setMotorPower(fR, -1);
+        if (gamepad1.dpad_down) {
+            everything.setMotorPower(fL, 1);
         }
         if (gamepad1.dpad_up) {
+            everything.setMotorPower(fR, 1);
+        }
+        if (gamepad1.dpad_right) {
             everything.setMotorPower(bL, 1);
         }
-        if (gamepad1.dpad_down) {
+        if (gamepad1.dpad_left) {
             everything.setMotorPower(bR, -1);
         }
 

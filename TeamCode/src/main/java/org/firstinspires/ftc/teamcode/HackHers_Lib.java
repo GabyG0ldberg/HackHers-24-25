@@ -21,6 +21,9 @@ public class HackHers_Lib {
     //public DcMotor outtake;
     //public Rev2mDistanceSensor distance1;
     //public Rev2mDistanceSensor distance2;
+
+
+
     public Telemetry telemetry;
 
     public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, Telemetry t){
@@ -131,10 +134,10 @@ public class HackHers_Lib {
     }
 
     public void turnRight(double power){
-        this.frontLeft.setPower(power);
+        this.frontLeft.setPower(-power);
         this.frontRight.setPower(power);
         this.backLeft.setPower(power);
-        this.backRight.setPower(power);
+        this.backRight.setPower(-power);
     }
 
     public void Stop(){

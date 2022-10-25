@@ -3,8 +3,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+
 
 @Autonomous
 public class BlueParkAutonomous extends LinearOpMode {
@@ -30,6 +33,9 @@ public class BlueParkAutonomous extends LinearOpMode {
         om = hardwareMap.get(DcMotor.class, "om");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
+        ColorSensor sensor = hardwareMap.get(ColorSensor.class, "CS");
+
+
 
         super.waitForStart();
 
