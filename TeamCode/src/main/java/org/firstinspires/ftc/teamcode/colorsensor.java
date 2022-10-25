@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.internal.camera.names.WebcamNameInternal;
 @Autonomous
 public class colorsensor extends LinearOpMode {
     private HackHers_Lib everything;
+    private
 
     ColorSensor CS;
 
@@ -18,7 +19,7 @@ public class colorsensor extends LinearOpMode {
 
         super.waitForStart();
 
-        everything..red();
+        everything.Color_Sensor.red();
 
 
 
