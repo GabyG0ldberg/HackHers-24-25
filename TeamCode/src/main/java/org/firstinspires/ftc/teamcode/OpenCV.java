@@ -18,8 +18,6 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 public class OpenCV extends LinearOpMode {
 
-
-
     OpenCvWebcam webcam;
     @Override
     public void runOpMode()
