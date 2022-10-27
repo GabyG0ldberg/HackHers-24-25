@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
+import org.openftc.easyopencv.OpenCvWebcam;
+
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class NotTeleOp extends OpMode {
@@ -16,6 +18,7 @@ public class NotTeleOp extends OpMode {
     DcMotor fR;
     DcMotor bL;
     DcMotor bR;
+    OpenCvWebcam wc;
     //DcMotor dw;
     //DcMotor im;
     //DcMotor om;
@@ -28,12 +31,13 @@ public class NotTeleOp extends OpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
+        wc = hardwareMap.get(OpenCvWebcam.class, "Webcam 1");
         //dw = hardwareMap.get(DcMotor.class, "dw");
         //im = hardwareMap.get(DcMotor.class, "im");
         //om = hardwareMap.get(DcMotor.class, "om");
         //ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         //ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry);
+        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry, wc);
 
     }
 

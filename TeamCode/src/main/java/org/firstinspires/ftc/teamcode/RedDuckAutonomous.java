@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
+import org.openftc.easyopencv.OpenCvWebcam;
+
 @Autonomous
 public class RedDuckAutonomous extends LinearOpMode {
     private HackHers_Lib everything;
@@ -19,6 +21,7 @@ public class RedDuckAutonomous extends LinearOpMode {
     DcMotor om;
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
+    OpenCvWebcam wc;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -31,10 +34,11 @@ public class RedDuckAutonomous extends LinearOpMode {
         om = hardwareMap.get(DcMotor.class, "om");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
+        wc = hardwareMap.get(OpenCvWebcam.class, "Webcam 1");
 
         super.waitForStart();
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry);
+        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry, wc);
 
 
 

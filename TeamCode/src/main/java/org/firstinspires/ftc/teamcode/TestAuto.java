@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
+import org.openftc.easyopencv.OpenCvWebcam;
+
 
 @Autonomous
 public class TestAuto extends LinearOpMode {
@@ -18,6 +20,7 @@ public class TestAuto extends LinearOpMode {
     DcMotor dw;
     DcMotor im;
     DcMotor om;
+    OpenCvWebcam wc;
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
 
@@ -32,6 +35,7 @@ public class TestAuto extends LinearOpMode {
         om = hardwareMap.get(DcMotor.class, "om");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
+        wc = hardwareMap.get(OpenCvWebcam.class, "Webcam 1");
 
         fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -47,7 +51,7 @@ public class TestAuto extends LinearOpMode {
 
         super.waitForStart();
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry);
+        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry, wc);
 
 
         //THIS IS TEST CODE FOR ENCODER FUNCTIONS
