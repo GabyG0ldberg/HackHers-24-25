@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
+//import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 /*
@@ -72,7 +72,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 public class SensorAdafruitRGB extends LinearOpMode {
 
   ColorSensor sensorRGB;
-  DeviceInterfaceModule cdim;
+  //DeviceInterfaceModule cdim;
 
   // we assume that the LED pin of the RGB sensor is connected to
   // digital port 5 (zero indexed).
@@ -100,18 +100,18 @@ public class SensorAdafruitRGB extends LinearOpMode {
     boolean bLedOn = true;
 
     // get a reference to our DeviceInterfaceModule object.
-    cdim = hardwareMap.deviceInterfaceModule.get("dim");
+    //cdim = hardwareMap.deviceInterfaceModule.get("dim");
 
     // set the digital channel to output mode.
     // remember, the Adafruit sensor is actually two devices.
     // It's an I2C sensor and it's also an LED that can be turned on or off.
-    cdim.setDigitalChannelMode(LED_CHANNEL, DigitalChannel.Mode.OUTPUT);
+    //cdim.setDigitalChannelMode(LED_CHANNEL, DigitalChannel.Mode.OUTPUT);
 
     // get a reference to our ColorSensor object.
     sensorRGB = hardwareMap.colorSensor.get("sensor_color");
 
     // turn the LED on in the beginning, just so user will know that the sensor is active.
-    cdim.setDigitalChannelState(LED_CHANNEL, bLedOn);
+    //cdim.setDigitalChannelState(LED_CHANNEL, bLedOn);
 
     // wait for the start button to be pressed.
     waitForStart();
@@ -128,7 +128,7 @@ public class SensorAdafruitRGB extends LinearOpMode {
 
         // button is transitioning to a pressed state. Toggle the LED.
         bLedOn = !bLedOn;
-        cdim.setDigitalChannelState(LED_CHANNEL, bLedOn);
+        //cdim.setDigitalChannelState(LED_CHANNEL, bLedOn);
       }
 
       // update previous state variable.

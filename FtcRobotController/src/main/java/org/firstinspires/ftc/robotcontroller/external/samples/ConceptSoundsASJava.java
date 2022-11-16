@@ -43,7 +43,11 @@ import java.io.File;
  *
  * If you are using OnBotJava, please see the ConceptSoundsOnBotJava sample
  *
+<<<<<<< HEAD
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
+=======
+ * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
+>>>>>>> 2390680ce6a1a918b8855dc429555f57b38796e0
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  *
  * Operation:

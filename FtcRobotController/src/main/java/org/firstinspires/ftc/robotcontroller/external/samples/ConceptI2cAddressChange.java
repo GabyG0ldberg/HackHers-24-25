@@ -29,11 +29,11 @@
 
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsUsbDeviceInterfaceModule;
+//import com.qualcomm.hardware.modernrobotics.ModernRoboticsUsbDeviceInterfaceModule;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
+//import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.util.RobotLog;
 import com.qualcomm.robotcore.util.TypeConversion;
@@ -93,37 +93,37 @@ public class ConceptI2cAddressChange extends LinearOpMode {
   // If you use an invalid address, you may make your device completely unusable.
   I2cAddr newAddress = I2cAddr.create8bit(0x42);
 
-  DeviceInterfaceModule dim;
+  //DeviceInterfaceModule dim;
 
   @Override
   public void runOpMode() {
 
     // set up the hardware devices we are going to use
-    dim = hardwareMap.get(DeviceInterfaceModule.class, "dim");
+    //dim = hardwareMap.get(DeviceInterfaceModule.class, "dim");
 
-    readCache = dim.getI2cReadCache(port);
-    readLock = dim.getI2cReadCacheLock(port);
-    writeCache = dim.getI2cWriteCache(port);
-    writeLock = dim.getI2cWriteCacheLock(port);
+//    readCache = dim.getI2cReadCache(port);
+//    readLock = dim.getI2cReadCacheLock(port);
+//    writeCache = dim.getI2cWriteCache(port);
+//    writeLock = dim.getI2cWriteCacheLock(port);
 
     // I2c addresses on Modern Robotics devices must be divisible by 2, and between 0x7e and 0x10
     // Different hardware may have different rules.
     // Be sure to read the requirements for the hardware you're using!
-    ModernRoboticsUsbDeviceInterfaceModule.throwIfModernRoboticsI2cAddressIsInvalid(newAddress);
+    //ModernRoboticsUsbDeviceInterfaceModule.throwIfModernRoboticsI2cAddressIsInvalid(newAddress);
 
     // wait for the start button to be pressed
     waitForStart();
 
-    performAction("read", port, currentAddress, ADDRESS_MEMORY_START, TOTAL_MEMORY_LENGTH);
+    //performAction("read", port, currentAddress, ADDRESS_MEMORY_START, TOTAL_MEMORY_LENGTH);
 
-    while(!dim.isI2cPortReady(port)) {
-      telemetry.addData("I2cAddressChange", "waiting for the port to be ready...");
-      telemetry.update();
-      sleep(1000);
-    }
-
-    // update the local cache
-    dim.readI2cCacheFromController(port);
+//    while(!dim.isI2cPortReady(port)) {
+//      telemetry.addData("I2cAddressChange", "waiting for the port to be ready...");
+//      telemetry.update();
+//      sleep(1000);
+//    }
+//
+//    // update the local cache
+//    dim.readI2cCacheFromController(port);
 
     // make sure the first bytes are what we think they should be.
     int count = 0;
@@ -131,7 +131,7 @@ public class ConceptI2cAddressChange extends LinearOpMode {
     while (!foundExpectedBytes(initialArray, readLock, readCache)) {
       telemetry.addData("I2cAddressChange", "Confirming that we're reading the correct bytes...");
       telemetry.update();
-      dim.readI2cCacheFromController(port);
+      //dim.readI2cCacheFromController(port);
       sleep(1000);
       count++;
       // if we go too long with failure, we probably are expecting the wrong bytes.
@@ -143,12 +143,12 @@ public class ConceptI2cAddressChange extends LinearOpMode {
     }
 
     // Enable writes to the correct segment of the memory map.
-    performAction("write", port, currentAddress, ADDRESS_SET_NEW_I2C_ADDRESS, BUFFER_CHANGE_ADDRESS_LENGTH);
+    //performAction("write", port, currentAddress, ADDRESS_SET_NEW_I2C_ADDRESS, BUFFER_CHANGE_ADDRESS_LENGTH);
 
     // Write out the trigger bytes, and the new desired address.
     writeNewAddress();
-    dim.setI2cPortActionFlag(port);
-    dim.writeI2cCacheToController(port);
+    //dim.setI2cPortActionFlag(port);
+    //dim.writeI2cCacheToController(port);
 
     telemetry.addData("I2cAddressChange", "Giving the hardware 60 seconds to make the change...");
     telemetry.update();
@@ -157,15 +157,15 @@ public class ConceptI2cAddressChange extends LinearOpMode {
     sleep(60000);
 
     // Query the new address and see if we can get the bytes we expect.
-    dim.enableI2cReadMode(port, newAddress, ADDRESS_MEMORY_START, TOTAL_MEMORY_LENGTH);
-    dim.setI2cPortActionFlag(port);
-    dim.writeI2cCacheToController(port);
+//    dim.enableI2cReadMode(port, newAddress, ADDRESS_MEMORY_START, TOTAL_MEMORY_LENGTH);
+//    dim.setI2cPortActionFlag(port);
+//    dim.writeI2cCacheToController(port);
 
     int[] confirmArray = {READ_MODE, newAddress.get8Bit(), ADDRESS_MEMORY_START, TOTAL_MEMORY_LENGTH, FIRMWARE_REV, MANUFACTURER_CODE, SENSOR_ID};
     while (!foundExpectedBytes(confirmArray, readLock, readCache)) {
       telemetry.addData("I2cAddressChange", "Have not confirmed the changes yet...");
       telemetry.update();
-      dim.readI2cCacheFromController(port);
+      //dim.readI2cCacheFromController(port);
       sleep(1000);
     }
 
@@ -201,14 +201,14 @@ public class ConceptI2cAddressChange extends LinearOpMode {
     }
   }
 
-  private void performAction(String actionName, int port, I2cAddr i2cAddress, int memAddress, int memLength) {
-    if (actionName.equalsIgnoreCase("read")) dim.enableI2cReadMode(port, i2cAddress, memAddress, memLength);
-    if (actionName.equalsIgnoreCase("write")) dim.enableI2cWriteMode(port, i2cAddress, memAddress, memLength);
-
-    dim.setI2cPortActionFlag(port);
-    dim.writeI2cCacheToController(port);
-    dim.readI2cCacheFromController(port);
-  }
+//  private void performAction(String actionName, int port, I2cAddr i2cAddress, int memAddress, int memLength) {
+//    if (actionName.equalsIgnoreCase("read")) dim.enableI2cReadMode(port, i2cAddress, memAddress, memLength);
+//    if (actionName.equalsIgnoreCase("write")) dim.enableI2cWriteMode(port, i2cAddress, memAddress, memLength);
+//
+//    dim.setI2cPortActionFlag(port);
+//    dim.writeI2cCacheToController(port);
+//    dim.readI2cCacheFromController(port);
+  //}
 
   private void writeNewAddress() {
     try {

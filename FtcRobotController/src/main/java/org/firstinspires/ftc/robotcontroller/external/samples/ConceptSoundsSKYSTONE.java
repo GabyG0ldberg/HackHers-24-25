@@ -41,8 +41,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
  * It does this by creating a simple "chooser" controlled by the gamepad Up Down buttons.
  * This code also prevents sounds from stacking up by setting a "playing" flag, which is cleared when the sound finishes playing.
  *
+<<<<<<< HEAD
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+=======
+ * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
+ * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
+>>>>>>> 2390680ce6a1a918b8855dc429555f57b38796e0
  *
  * Operation:
  *      Use the DPAD to change the selected sound, and the Right Bumper to play it.
