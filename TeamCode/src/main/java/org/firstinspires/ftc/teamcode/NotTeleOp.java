@@ -31,7 +31,7 @@ public class NotTeleOp extends OpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
-        wc = hardwareMap.get(OpenCvWebcam.class, "Webcam 1");
+        wc = hardwareMap.get(OpenCvWebcam.class, "wc");
         //dw = hardwareMap.get(DcMotor.class, "dw");
         //im = hardwareMap.get(DcMotor.class, "im");
         //om = hardwareMap.get(DcMotor.class, "om");
