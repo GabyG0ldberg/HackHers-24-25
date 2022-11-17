@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
@@ -18,7 +21,8 @@ public class NotTeleOp extends OpMode {
     DcMotor fR;
     DcMotor bL;
     DcMotor bR;
-    OpenCvWebcam wc;
+    private OpenCvWebcam wc;
+
     //DcMotor dw;
     //DcMotor im;
     //DcMotor om;
@@ -31,7 +35,9 @@ public class NotTeleOp extends OpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
-        wc = hardwareMap.get(OpenCvWebcam.class, "wc");
+
+        int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
         //dw = hardwareMap.get(DcMotor.class, "dw");
         //im = hardwareMap.get(DcMotor.class, "im");
         //om = hardwareMap.get(DcMotor.class, "om");

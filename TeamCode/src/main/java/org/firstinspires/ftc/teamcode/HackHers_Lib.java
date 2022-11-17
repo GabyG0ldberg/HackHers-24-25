@@ -112,15 +112,15 @@ public class HackHers_Lib {
     public void goForward(double power){
         this.frontLeft.setPower(power);
         this.frontRight.setPower(-power);
-        this.backLeft.setPower(power);
-        this.backRight.setPower(-power);
+        this.backLeft.setPower(-power);
+        this.backRight.setPower(power);
     }
 
     public void goBackward(double power){
         this.frontLeft.setPower(-power);
         this.frontRight.setPower(power);
-        this.backLeft.setPower(-power);
-        this.backRight.setPower(power);
+        this.backLeft.setPower(power);
+        this.backRight.setPower(-power);
     }
 
     public void turnLeft(double power){
