@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+import org.openftc.easyopencv.OpenCvWebcam;
+
 
 @Autonomous
 public class BlueParkAutonomous extends LinearOpMode {
@@ -21,6 +23,7 @@ public class BlueParkAutonomous extends LinearOpMode {
     DcMotor om;
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
+    OpenCvWebcam wc;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -33,13 +36,15 @@ public class BlueParkAutonomous extends LinearOpMode {
         om = hardwareMap.get(DcMotor.class, "om");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        ColorSensor sensor = hardwareMap.get(ColorSensor.class, "CS");
+        wc = hardwareMap.get(OpenCvWebcam.class, "Webcam 1");
+        //ColorSensor sensor = hardwareMap.get(ColorSensor.class, "CS");
+
 
 
 
         super.waitForStart();
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry);
+        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry, wc );
 
         everything.goBackward(.2);
 

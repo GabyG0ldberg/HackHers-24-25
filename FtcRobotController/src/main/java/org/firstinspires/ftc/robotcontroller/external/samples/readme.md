@@ -27,6 +27,7 @@ Sensor:    	This is a Sample OpMode that shows how to use a specific sensor.
             It is not intended to drive a functioning robot, it is simply showing the minimal code
             required to read and display the sensor values.
 
+<<<<<<< HEAD
 Hardware:	This is NOT an OpMode, but a helper class that is used to describe
             one particular robot's hardware configuration:   eg: For the K9 or Pushbot.
             Look at any Pushbot sample to see how this can be used in an OpMode.
@@ -36,6 +37,11 @@ Pushbot:	This is a Sample OpMode that uses the Pushbot robot hardware as a base.
             It may be used to provide some standard baseline Pushbot OpModes, or
             to demonstrate how a particular sensor or concept can be used directly on the
             Pushbot chassis.
+=======
+Robot:	    This is a Sample OpMode that assumes a simple two-motor (differential) drive base.
+            It may be used to provide a common baseline driving OpMode, or
+            to demonstrate how a particular sensor or concept can be used to navigate.
+>>>>>>> 2390680ce6a1a918b8855dc429555f57b38796e0
 
 Concept:	This is a sample OpMode that illustrates performing a specific function or concept.
             These may be complex, but their operation should be explained clearly in the comments,
@@ -43,6 +49,7 @@ Concept:	This is a sample OpMode that illustrates performing a specific function
             Each OpMode should try to only demonstrate a single concept so they are easy to
             locate based on their name.  These OpModes may not produce a drivable robot. 
 
+<<<<<<< HEAD
 Library:    This is a class, or set of classes used to implement some strategy.
             These will typically NOT implement a full OpMode.  Instead they will be included
             by an OpMode to provide some stand-alone capability.
@@ -54,4 +61,11 @@ After the prefix, other conventions will apply:
 * Pushbot class names are constructed as:   Pushbot - Mode - Action - OpModetype
 * Concept class names are constructed as:   Concept - Topic - OpModetype
 * Library class names are constructed as:   Library - Topic - OpModetype
+=======
+After the prefix, other conventions will apply:
+
+* Sensor class names are constructed as:    Sensor - Company - Type
+* Robot class names are constructed as:     Robot - Mode - Action - OpModetype
+* Concept class names are constructed as:   Concept - Topic - OpModetype
+>>>>>>> 2390680ce6a1a918b8855dc429555f57b38796e0
 

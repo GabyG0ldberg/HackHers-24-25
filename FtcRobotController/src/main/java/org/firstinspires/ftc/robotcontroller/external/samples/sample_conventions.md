@@ -5,6 +5,7 @@ This document defines the FTC Sample OpMode and Class conventions.
 
 ### OpMode Name
 
+<<<<<<< HEAD
 A range of different samples classes will reside in the java/external/samples folder.
 
 For ease of understanding, the class names will follow a naming convention which indicates
@@ -12,11 +13,23 @@ the purpose of each class.  The prefix of the name will be one of the following:
 
 Basic:	    This is a minimally functional OpMode used to illustrate the skeleton/structure
             of a particular style of OpMode.  These are bare bones Tank Drive examples.
+=======
+To gain a better understanding of how the samples are organized, and how to interpret the
+naming system, it will help to understand the conventions that were used during their creation.
+
+To summarize: A range of different samples classes will reside in the java/external/samples.
+The class names will follow a naming convention which indicates the purpose of each class.
+The prefix of the name will be one of the following:
+
+Basic:  	This is a minimally functional OpMode used to illustrate the skeleton/structure
+            of a particular style of OpMode.  These are bare bones examples.
+>>>>>>> 2390680ce6a1a918b8855dc429555f57b38796e0
 
 Sensor:    	This is a Sample OpMode that shows how to use a specific sensor.
             It is not intended to drive a functioning robot, it is simply showing the minimal code
             required to read and display the sensor values.
 
+<<<<<<< HEAD
 Hardware:	This is not an actual OpMode, but a helper class that is used to describe
             one particular robot's hardware configuration:   eg: For the K9 or Pushbot.
             Look at any Pushbot sample to see how this can be used in an OpMode.
@@ -26,24 +39,38 @@ Pushbot:	This is a Sample OpMode that uses the Pushbot robot hardware as a base.
             It may be used to provide some standard baseline Pushbot opmodes, or
             to demonstrate how a particular sensor or concept can be used directly on the
             Pushbot chassis.
+=======
+Robot:	    This is a Sample OpMode that assumes a simple two-motor (differential) drive base.
+            It may be used to provide a common baseline driving OpMode, or
+            to demonstrate how a particular sensor or concept can be used to navigate.
+>>>>>>> 2390680ce6a1a918b8855dc429555f57b38796e0
 
 Concept:	This is a sample OpMode that illustrates performing a specific function or concept.
             These may be complex, but their operation should be explained clearly in the comments,
             or the comments should reference an external doc, guide or tutorial.
             Each OpMode should try to only demonstrate a single concept so they are easy to
+<<<<<<< HEAD
             locate based on their name.
 
 Library:    This is a class, or set of classes used to implement some strategy.
             These will typically NOT implement a full opmode.  Instead they will be included
             by an OpMode to provide some stand-alone capability.
+=======
+            locate based on their name.  These OpModes may not produce a drivable robot.
+>>>>>>> 2390680ce6a1a918b8855dc429555f57b38796e0
 
 After the prefix, other conventions will apply:
 
 * Sensor class names should constructed as:       Sensor - Company - Type
+<<<<<<< HEAD
 * Hardware class names should be constructed as:  Hardware - Robot type
 * Pushbot class names should be constructed as:   Pushbot - Mode - Action - OpModetype
 * Concept class names should be constructed as:   Concept - Topic - OpModetype
 * Library class names should be constructed as:   Library - Topic - OpModetype
+=======
+* Robot class names should be constructed as:     Robot - Mode - Action - OpModetype
+* Concept class names should be constructed as:   Concept - Topic - OpModetype
+>>>>>>> 2390680ce6a1a918b8855dc429555f57b38796e0
 
 ### Sample OpMode Content/Style
 

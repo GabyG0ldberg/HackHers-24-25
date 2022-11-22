@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
+import org.openftc.easyopencv.OpenCvWebcam;
+
 @Autonomous
 public class BlueDuckAutonomous extends LinearOpMode {
     private HackHers_Lib everything;
@@ -20,6 +22,7 @@ public class BlueDuckAutonomous extends LinearOpMode {
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
     ColorSensor cs;
+    //OpenCvWebcam wc;
 
 
     @Override
@@ -34,12 +37,13 @@ public class BlueDuckAutonomous extends LinearOpMode {
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class,"ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class,"ds2");
         cs = hardwareMap.get(ColorSensor.class, "cs");
+        //wc = hardwareMap.get(OpenCvWebcam.class, "Webcam 1");
 
 
 
         super.waitForStart();
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry);
+        //everything = new HackHers_Lib(fL, fR, bL, bR, telemetry, wc);
 
         //THIS ABSOLUTELY FUNCTIONS AND MAKES A DUCK COME OFF BLUE SIDE
         //DO NOT EDIT
