@@ -13,7 +13,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
-
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class OpenCV extends LinearOpMode {
 
     OpenCvWebcam webcam;
