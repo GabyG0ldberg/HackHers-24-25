@@ -16,7 +16,7 @@ public class RedDuckAutonomous extends LinearOpMode {
     DcMotor fR;
     DcMotor bL;
     DcMotor bR;
-    DcMotor dw;
+    //DcMotor dw;
     DcMotor im;
     DcMotor om;
     Rev2mDistanceSensor ds1;
@@ -29,7 +29,7 @@ public class RedDuckAutonomous extends LinearOpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
-        dw = hardwareMap.get(DcMotor.class, "dw");
+        //dw = hardwareMap.get(DcMotor.class, "dw");
         im = hardwareMap.get(DcMotor.class, "im");
         om = hardwareMap.get(DcMotor.class, "om");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
@@ -38,7 +38,7 @@ public class RedDuckAutonomous extends LinearOpMode {
 
         super.waitForStart();
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, wc);
 
 
 

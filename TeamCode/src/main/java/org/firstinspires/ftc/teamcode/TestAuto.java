@@ -51,7 +51,7 @@ public class TestAuto extends LinearOpMode {
 
         super.waitForStart();
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, wc);
 
 
         //THIS IS TEST CODE FOR ENCODER FUNCTIONS

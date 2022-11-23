@@ -7,6 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous
@@ -16,13 +19,15 @@ public class BlueDuckAutonomous extends LinearOpMode {
     DcMotor fR;
     DcMotor bL;
     DcMotor bR;
-    DcMotor dw;
-    DcMotor im;
-    DcMotor om;
-    Rev2mDistanceSensor ds1;
-    Rev2mDistanceSensor ds2;
-    ColorSensor cs;
-    //OpenCvWebcam wc;
+    //Telemetry t;
+
+    //DcMotor dw;
+    //DcMotor im;
+    //DcMotor om;
+    //Rev2mDistanceSensor ds1;
+    //Rev2mDistanceSensor ds2;
+    //ColorSensor cs;
+    OpenCvWebcam wc;
 
 
     @Override
@@ -31,24 +36,27 @@ public class BlueDuckAutonomous extends LinearOpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
-        dw = hardwareMap.get(DcMotor.class, "dw");
-        im = hardwareMap.get(DcMotor.class, "im");
-        om = hardwareMap.get(DcMotor.class, "om");
-        ds1 = hardwareMap.get(Rev2mDistanceSensor.class,"ds1");
-        ds2 = hardwareMap.get(Rev2mDistanceSensor.class,"ds2");
-        cs = hardwareMap.get(ColorSensor.class, "cs");
+        //t = telemetry.addData("count").get(Telemetry.class, "t");
+        //dw = hardwareMap.get(DcMotor.class, "dw");
+        //im = hardwareMap.get(DcMotor.class, "im");
+        //om = hardwareMap.get(DcMotor.class, "om");
+        //ds1 = hardwareMap.get(Rev2mDistanceSensor.class,"ds1");
+        //ds2 = hardwareMap.get(Rev2mDistanceSensor.class,"ds2");
+        //cs = hardwareMap.get(ColorSensor.class, "cs");
+        int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
+
         //wc = hardwareMap.get(OpenCvWebcam.class, "Webcam 1");
 
 
 
         super.waitForStart();
-
-        //everything = new HackHers_Lib(fL, fR, bL, bR, telemetry, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, wc);
 
         //THIS ABSOLUTELY FUNCTIONS AND MAKES A DUCK COME OFF BLUE SIDE
         //DO NOT EDIT
 
-        everything.goBackward(.2);
+        //everything.goBackward(.2);
 
         sleep(750);
         //everything.DriveBackwardToDist(20);
@@ -75,11 +83,11 @@ public class BlueDuckAutonomous extends LinearOpMode {
 
         everything.Stop();
 
-        dw.setPower(-1);
+        //dw.setPower(-1);
 
         sleep(3000);
 
-        dw.setPower(0);
+        //dw.setPower(0);
 
         everything.turnLeft(.2);
 

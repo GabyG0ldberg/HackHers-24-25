@@ -43,7 +43,7 @@ public class NotTeleOp extends OpMode {
         //om = hardwareMap.get(DcMotor.class, "om");
         //ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         //ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        everything = new HackHers_Lib(fL, fR, bL, bR, telemetry, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, wc);
 
     }
 
