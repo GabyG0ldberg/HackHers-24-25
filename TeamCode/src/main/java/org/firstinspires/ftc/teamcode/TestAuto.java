@@ -17,12 +17,12 @@ public class TestAuto extends LinearOpMode {
     DcMotor fR;
     DcMotor bL;
     DcMotor bR;
-    DcMotor dw;
-    DcMotor im;
-    DcMotor om;
+    //DcMotor dw;
+    DcMotor ls;
+    //DcMotor om;
     OpenCvWebcam wc;
-    Rev2mDistanceSensor ds1;
-    Rev2mDistanceSensor ds2;
+    //Rev2mDistanceSensor ds1;
+    //Rev2mDistanceSensor ds2;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -30,11 +30,11 @@ public class TestAuto extends LinearOpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
-        dw = hardwareMap.get(DcMotor.class, "dw");
-        im = hardwareMap.get(DcMotor.class, "im");
-        om = hardwareMap.get(DcMotor.class, "om");
-        ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
-        ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
+        //dw = hardwareMap.get(DcMotor.class, "dw");
+        ls = hardwareMap.get(DcMotor.class, "ls");
+        //om = hardwareMap.get(DcMotor.class, "om");
+        //ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
+        //ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
         wc = hardwareMap.get(OpenCvWebcam.class, "Webcam 1");
 
         fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -51,7 +51,7 @@ public class TestAuto extends LinearOpMode {
 
         super.waitForStart();
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, wc);
 
 
         //THIS IS TEST CODE FOR ENCODER FUNCTIONS

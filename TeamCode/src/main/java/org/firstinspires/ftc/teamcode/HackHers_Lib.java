@@ -15,7 +15,7 @@ public class HackHers_Lib {
     public DcMotor backRight;
     public OpenCvWebcam webcam;
     //public DcMotor duckWheel;
-    //public DcMotor intake;
+    public DcMotor linearSlide;
     //public DcMotor outtake;
     //public Rev2mDistanceSensor distance1;
     //public Rev2mDistanceSensor distance2;
@@ -24,13 +24,13 @@ public class HackHers_Lib {
 
     //public Telemetry telemetry;
 
-    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, OpenCvWebcam wc){
+    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, DcMotor ls, OpenCvWebcam wc){
         this.frontLeft= fl;
         this.frontRight = fr;
         this.backLeft= bl;
         this.backRight = br;
         //this.duckWheel = dw;
-        //this.intake = im;
+        this.linearSlide = ls;
         //this.outtake = om;
         //this.distance1 = ds1;
         //this.distance2 = ds2;
@@ -111,28 +111,69 @@ public class HackHers_Lib {
 
         turnRight(power);
     }
+
+    public void driveStrafeRightPosition(int tick, double power){
+        frontLeft.setTargetPosition(frontLeft.getCurrentPosition()+tick);
+        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRight.setTargetPosition(frontLeft.getCurrentPosition()+tick);
+        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRight.setTargetPosition(frontLeft.getCurrentPosition()-tick);
+        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeft.setTargetPosition(frontLeft.getCurrentPosition()-tick);
+        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        strafeRight(power);
+    }
+
+    public void driveStrafeLeftPosition(int tick, double power){
+        frontLeft.setTargetPosition(frontLeft.getCurrentPosition()-tick);
+        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRight.setTargetPosition(frontLeft.getCurrentPosition()-tick);
+        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRight.setTargetPosition(frontLeft.getCurrentPosition()+tick);
+        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeft.setTargetPosition(frontLeft.getCurrentPosition()+tick);
+        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        strafeLeft(power);
+    }
+
     public void goForward(double power){
-        this.frontLeft.setPower(power);
-        this.frontRight.setPower(-power);
+        this.frontLeft.setPower(-power);
+        this.frontRight.setPower(power);
         this.backLeft.setPower(-power);
         this.backRight.setPower(power);
     }
 
     public void goBackward(double power){
-        this.frontLeft.setPower(-power);
-        this.frontRight.setPower(power);
+        this.frontLeft.setPower(power);
+        this.frontRight.setPower(-power);
         this.backLeft.setPower(power);
         this.backRight.setPower(-power);
     }
 
     public void turnLeft(double power){
         this.frontLeft.setPower(power);
-        this.frontRight.setPower(-power);
+        this.frontRight.setPower(power);
         this.backLeft.setPower(power);
-        this.backRight.setPower(-power);
+        this.backRight.setPower(power);
     }
 
     public void turnRight(double power){
+        this.frontLeft.setPower(-power);
+        this.frontRight.setPower(-power);
+        this.backLeft.setPower(-power);
+        this.backRight.setPower(-power);
+    }
+
+    public void strafeRight(double power){
+        this.frontLeft.setPower(-power);
+        this.frontRight.setPower(-power);
+        this.backLeft.setPower(power);
+        this.backRight.setPower(power);
+    }
+
+    public void strafeLeft(double power){
         this.frontLeft.setPower(power);
         this.frontRight.setPower(power);
         this.backLeft.setPower(-power);

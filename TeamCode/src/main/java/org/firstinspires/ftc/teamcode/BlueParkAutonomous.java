@@ -19,7 +19,7 @@ public class BlueParkAutonomous extends LinearOpMode {
     DcMotor bL;
     DcMotor bR;
 
-    DcMotor im;
+    DcMotor ls;
     DcMotor om;
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
@@ -32,7 +32,7 @@ public class BlueParkAutonomous extends LinearOpMode {
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
         //dw = hardwareMap.get(DcMotor.class, "dw");
-        im = hardwareMap.get(DcMotor.class, "im");
+        ls = hardwareMap.get(DcMotor.class, "ls");
         om = hardwareMap.get(DcMotor.class, "om");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
@@ -44,7 +44,7 @@ public class BlueParkAutonomous extends LinearOpMode {
 
         super.waitForStart();
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, wc );
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, wc );
 
         everything.goBackward(.2);
 

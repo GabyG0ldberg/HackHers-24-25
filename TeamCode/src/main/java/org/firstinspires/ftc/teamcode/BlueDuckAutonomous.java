@@ -22,7 +22,7 @@ public class BlueDuckAutonomous extends LinearOpMode {
     //Telemetry t;
 
     //DcMotor dw;
-    //DcMotor im;
+    DcMotor ls;
     //DcMotor om;
     //Rev2mDistanceSensor ds1;
     //Rev2mDistanceSensor ds2;
@@ -38,7 +38,7 @@ public class BlueDuckAutonomous extends LinearOpMode {
         bR = hardwareMap.get(DcMotor.class, "bR");
         //t = telemetry.addData("count").get(Telemetry.class, "t");
         //dw = hardwareMap.get(DcMotor.class, "dw");
-        //im = hardwareMap.get(DcMotor.class, "im");
+        ls = hardwareMap.get(DcMotor.class, "ls");
         //om = hardwareMap.get(DcMotor.class, "om");
         //ds1 = hardwareMap.get(Rev2mDistanceSensor.class,"ds1");
         //ds2 = hardwareMap.get(Rev2mDistanceSensor.class,"ds2");
@@ -51,57 +51,95 @@ public class BlueDuckAutonomous extends LinearOpMode {
 
 
         super.waitForStart();
-        everything = new HackHers_Lib(fL, fR, bL, bR, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, wc);
 
         //THIS ABSOLUTELY FUNCTIONS AND MAKES A DUCK COME OFF BLUE SIDE
         //DO NOT EDIT
 
+         everything.goForward(.2);
+
+         sleep(1500);
+
+         everything.Stop();
+
+        everything.goBackward(.2);
+
+        sleep(1500);
+
+        everything.Stop();
+
+        everything.turnRight(.2);
+
+        sleep(1500);
+
+        everything.Stop();
+
+        everything.turnLeft(.2);
+
+        sleep(1500);
+
+        everything.Stop();
+
+        everything.strafeRight(.2);
+
+        sleep(1500);
+
+        everything.Stop();
+
+        everything.strafeLeft(.2);
+
+        sleep(1500);
+
+        everything.Stop();
+
         //everything.goBackward(.2);
 
-        sleep(750);
+
+      //  sleep(750);
+
         //everything.DriveBackwardToDist(20);
 
         //everything.driveGoBackwardPosition(1680, .2);
 
-        everything.Stop();
+        //everything.Stop();
 
-        everything.turnLeft(.2);
+       // everything.turnLeft(.2);
 
-        sleep(1700);
+       // sleep(1700);
 
-        everything.Stop();
+       // everything.Stop();
 
-        everything.goForward(.2);
+       //  everything.goForward(.2);
 
-        sleep(1700);
+       //  sleep(1700);
 
         //everything.DriveForwardToDist(50, .2);
 
-        everything.turnRight(.2);
+        // everything.turnRight(.2);
 
-        sleep(1400);
+       // sleep(1400);
 
-        everything.Stop();
+        // everything.Stop();
 
         //dw.setPower(-1);
 
-        sleep(3000);
+       // sleep(3000);
 
         //dw.setPower(0);
 
-        everything.turnLeft(.2);
+       // everything.turnLeft(.2);
 
-        sleep(3200);
+       // sleep(3200);
 
-        everything.Stop();
+       // everything.Stop();
 
-        everything.goForward(.2);
+       // everything.goForward(.2);
 
-        sleep(1800);
+       // sleep(1800);
 
         //everything.DriveForwardToDist(50, .2);
 
-        everything.Stop();
+      //  everything.Stop();
 
 //        everything.turnRight(.2);
 //

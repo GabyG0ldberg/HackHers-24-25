@@ -24,7 +24,7 @@ public class NotTeleOp extends OpMode {
     private OpenCvWebcam wc;
 
     //DcMotor dw;
-    //DcMotor im;
+    DcMotor ls;
     //DcMotor om;
     //Rev2mDistanceSensor ds1;
     //Rev2mDistanceSensor ds2;
@@ -39,11 +39,11 @@ public class NotTeleOp extends OpMode {
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
         //dw = hardwareMap.get(DcMotor.class, "dw");
-        //im = hardwareMap.get(DcMotor.class, "im");
+        ls = hardwareMap.get(DcMotor.class, "ls");
         //om = hardwareMap.get(DcMotor.class, "om");
         //ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         //ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        everything = new HackHers_Lib(fL, fR, bL, bR, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, wc);
 
     }
 
@@ -64,10 +64,17 @@ public class NotTeleOp extends OpMode {
         if (gamepad1.dpad_left) {
             everything.setMotorPower(bR, -1);
         }
+        if (gamepad1.y) {
+            everything.setMotorPower(ls, -1);
+        }
+        if (gamepad1.a) {
+            everything.setMotorPower(ls, 1);
+        }
 
         everything.setMotorPower(fL, 0);
         everything.setMotorPower(fR, 0);
         everything.setMotorPower(bL, 0);
         everything.setMotorPower(bR, 0);
+        everything.setMotorPower(ls, 0);
     }
 }
