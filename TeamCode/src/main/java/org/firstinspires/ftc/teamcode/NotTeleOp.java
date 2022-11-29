@@ -26,8 +26,8 @@ public class NotTeleOp extends OpMode {
     //DcMotor dw;
     DcMotor ls;
     //DcMotor om;
-    //Rev2mDistanceSensor ds1;
-    //Rev2mDistanceSensor ds2;
+    Rev2mDistanceSensor ds1;
+    Rev2mDistanceSensor ds2;
     //comment for the sake of existing
 
     public void init() {
@@ -41,9 +41,9 @@ public class NotTeleOp extends OpMode {
         //dw = hardwareMap.get(DcMotor.class, "dw");
         ls = hardwareMap.get(DcMotor.class, "ls");
         //om = hardwareMap.get(DcMotor.class, "om");
-        //ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
-        //ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, wc);
+        ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
+        ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, ds1, ds2, wc);
 
     }
 

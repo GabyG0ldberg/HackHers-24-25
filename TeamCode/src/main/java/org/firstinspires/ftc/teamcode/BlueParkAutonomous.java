@@ -44,7 +44,7 @@ public class BlueParkAutonomous extends LinearOpMode {
 
         super.waitForStart();
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, wc );
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, ds1, ds2, wc );
 
         everything.goBackward(.2);
 

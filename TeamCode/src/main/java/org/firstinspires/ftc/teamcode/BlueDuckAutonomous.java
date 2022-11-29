@@ -4,8 +4,11 @@ import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -24,8 +27,8 @@ public class BlueDuckAutonomous extends LinearOpMode {
     //DcMotor dw;
     DcMotor ls;
     //DcMotor om;
-    //Rev2mDistanceSensor ds1;
-    //Rev2mDistanceSensor ds2;
+    Rev2mDistanceSensor ds1;
+    Rev2mDistanceSensor ds2;
     //ColorSensor cs;
     OpenCvWebcam wc;
 
@@ -40,8 +43,8 @@ public class BlueDuckAutonomous extends LinearOpMode {
         //dw = hardwareMap.get(DcMotor.class, "dw");
         ls = hardwareMap.get(DcMotor.class, "ls");
         //om = hardwareMap.get(DcMotor.class, "om");
-        //ds1 = hardwareMap.get(Rev2mDistanceSensor.class,"ds1");
-        //ds2 = hardwareMap.get(Rev2mDistanceSensor.class,"ds2");
+        ds1 = hardwareMap.get(Rev2mDistanceSensor.class,"ds1");
+        ds2 = hardwareMap.get(Rev2mDistanceSensor.class,"ds2");
         //cs = hardwareMap.get(ColorSensor.class, "cs");
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
@@ -51,7 +54,7 @@ public class BlueDuckAutonomous extends LinearOpMode {
 
 
         super.waitForStart();
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, ds1, ds2, wc);
 
         //THIS ABSOLUTELY FUNCTIONS AND MAKES A DUCK COME OFF BLUE SIDE
         //DO NOT EDIT
@@ -87,6 +90,20 @@ public class BlueDuckAutonomous extends LinearOpMode {
         everything.Stop();
 
         everything.strafeLeft(.2);
+
+        sleep(1500);
+
+        everything.Stop();
+
+        while (ds1.getDistance(DistanceUnit.CM) >= 10) {
+            everything.goForward(.2);
+            if (ds1.getDistance(DistanceUnit.CM) <= 10) {
+                sleep(1500);
+                everything.Stop();
+            }
+        }
+
+        everything.goBackward(.2);
 
         sleep(1500);
 

@@ -19,8 +19,8 @@ public class RedParkAutonomous extends LinearOpMode {
     //DcMotor dw;
     DcMotor ls;
     //DcMotor om;
-    //Rev2mDistanceSensor ds1;
-    //Rev2mDistanceSensor ds2;
+    Rev2mDistanceSensor ds1;
+    Rev2mDistanceSensor ds2;
     OpenCvWebcam wc;
 
     @Override
@@ -32,13 +32,13 @@ public class RedParkAutonomous extends LinearOpMode {
         //dw = hardwareMap.get(DcMotor.class, "dw");
         ls = hardwareMap.get(DcMotor.class, "ls");
         //om = hardwareMap.get(DcMotor.class, "om");
-        //ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
-        //ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
+        ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
+        ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
         wc = hardwareMap.get(OpenCvWebcam.class, "Webcam 1");
 
         super.waitForStart();
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, ds1, ds2, wc);
 
         //THIS TRIES TO GET IT TO PARK
         //DO NOT EDIT
