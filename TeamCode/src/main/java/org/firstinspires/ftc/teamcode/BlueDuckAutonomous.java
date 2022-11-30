@@ -109,66 +109,6 @@ public class BlueDuckAutonomous extends LinearOpMode {
 
         everything.Stop();
 
-        //everything.goBackward(.2);
-
-
-      //  sleep(750);
-
-        //everything.DriveBackwardToDist(20);
-
-        //everything.driveGoBackwardPosition(1680, .2);
-
-        //everything.Stop();
-
-       // everything.turnLeft(.2);
-
-       // sleep(1700);
-
-       // everything.Stop();
-
-       //  everything.goForward(.2);
-
-       //  sleep(1700);
-
-        //everything.DriveForwardToDist(50, .2);
-
-        // everything.turnRight(.2);
-
-       // sleep(1400);
-
-        // everything.Stop();
-
-        //dw.setPower(-1);
-
-       // sleep(3000);
-
-        //dw.setPower(0);
-
-       // everything.turnLeft(.2);
-
-       // sleep(3200);
-
-       // everything.Stop();
-
-       // everything.goForward(.2);
-
-       // sleep(1800);
-
-        //everything.DriveForwardToDist(50, .2);
-
-      //  everything.Stop();
-
-//        everything.turnRight(.2);
-//
-//        sleep(1900);
-//
-//        everything.Stop();
-//
-//        everything.goForward(.3);
-//
-//        sleep(500);
-//
-//        everything.Stop();
 
     }
 
