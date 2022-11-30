@@ -54,39 +54,37 @@ public class RedRight extends LinearOpMode {
         //THIS ABSOLUTELY FUNCTIONS AND MAKES A DUCK COME OFF BLUE SIDE
         //DO NOT EDIT
 
-        everything.goForward(.2);
+        everything.goForward(.2); /*to the cone */
 
-        sleep(1500);
-
-        everything.Stop();
-
-        everything.turnLeft(.2);
-
-        sleep(1500);
+        sleep(3000);
 
         everything.Stop();
 
-        //place cone now and sleep
+        everything.turnRight(.2);
+
+        sleep(1250);  /* 45 degree angle to face the cone*/
 
         everything.Stop();
 
-        everything.turnLeft(.2);  /* 135 degree turn*/
+        sleep(3000); //place cone
 
-        sleep(1500);
+        everything.turnRight(.2); /* 135 degree turn to face the wall*/
 
-        everything.Stop();
-
-        everything.goForward(.2);
-
-        sleep(1500);
-
-        everything.turnLeft(.2);    /*180 degrees*/
-
-        sleep(1500);
+        sleep(3200);
 
         everything.Stop();
 
-        everything.strafeLeft(.2);
+        everything.goForward(.2); /*go forward to the wall*/
+
+        sleep(2700);
+
+        everything.Stop();
+
+        everything.strafeRight(.2); /*to go in front of the camera*/
+
+        sleep(4500);
+
+        everything.Stop();
 
         /*read cone*/
         /*park*/
