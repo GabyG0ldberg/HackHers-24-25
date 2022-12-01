@@ -4,6 +4,7 @@ import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.CRServo;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -23,10 +24,8 @@ public class BlueDuckAutonomous extends LinearOpMode {
     DcMotor bL;
     DcMotor bR;
     //Telemetry t;
-
-    //DcMotor dw;
     DcMotor ls;
-    //DcMotor om;
+    CRServo cl;
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
     //ColorSensor cs;
@@ -40,9 +39,8 @@ public class BlueDuckAutonomous extends LinearOpMode {
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
         //t = telemetry.addData("count").get(Telemetry.class, "t");
-        //dw = hardwareMap.get(DcMotor.class, "dw");
         ls = hardwareMap.get(DcMotor.class, "ls");
-        //om = hardwareMap.get(DcMotor.class, "om");
+        cl = hardwareMap.get(CRServo.class, "ls");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class,"ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class,"ds2");
         //cs = hardwareMap.get(ColorSensor.class, "cs");
@@ -54,7 +52,7 @@ public class BlueDuckAutonomous extends LinearOpMode {
 
 
         super.waitForStart();
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, ds1, ds2, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, ds1, ds2, wc);
 
         //THIS ABSOLUTELY FUNCTIONS AND MAKES A DUCK COME OFF BLUE SIDE
         //DO NOT EDIT

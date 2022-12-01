@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -16,9 +17,8 @@ public class HackHers_Lib {
     public DcMotor backLeft;
     public DcMotor backRight;
     public OpenCvWebcam webcam;
-    //public DcMotor duckWheel;
     public DcMotor linearSlide;
-    //public DcMotor outtake;
+    public CRServo claw;
     public Rev2mDistanceSensor distance1;
     public Rev2mDistanceSensor distance2;
 
@@ -26,15 +26,14 @@ public class HackHers_Lib {
 
     //public Telemetry telemetry;
 
-    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, DcMotor ls, Rev2mDistanceSensor ds1, Rev2mDistanceSensor ds2, OpenCvWebcam wc){
+    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, DcMotor ls, CRServo cl, Rev2mDistanceSensor ds1, Rev2mDistanceSensor ds2, OpenCvWebcam wc){
         this.frontLeft= fl;
         this.frontRight = fr;
         this.backLeft= bl;
         this.backRight = br;
-        //this.duckWheel = dw;
         this.linearSlide = ls;
-        //this.outtake = om;
-        //this.distance1 = ds1;
+        this.claw = cl;
+        this.distance1 = ds1;
         this.distance2 = ds2;
        // this.telemetry = t;
         this.webcam = wc;
@@ -50,6 +49,8 @@ public class HackHers_Lib {
     }
     public void setMotorPower(DcMotor motor, float power){
         motor.setPower(power);
+    }
+    public void setServoPower(CRServo servo, float power){ servo.setPower(power);
     }
 
     public void omniDrive(float v, float h, float r){

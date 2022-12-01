@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -22,10 +23,8 @@ public class NotTeleOp extends OpMode {
     DcMotor bL;
     DcMotor bR;
     private OpenCvWebcam wc;
-
-    //DcMotor dw;
     DcMotor ls;
-    //DcMotor om;
+    CRServo cl;
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
     //comment for the sake of existing
@@ -38,12 +37,11 @@ public class NotTeleOp extends OpMode {
 
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
-        //dw = hardwareMap.get(DcMotor.class, "dw");
         ls = hardwareMap.get(DcMotor.class, "ls");
-        //om = hardwareMap.get(DcMotor.class, "om");
+        cl = hardwareMap.get(CRServo.class,"cl");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, ds1, ds2, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, ds1, ds2, wc);
 
     }
 
@@ -70,11 +68,18 @@ public class NotTeleOp extends OpMode {
         if (gamepad1.a) {
             everything.setMotorPower(ls, 1);
         }
+        if (gamepad1.left_stick_button) {
+            everything.setServoPower(cl, 1);
+        }
+        if (gamepad1.right_stick_button) {
+            everything.setServoPower(cl, 1);
+        }
 
         everything.setMotorPower(fL, 0);
         everything.setMotorPower(fR, 0);
         everything.setMotorPower(bL, 0);
         everything.setMotorPower(bR, 0);
         everything.setMotorPower(ls, 0);
+        everything.setServoPower(cl, 0);
     }
 }
