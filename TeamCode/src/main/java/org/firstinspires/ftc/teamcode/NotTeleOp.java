@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -24,7 +25,7 @@ public class NotTeleOp extends OpMode {
     DcMotor bR;
     private OpenCvWebcam wc;
     DcMotor ls;
-    CRServo cl;
+    Servo cl;
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
     //comment for the sake of existing
@@ -38,7 +39,7 @@ public class NotTeleOp extends OpMode {
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
         ls = hardwareMap.get(DcMotor.class, "ls");
-        cl = hardwareMap.get(CRServo.class,"cl");
+        cl = hardwareMap.get(Servo.class,"cl");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
         everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, ds1, ds2, wc);
@@ -69,7 +70,7 @@ public class NotTeleOp extends OpMode {
             everything.setMotorPower(ls, 1);
         }
         if (gamepad1.left_stick_button) {
-            everything.setServoPower(cl, 1);
+            everything.setServoPower(cl, 0);
         }
         if (gamepad1.right_stick_button) {
             everything.setServoPower(cl, 1);
@@ -80,6 +81,5 @@ public class NotTeleOp extends OpMode {
         everything.setMotorPower(bL, 0);
         everything.setMotorPower(bR, 0);
         everything.setMotorPower(ls, 0);
-        everything.setServoPower(cl, 0);
     }
 }

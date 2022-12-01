@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.openftc.easyopencv.OpenCvWebcam;
 
@@ -19,7 +20,7 @@ public class TestAuto extends LinearOpMode {
     DcMotor bL;
     DcMotor bR;
     DcMotor ls;
-    CRServo cl;
+    Servo cl;
     OpenCvWebcam wc;
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
@@ -31,7 +32,7 @@ public class TestAuto extends LinearOpMode {
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
         ls = hardwareMap.get(DcMotor.class, "ls");
-        cl = hardwareMap.get(CRServo.class, "cl");
+        cl = hardwareMap.get(Servo.class, "cl");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
         wc = hardwareMap.get(OpenCvWebcam.class, "Webcam 1");

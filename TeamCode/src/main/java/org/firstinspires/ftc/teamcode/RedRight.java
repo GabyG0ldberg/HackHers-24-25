@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -20,7 +21,7 @@ public class RedRight extends LinearOpMode {
     DcMotor bR;
     //Telemetry t;
     DcMotor ls;
-    CRServo cl;
+    Servo cl;
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
     //ColorSensor cs;
@@ -35,7 +36,7 @@ public class RedRight extends LinearOpMode {
         bR = hardwareMap.get(DcMotor.class, "bR");
         //t = telemetry.addData("count").get(Telemetry.class, "t");
         ls = hardwareMap.get(DcMotor.class, "ls");
-        cl = hardwareMap.get(CRServo.class, "cl");
+        cl = hardwareMap.get(Servo.class, "cl");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class,"ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class,"ds2");
         //cs = hardwareMap.get(ColorSensor.class, "cs");

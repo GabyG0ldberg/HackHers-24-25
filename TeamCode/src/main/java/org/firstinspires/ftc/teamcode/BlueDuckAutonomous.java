@@ -9,6 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -25,7 +26,7 @@ public class BlueDuckAutonomous extends LinearOpMode {
     DcMotor bR;
     //Telemetry t;
     DcMotor ls;
-    CRServo cl;
+    Servo cl;
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
     //ColorSensor cs;
@@ -40,7 +41,7 @@ public class BlueDuckAutonomous extends LinearOpMode {
         bR = hardwareMap.get(DcMotor.class, "bR");
         //t = telemetry.addData("count").get(Telemetry.class, "t");
         ls = hardwareMap.get(DcMotor.class, "ls");
-        cl = hardwareMap.get(CRServo.class, "ls");
+        cl = hardwareMap.get(Servo.class, "ls");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class,"ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class,"ds2");
         //cs = hardwareMap.get(ColorSensor.class, "cs");

@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.openftc.easyopencv.OpenCvWebcam;
 
@@ -21,7 +22,7 @@ public class BlueParkAutonomous extends LinearOpMode {
     DcMotor bR;
 
     DcMotor ls;
-    CRServo cl;
+    Servo cl;
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
     OpenCvWebcam wc;
@@ -33,7 +34,7 @@ public class BlueParkAutonomous extends LinearOpMode {
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
         ls = hardwareMap.get(DcMotor.class, "ls");
-        cl = hardwareMap.get(CRServo.class, "cl");
+        cl = hardwareMap.get(Servo.class, "cl");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
         wc = hardwareMap.get(OpenCvWebcam.class, "Webcam 1");

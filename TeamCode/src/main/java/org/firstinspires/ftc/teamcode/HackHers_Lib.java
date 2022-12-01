@@ -6,6 +6,7 @@ import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.openftc.easyopencv.OpenCvWebcam;
@@ -18,7 +19,7 @@ public class HackHers_Lib {
     public DcMotor backRight;
     public OpenCvWebcam webcam;
     public DcMotor linearSlide;
-    public CRServo claw;
+    public Servo claw;
     public Rev2mDistanceSensor distance1;
     public Rev2mDistanceSensor distance2;
 
@@ -26,7 +27,7 @@ public class HackHers_Lib {
 
     //public Telemetry telemetry;
 
-    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, DcMotor ls, CRServo cl, Rev2mDistanceSensor ds1, Rev2mDistanceSensor ds2, OpenCvWebcam wc){
+    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, DcMotor ls, Servo cl, Rev2mDistanceSensor ds1, Rev2mDistanceSensor ds2, OpenCvWebcam wc){
         this.frontLeft= fl;
         this.frontRight = fr;
         this.backLeft= bl;
@@ -50,8 +51,7 @@ public class HackHers_Lib {
     public void setMotorPower(DcMotor motor, float power){
         motor.setPower(power);
     }
-    public void setServoPower(CRServo servo, float power){ servo.setPower(power);
-    }
+    public void setServoPower(Servo servo, double power) {servo.setPosition(power); }
 
     public void omniDrive(float v, float h, float r){
         float[] sum = PaulMath.omniCalc(v, h, r);
