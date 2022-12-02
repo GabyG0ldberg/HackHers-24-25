@@ -22,6 +22,7 @@
 
 package org.firstinspires.ftc.teamcode.auton;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -34,13 +35,13 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;
 
-    @TeleOp
+    @Autonomous
     public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
     {
         OpenCvCamera camera;
         AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
-        static final double FEET_PER_METER = 3.28084;
+        public static final double FEET_PER_METER = 3.28084;
 
         // Lens intrinsics
         // UNITS ARE PIXELS
@@ -64,14 +65,14 @@ import java.util.ArrayList;
         @Override
         public void runOpMode() {
             int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-            camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+            camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);
             aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
 
             camera.setPipeline(aprilTagDetectionPipeline);
             camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
                 @Override
                 public void onOpened() {
-                    camera.startStreaming(800, 448, OpenCvCameraRotation.UPRIGHT);
+                    camera.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
                 }
 
                 @Override
@@ -147,9 +148,9 @@ import java.util.ArrayList;
 
             /* Actually do something useful */
             if (tagOfInterest == null || tagOfInterest.id == LEFT) {
-                //trajectory
+
             } else if (tagOfInterest.id == MIDDLE) {
-                //trajectory
+
 
 
             } else {
@@ -161,9 +162,7 @@ import java.util.ArrayList;
 
 
             /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */
-            while (opModeIsActive()) {
-                sleep(20);
-            }
+
         }
 
         void tagToTelemetry(AprilTagDetection detection)
