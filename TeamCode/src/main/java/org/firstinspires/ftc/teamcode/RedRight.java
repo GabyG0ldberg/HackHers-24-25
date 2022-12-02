@@ -50,9 +50,6 @@ public class RedRight extends LinearOpMode {
         super.waitForStart();
         everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, ds1, ds2, wc);
 
-        //THIS ABSOLUTELY FUNCTIONS AND MAKES A DUCK COME OFF BLUE SIDE
-        //DO NOT EDIT
-
         everything.goForward(.2); /*to the cone */
 
         sleep(3000);
@@ -87,67 +84,6 @@ public class RedRight extends LinearOpMode {
 
         /*read cone*/
         /*park*/
-
-        //everything.goBackward(.2);
-
-
-        //  sleep(750);
-
-        //everything.DriveBackwardToDist(20);
-
-        //everything.driveGoBackwardPosition(1680, .2);
-
-        //everything.Stop();
-
-        // everything.turnLeft(.2);
-
-        // sleep(1700);
-
-        // everything.Stop();
-
-        //  everything.goForward(.2);
-
-        //  sleep(1700);
-
-        //everything.DriveForwardToDist(50, .2);
-
-        // everything.turnRight(.2);
-
-        // sleep(1400);
-
-        // everything.Stop();
-
-        //dw.setPower(-1);
-
-        // sleep(3000);
-
-        //dw.setPower(0);
-
-        // everything.turnLeft(.2);
-
-        // sleep(3200);
-
-        // everything.Stop();
-
-        // everything.goForward(.2);
-
-        // sleep(1800);
-
-        //everything.DriveForwardToDist(50, .2);
-
-        //  everything.Stop();
-
-//        everything.turnRight(.2);
-//
-//        sleep(1900);
-//
-//        everything.Stop();
-//
-//        everything.goForward(.3);
-//
-//        sleep(500);
-//
-//        everything.Stop();
 
     }
 

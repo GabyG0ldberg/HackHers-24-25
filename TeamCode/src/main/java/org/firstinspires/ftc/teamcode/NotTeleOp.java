@@ -64,13 +64,13 @@ public class NotTeleOp extends OpMode {
             everything.setMotorPower(bR, -1);
         }
         if (gamepad1.y) {
-            everything.setMotorPower(ls, -1);
-        }
-        if (gamepad1.a) {
             everything.setMotorPower(ls, 1);
         }
+        if (gamepad1.a) {
+            everything.setMotorPower(ls, -1);
+        }
         if (gamepad1.left_bumper) {
-            everything.setServoPower(cl, 0.3);
+            everything.setServoPower(cl, 0.7);
         }
         if (gamepad1.right_bumper) {
             everything.setServoPower(cl, 0.9);
