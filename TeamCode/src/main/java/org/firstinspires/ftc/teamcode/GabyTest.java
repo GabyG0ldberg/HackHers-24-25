@@ -97,7 +97,7 @@ public class GabyTest extends LinearOpMode {
             }
         });
 
-        while (opModeIsActive() && !isStopRequested()) {
+        while (!isStarted() && !isStopRequested()) {
             ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
 
             if (currentDetections.size() != 0) {
@@ -112,7 +112,7 @@ public class GabyTest extends LinearOpMode {
                 }
 
                 if (tagFound) {
-                    telemetry.addLine("Tag of interest is in sight!\n\nLocation data:");
+                    telemetry.addLine("PEEPEE POO POO Tag of interest is in sight!\n\nLocation data:");
                     tagToTelemetry(tagOfInterest);
                 } else {
                     telemetry.addLine("Don't see tag of interest :(");
@@ -139,6 +139,7 @@ public class GabyTest extends LinearOpMode {
 
             telemetry.update();
             sleep(20);
+            everything.Stop();
         }
 
         /*
