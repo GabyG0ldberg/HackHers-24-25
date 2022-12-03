@@ -89,6 +89,12 @@ public class RedRight extends LinearOpMode {
         //THIS ABSOLUTELY FUNCTIONS AND MAKES A DUCK COME OFF BLUE SIDE
         //DO NOT EDIT
 
+        everything.strafeRight(.2);
+
+        sleep(1500);
+
+        everything.Stop();
+
         everything.goForward(.2); /*to the cone */
 
         sleep(3000);
@@ -118,7 +124,9 @@ public class RedRight extends LinearOpMode {
         everything.strafeRight(.2); /*to go in front of the camera*/
 
         sleep(4500);
+
         everything.Stop();
+
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
@@ -192,85 +200,27 @@ public class RedRight extends LinearOpMode {
 
         /* Actually do something useful */
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
+            everything.strafeLeft(.2);
+            sleep(1500);
+            everything.Stop();
             everything.goForward(.2);
             sleep(1500);
             everything.Stop();
         } else if (tagOfInterest.id == MIDDLE) {
+            everything.goForward(.2);
+            sleep(1500);
+            everything.Stop();
+        } else {
             everything.strafeRight(.2);
             sleep(1500);
             everything.Stop();
-
-
-        } else {
-            //trajectory
-            everything.strafeLeft(.2);
+            everything.goForward(.2);
             sleep(1500);
             everything.Stop();
         }
 
         /*read cone*/
         /*park*/
-
-        //everything.goBackward(.2);
-
-
-        //  sleep(750);
-
-        //everything.DriveBackwardToDist(20);
-
-        //everything.driveGoBackwardPosition(1680, .2);
-
-        //everything.Stop();
-
-        // everything.turnLeft(.2);
-
-        // sleep(1700);
-
-        // everything.Stop();
-
-        //  everything.goForward(.2);
-
-        //  sleep(1700);
-
-        //everything.DriveForwardToDist(50, .2);
-
-        // everything.turnRight(.2);
-
-        // sleep(1400);
-
-        // everything.Stop();
-
-        //dw.setPower(-1);
-
-        // sleep(3000);
-
-        //dw.setPower(0);
-
-        // everything.turnLeft(.2);
-
-        // sleep(3200);
-
-        // everything.Stop();
-
-        // everything.goForward(.2);
-
-        // sleep(1800);
-
-        //everything.DriveForwardToDist(50, .2);
-
-        //  everything.Stop();
-
-//        everything.turnRight(.2);
-//
-//        sleep(1900);
-//
-//        everything.Stop();
-//
-//        everything.goForward(.3);
-//
-//        sleep(500);
-//
-//        everything.Stop();
 
     }
 
