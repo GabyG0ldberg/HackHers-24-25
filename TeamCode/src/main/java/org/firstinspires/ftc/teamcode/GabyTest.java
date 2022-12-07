@@ -46,20 +46,11 @@ public class GabyTest extends LinearOpMode {
     double fy = 578.272;
     double cx = 402.145;
     double cy = 221.506;
-    AprilTagDetection tagOfInterest = null;
     // UNITS ARE METERS
     double tagsize = 0.166;
+    public static final double FEET_PER_METER = 3.28084;
+    AprilTagDetection tagOfInterest = null;
 
-    void tagToTelemetry(AprilTagDetection detection)
-    {
-        telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
-        telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
-        telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
-        telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
-        telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
-        telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
-        telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
-    }
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -80,9 +71,6 @@ public class GabyTest extends LinearOpMode {
 
         camera.setPipeline(aprilTagDetectionPipeline);
 
-
-        telemetry.setMsTransmissionInterval(50);
-
         super.waitForStart();
 
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -97,7 +85,10 @@ public class GabyTest extends LinearOpMode {
             }
         });
 
-        while (!isStarted() && !isStopRequested()) {
+        telemetry.setMsTransmissionInterval(50);
+
+        //while (!isStarted() && !isStopRequested()) {
+        while (opModeIsActive() && !isStopRequested()) {
             ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
 
             if (currentDetections.size() != 0) {
@@ -139,7 +130,6 @@ public class GabyTest extends LinearOpMode {
 
             telemetry.update();
             sleep(20);
-            everything.Stop();
         }
 
         /*
@@ -159,21 +149,21 @@ public class GabyTest extends LinearOpMode {
 
         /* Actually do something useful */
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
-            everything.strafeLeft(.2);
-            sleep(1500);
-            everything.Stop();
-            everything.goForward(.2);
-            sleep(1500);
-            everything.Stop();
-        } else if (tagOfInterest.id == MIDDLE) {
-            everything.goForward(.2);
-            sleep(1500);
-            everything.Stop();
-        } else {
             everything.strafeRight(.2);
             sleep(1500);
             everything.Stop();
-            everything.goForward(.2);
+            everything.goBackward(.2);
+            sleep(1500);
+            everything.Stop();
+        } else if (tagOfInterest.id == MIDDLE) {
+            everything.goBackward(.2);
+            sleep(1500);
+            everything.Stop();
+        } else {
+            everything.strafeLeft(.2);
+            sleep(1500);
+            everything.Stop();
+            everything.goBackward(.2);
             sleep(1500);
             everything.Stop();
         }
@@ -183,5 +173,15 @@ public class GabyTest extends LinearOpMode {
 
     }
 
+    void tagToTelemetry(AprilTagDetection detection)
+    {
+        telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
+        telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
+        telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
+        telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
+        telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
+        telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
+        telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
+    }
 
 }

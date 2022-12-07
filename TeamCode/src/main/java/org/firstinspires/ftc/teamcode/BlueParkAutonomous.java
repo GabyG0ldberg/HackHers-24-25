@@ -37,7 +37,7 @@ public class BlueParkAutonomous extends LinearOpMode {
         cl = hardwareMap.get(Servo.class, "cl");
         ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        wc = hardwareMap.get(OpenCvWebcam.class, "Webcam 1");
+        wc = hardwareMap.get(OpenCvWebcam.class, "wc");
         //ColorSensor sensor = hardwareMap.get(ColorSensor.class, "CS");
 
 
@@ -47,26 +47,11 @@ public class BlueParkAutonomous extends LinearOpMode {
 
         everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, ds1, ds2, wc );
 
-        everything.goBackward(.2);
+        everything.goForward(.2);
 
         sleep(1350);
 
         everything.Stop();
-
-        everything.turnRight(.2);
-
-        // zev says hi
-
-        sleep(2000);
-
-        everything.Stop();
-
-        everything.goForward(.8);
-
-        sleep(1200);
-
-        everything.Stop();
-
 
     }
 
