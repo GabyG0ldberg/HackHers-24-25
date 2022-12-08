@@ -26,31 +26,28 @@ import java.util.ArrayList;
 
 @Autonomous
 public class GabyTest extends LinearOpMode {
+    OpenCvWebcam camera;
+    AprilTagDetectionPipeline aprilTagDetectionPipeline;
+    int LEFT = 12;
+    int MIDDLE = 16;
+    int RIGHT = 5;
+    double fx = 578.272;
+    double fy = 578.272;
+    double cx = 402.145;
+    double cy = 221.506;
+    double tagsize = 0.166;
+    public static final double FEET_PER_METER = 3.28084;
     private HackHers_Lib everything;
     DcMotor fL;
     DcMotor fR;
     DcMotor bL;
     DcMotor bR;
-    //Telemetry t;
     DcMotor ls;
     Servo cl;
-    int LEFT = 12;
-    int MIDDLE = 16;
-    int RIGHT = 5;
     Rev2mDistanceSensor ds1;
     Rev2mDistanceSensor ds2;
-    //ColorSensor cs;
-    OpenCvWebcam camera;
-    AprilTagDetectionPipeline aprilTagDetectionPipeline;
-    double fx = 578.272;
-    double fy = 578.272;
-    double cx = 402.145;
-    double cy = 221.506;
-    // UNITS ARE METERS
-    double tagsize = 0.166;
-    public static final double FEET_PER_METER = 3.28084;
-    AprilTagDetection tagOfInterest = null;
 
+    AprilTagDetection tagOfInterest = null;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -70,9 +67,6 @@ public class GabyTest extends LinearOpMode {
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
 
         camera.setPipeline(aprilTagDetectionPipeline);
-
-        super.waitForStart();
-
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
@@ -87,8 +81,11 @@ public class GabyTest extends LinearOpMode {
 
         telemetry.setMsTransmissionInterval(50);
 
-        //while (!isStarted() && !isStopRequested()) {
-        while (isStarted() && !isStopRequested()) {
+        /*
+         * The INIT-loop:
+         * This REPLACES waitForStart!
+         */
+        while (!isStarted() && !isStopRequested()) {
             ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
 
             if (currentDetections.size() != 0) {
@@ -103,7 +100,7 @@ public class GabyTest extends LinearOpMode {
                 }
 
                 if (tagFound) {
-                    telemetry.addLine("PEEPEE POO POO Tag of interest is in sight!\n\nLocation data:");
+                    telemetry.addLine("Tag of interest is in sight!\n\nLocation data:");
                     tagToTelemetry(tagOfInterest);
                 } else {
                     telemetry.addLine("Don't see tag of interest :(");
@@ -138,41 +135,44 @@ public class GabyTest extends LinearOpMode {
          */
 
         /* Update the telemetry */
-        //while (opModeIsActive()) {
-            if (tagOfInterest != null) {
-                telemetry.addLine("Tag snapshot:\n");
-                tagToTelemetry(tagOfInterest);
-                telemetry.update();
-            } else {
-                telemetry.addLine("No tag snapshot available, it was never sighted during the init loop :(");
-                telemetry.update();
-            }
-
-            /* Actually do something useful */
-            if (tagOfInterest == null || tagOfInterest.id == LEFT) {
-                everything.strafeRight(.2);
-                sleep(1500);
-                everything.Stop();
-                everything.goBackward(.2);
-                sleep(1500);
-                everything.Stop();
-            } else if (tagOfInterest.id == MIDDLE) {
-                everything.goBackward(.2);
-                sleep(1500);
-                everything.Stop();
-            } else {
-                everything.strafeLeft(.2);
-                sleep(1500);
-                everything.Stop();
-                everything.goBackward(.2);
-                sleep(1500);
-                everything.Stop();
-            }
-
-
-
+        if (tagOfInterest != null) {
+            telemetry.addLine("Tag snapshot:\n");
+            tagToTelemetry(tagOfInterest);
+            telemetry.update();
+        } else {
+            telemetry.addLine("No tag snapshot available, it was never sighted during the init loop :(");
+            telemetry.update();
         }
 
+        /* Actually do something useful */
+        if(tagOfInterest ==null||tagOfInterest.id ==LEFT)
+        {
+            everything.strafeRight(.2);
+            sleep(1500);
+            everything.Stop();
+            everything.goBackward(.2);
+            sleep(1500);
+            everything.Stop();
+        } else if(tagOfInterest.id ==MIDDLE) {
+            everything.goBackward(.2);
+            sleep(1500);
+            everything.Stop();
+        } else {
+            sleep(4000);
+            everything.strafeLeft(.2);
+            sleep(1500);
+            everything.Stop();
+            everything.goBackward(.2);
+            sleep(1500);
+            everything.Stop();
+        }
+
+
+
+
+        /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */
+
+    }
 
     void tagToTelemetry(AprilTagDetection detection)
     {
@@ -184,5 +184,4 @@ public class GabyTest extends LinearOpMode {
         telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
         telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
     }
-
 }
