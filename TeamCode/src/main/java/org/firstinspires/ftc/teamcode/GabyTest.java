@@ -88,7 +88,7 @@ public class GabyTest extends LinearOpMode {
         telemetry.setMsTransmissionInterval(50);
 
         //while (!isStarted() && !isStopRequested()) {
-        while (opModeIsActive() && !isStopRequested()) {
+        while (isStarted() && !isStopRequested()) {
             ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
 
             if (currentDetections.size() != 0) {
@@ -138,40 +138,41 @@ public class GabyTest extends LinearOpMode {
          */
 
         /* Update the telemetry */
-        if (tagOfInterest != null) {
-            telemetry.addLine("Tag snapshot:\n");
-            tagToTelemetry(tagOfInterest);
-            telemetry.update();
-        } else {
-            telemetry.addLine("No tag snapshot available, it was never sighted during the init loop :(");
-            telemetry.update();
+        //while (opModeIsActive()) {
+            if (tagOfInterest != null) {
+                telemetry.addLine("Tag snapshot:\n");
+                tagToTelemetry(tagOfInterest);
+                telemetry.update();
+            } else {
+                telemetry.addLine("No tag snapshot available, it was never sighted during the init loop :(");
+                telemetry.update();
+            }
+
+            /* Actually do something useful */
+            if (tagOfInterest == null || tagOfInterest.id == LEFT) {
+                everything.strafeRight(.2);
+                sleep(1500);
+                everything.Stop();
+                everything.goBackward(.2);
+                sleep(1500);
+                everything.Stop();
+            } else if (tagOfInterest.id == MIDDLE) {
+                everything.goBackward(.2);
+                sleep(1500);
+                everything.Stop();
+            } else {
+                everything.strafeLeft(.2);
+                sleep(1500);
+                everything.Stop();
+                everything.goBackward(.2);
+                sleep(1500);
+                everything.Stop();
+            }
+
+
+
         }
 
-        /* Actually do something useful */
-        if (tagOfInterest == null || tagOfInterest.id == LEFT) {
-            everything.strafeRight(.2);
-            sleep(1500);
-            everything.Stop();
-            everything.goBackward(.2);
-            sleep(1500);
-            everything.Stop();
-        } else if (tagOfInterest.id == MIDDLE) {
-            everything.goBackward(.2);
-            sleep(1500);
-            everything.Stop();
-        } else {
-            everything.strafeLeft(.2);
-            sleep(1500);
-            everything.Stop();
-            everything.goBackward(.2);
-            sleep(1500);
-            everything.Stop();
-        }
-
-        /*read cone*/
-        /*park*/
-
-    }
 
     void tagToTelemetry(AprilTagDetection detection)
     {
