@@ -134,6 +134,8 @@ public class GabyTest extends LinearOpMode {
          * during the init loop.
          */
 
+        super.waitForStart();
+
         /* Update the telemetry */
         if (tagOfInterest != null) {
             telemetry.addLine("Tag snapshot:\n");
