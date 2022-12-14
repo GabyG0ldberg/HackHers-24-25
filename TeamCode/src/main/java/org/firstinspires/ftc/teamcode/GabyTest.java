@@ -149,34 +149,40 @@ public class GabyTest extends LinearOpMode {
         /* Actually do something useful */
         if(tagOfInterest ==null||tagOfInterest.id ==LEFT)
         {
+            everything.goBackward(.2);
+            sleep(700);
+            everything.Stop();
             everything.turnRight(.2);
-            sleep(1500);
+            sleep(2200);
             everything.Stop();
             everything.goForward(.2);
-            sleep(2500);
+            sleep(2400);
             everything.Stop();
-            everything.turnLeft(.2);
-            sleep(1500);
+            everything.turnRight(.2);
+            sleep(2200);
             everything.Stop();
             everything.goForward(.2);
-            sleep(2500);
+            sleep(3000);
             everything.Stop();
         } else if(tagOfInterest.id ==MIDDLE) {
             everything.goBackward(.2);
             sleep(3500);
             everything.Stop();
         } else {
+            everything.goBackward(.2);
+            sleep(700);
+            everything.Stop();
             everything.turnLeft(.2);
-            sleep(1500);
+            sleep(2200);
             everything.Stop();
             everything.goForward(.2);
-            sleep(2500);
+            sleep(2400);
             everything.Stop();
-            everything.turnRight(.2);
-            sleep(1500);
+            everything.turnLeft(.2);
+            sleep(2200);
             everything.Stop();
             everything.goForward(.2);
-            sleep(2500);
+            sleep(3000);
             everything.Stop();
         }
 
