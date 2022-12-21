@@ -3,42 +3,54 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import java.io.BufferedInputStream;
 
 // autonomous program that drives bot forward a set distance, stops then
 // backs up to the starting point using encoders to measure the distance.
     
-    @Autonomous(name="Drive Encoder")
-    public class GabyTestJr extends LinearOpMode
-    {
+    @Autonomous(name="GabyTestJr")
+    public class GabyTestJr extends LinearOpMode {
+        private HackHers_Lib everything;
         DcMotor fL;
         DcMotor fR;
         DcMotor bL;
         DcMotor bR;
 
         @Override
-        public void runOpMode() throws InterruptedException
-        {
-            fL = hardwareMap.dcMotor.get("left_motor");
-            fR = hardwareMap.dcMotor.get("right_motor");
+        public void runOpMode() throws InterruptedException {
+            fL = hardwareMap.get(DcMotor.class, "fl");
+            fR = hardwareMap.get(DcMotor.class, "fR");
+            bL = hardwareMap.get(DcMotor.class, "bl");
+            bR = hardwareMap.get(DcMotor.class, "bR");
 
             // You will need to set this based on your robot's
             // gearing to get forward control input to result in
             // forward motion.
-            fL.setDirection(DcMotor.Direction.REVERSE);
+            fL.setDirection(DcMotor.Direction.FORWARD);
+            fR.setDirection(DcMotor.Direction.FORWARD);
+            bL.setDirection(DcMotor.Direction.FORWARD);
+            bR.setDirection(DcMotor.Direction.FORWARD);
+
 
             // reset encoder counts kept by motors.
             fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             // set motors to run forward for 5000 encoder counts.
-            fL.setTargetPosition(5000);
-            fR.setTargetPosition(5000);
+            fL.setTargetPosition(-50);
+            fR.setTargetPosition(50);
+            bL.setTargetPosition(50);
+            bR.setTargetPosition(50);
 
             // set motors to run to target encoder position and stop with brakes on.
             fL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             fR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             telemetry.addData("Mode", "waiting");
             telemetry.update();
@@ -54,15 +66,19 @@ import java.io.BufferedInputStream;
             // ignored as sign of target encoder position controls direction when
             // running to position.
 
-            fL.setPower(0.25);
-            fR.setPower(0.25);
+            fL.setPower(0.003);
+            fR.setPower(0.0011);
+            bL.setPower(0.1);
+            bR.setPower(0.05);
 
             // wait while opmode is active and left motor is busy running to position.
 
-            while (opModeIsActive() && fL.isBusy())   //fL.getCurrentPosition() < fL.getTargetPosition())
+            while (opModeIsActive() && fL.isBusy())  //fL.getCurrentPosition() < fL.getTargetPosition())
             {
                 telemetry.addData("encoder-fwd-left", fL.getCurrentPosition() + "  busy=" + fL.isBusy());
                 telemetry.addData("encoder-fwd-right", fR.getCurrentPosition() + "  busy=" + fR.isBusy());
+                telemetry.addData("encoder-back-left", bL.getCurrentPosition() + "  busy=" + bL.isBusy());
+                telemetry.addData("encoder-back-right", bR.getCurrentPosition() + "  busy=" + bR.isBusy());
                 telemetry.update();
                 idle();
             }
@@ -72,10 +88,12 @@ import java.io.BufferedInputStream;
 
             fL.setPower(0.0);
             fR.setPower(0.0);
+            bL.setPower(0.0);
+            bR.setPower(0.0);
 
             // wait 5 sec to you can observe the final encoder position.
 
-            resetRuntime();
+            /*resetRuntime();
 
             while (opModeIsActive() && getRuntime() < 5)
             {
@@ -95,8 +113,8 @@ import java.io.BufferedInputStream;
             fR.setTargetPosition(0);
 
             // Power sign matters again as we are running without encoder.
-            fL.setPower(-0.25);
-            fR.setPower(-0.25);
+            fL.setPower(-0.05);
+            fR.setPower(-0.05);
 
             while (opModeIsActive() && fL.getCurrentPosition() > fL.getTargetPosition())
             {
@@ -120,6 +138,8 @@ import java.io.BufferedInputStream;
                 telemetry.update();
                 idle();
             }
+
+             */
         }
 
 
