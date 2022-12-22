@@ -41,10 +41,10 @@ import java.io.BufferedInputStream;
             bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             // set motors to run forward for 5000 encoder counts.
-            fL.setTargetPosition(-50);
-            fR.setTargetPosition(50);
-            bL.setTargetPosition(50);
-            bR.setTargetPosition(50);
+            fL.setTargetPosition(-200);
+            fR.setTargetPosition(200);
+            bL.setTargetPosition(200);
+            bR.setTargetPosition(200);
 
             // set motors to run to target encoder position and stop with brakes on.
             fL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -66,10 +66,10 @@ import java.io.BufferedInputStream;
             // ignored as sign of target encoder position controls direction when
             // running to position.
 
-            fL.setPower(0.003);
-            fR.setPower(0.0011);
-            bL.setPower(0.1);
-            bR.setPower(0.05);
+            fL.setPower(0); //motor 1
+            fR.setPower(0); //motor 2
+            bL.setPower(0.05); //motor 3
+            bR.setPower(0.25); //motor 4
 
             // wait while opmode is active and left motor is busy running to position.
 
@@ -90,6 +90,8 @@ import java.io.BufferedInputStream;
             fR.setPower(0.0);
             bL.setPower(0.0);
             bR.setPower(0.0);
+
+
 
             // wait 5 sec to you can observe the final encoder position.
 
