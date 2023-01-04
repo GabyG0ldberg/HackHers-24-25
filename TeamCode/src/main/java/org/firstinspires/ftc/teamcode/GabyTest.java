@@ -79,6 +79,7 @@ public class GabyTest extends LinearOpMode {
             }
         });
 
+
         telemetry.setMsTransmissionInterval(50);
 
         /*
@@ -170,13 +171,13 @@ public class GabyTest extends LinearOpMode {
             everything.Stop();
         } else {
             everything.goBackward(.2);
-            sleep(700);
+            sleep(500);
             everything.Stop();
             everything.turnLeft(.2);
             sleep(2200);
             everything.Stop();
             everything.goForward(.2);
-            sleep(2400);
+            sleep(2900);
             everything.Stop();
             everything.turnLeft(.2);
             sleep(2200);

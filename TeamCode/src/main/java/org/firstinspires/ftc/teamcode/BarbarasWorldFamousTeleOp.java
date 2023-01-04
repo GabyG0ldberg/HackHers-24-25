@@ -17,7 +17,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
-public class NotTeleOp extends OpMode {
+public class BarbarasWorldFamousTeleOp extends OpMode {
     private HackHers_Lib everything;
     DcMotor fL;
     DcMotor fR;
