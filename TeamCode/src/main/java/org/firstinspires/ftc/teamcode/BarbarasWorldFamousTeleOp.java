@@ -64,10 +64,10 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             everything.setMotorPower(bR, -1);
         }
         if (gamepad1.y) {
-            everything.setMotorPower(ls, -1);
+            everything.setMotorPower(ls, 1);
         }
         if (gamepad1.a) {
-            everything.setMotorPower(ls, 1);
+            everything.setMotorPower(ls, -1);
         }
         if (gamepad1.right_bumper) {
             everything.setServoPower(cl, 0.8);
