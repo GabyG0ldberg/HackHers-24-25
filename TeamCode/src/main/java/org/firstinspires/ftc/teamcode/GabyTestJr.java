@@ -13,44 +13,29 @@ import java.io.BufferedInputStream;
     @Autonomous(name="GabyTestJr")
     public class GabyTestJr extends LinearOpMode {
         private HackHers_Lib everything;
-        DcMotor fL;
-        DcMotor fR;
-        DcMotor bL;
-        DcMotor bR;
+        DcMotor ls;
+
 
         @Override
         public void runOpMode() throws InterruptedException {
-            fL = hardwareMap.get(DcMotor.class, "fl");
-            fR = hardwareMap.get(DcMotor.class, "fR");
-            bL = hardwareMap.get(DcMotor.class, "bl");
-            bR = hardwareMap.get(DcMotor.class, "bR");
+            ls = hardwareMap.get(DcMotor.class, "ls");
+
 
             // You will need to set this based on your robot's
             // gearing to get forward control input to result in
             // forward motion.
-            fL.setDirection(DcMotor.Direction.FORWARD);
-            fR.setDirection(DcMotor.Direction.FORWARD);
-            bL.setDirection(DcMotor.Direction.FORWARD);
-            bR.setDirection(DcMotor.Direction.FORWARD);
+            ls.setDirection(DcMotor.Direction.FORWARD);
+
 
 
             // reset encoder counts kept by motors.
-            fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            ls.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             // set motors to run forward for 5000 encoder counts.
-            fL.setTargetPosition(-50);
-            fR.setTargetPosition(50);
-            bL.setTargetPosition(50);
-            bR.setTargetPosition(50);
+            ls.setTargetPosition(50);
 
             // set motors to run to target encoder position and stop with brakes on.
-            fL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            fR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            bL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            bR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ls.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             telemetry.addData("Mode", "waiting");
             telemetry.update();
@@ -66,19 +51,13 @@ import java.io.BufferedInputStream;
             // ignored as sign of target encoder position controls direction when
             // running to position.
 
-            fL.setPower(0.003);
-            fR.setPower(0.0011);
-            bL.setPower(0.1);
-            bR.setPower(0.05);
+            ls.setPower(0.2);
 
             // wait while opmode is active and left motor is busy running to position.
 
-            while (opModeIsActive() && fL.isBusy())  //fL.getCurrentPosition() < fL.getTargetPosition())
+            while (opModeIsActive() && ls.isBusy())  //fL.getCurrentPosition() < fL.getTargetPosition())
             {
-                telemetry.addData("encoder-fwd-left", fL.getCurrentPosition() + "  busy=" + fL.isBusy());
-                telemetry.addData("encoder-fwd-right", fR.getCurrentPosition() + "  busy=" + fR.isBusy());
-                telemetry.addData("encoder-back-left", bL.getCurrentPosition() + "  busy=" + bL.isBusy());
-                telemetry.addData("encoder-back-right", bR.getCurrentPosition() + "  busy=" + bR.isBusy());
+                telemetry.addData("encoder-fwd-left", ls.getCurrentPosition() + "  busy=" + ls.isBusy());
                 telemetry.update();
                 idle();
             }
@@ -86,10 +65,7 @@ import java.io.BufferedInputStream;
             // set motor power to zero to turn off motors. The motors stop on their own but
             // power is still applied so we turn off the power.
 
-            fL.setPower(0.0);
-            fR.setPower(0.0);
-            bL.setPower(0.0);
-            bR.setPower(0.0);
+            ls.setPower(0.0);
 
             // wait 5 sec to you can observe the final encoder position.
 
