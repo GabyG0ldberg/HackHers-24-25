@@ -85,12 +85,8 @@ public class PolinaTest extends LinearOpMode {
 
     @Override
 
-    public void loop() {
 
-    }
-
-    public class ExamplePipeline extends OpenCvPipeline
-    {
+    public class ExamplePipeline extends OpenCvPipeline {
         Mat Screen = new Mat();
         Mat leftCrop;
         Mat rightCrop;
@@ -127,4 +123,5 @@ public class PolinaTest extends LinearOpMode {
             return (outPut);
         }
 
+    }
 }
