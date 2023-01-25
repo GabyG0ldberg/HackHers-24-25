@@ -7,11 +7,22 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.auton.AprilTagDetectionPipeline;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
+
+
+
+
+
 
 import java.util.ArrayList;
 
@@ -36,8 +47,8 @@ public class PolinaTest extends LinearOpMode {
     DcMotor bR;
     DcMotor ls;
     Servo cl;
-   // Rev2mDistanceSensor ds1;
-   // Rev2mDistanceSensor ds2;
+    // Rev2mDistanceSensor ds1;
+    // Rev2mDistanceSensor ds2;
 
     AprilTagDetection tagOfInterest = null;
 
@@ -50,15 +61,15 @@ public class PolinaTest extends LinearOpMode {
         //t = telemetry.addData("count").get(Telemetry.class, "t");
         ls = hardwareMap.get(DcMotor.class, "ls");
         cl = hardwareMap.get(Servo.class, "cl");
-       // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
+        // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         //ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
         //cs = hardwareMap.get(ColorSensor.class, "cs");
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl,camera);
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, camera);
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
 
-        camera.setPipeline(aprilTagDetectionPipeline);
+        camera.setPipeline(ExamplePipeline);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
@@ -70,126 +81,50 @@ public class PolinaTest extends LinearOpMode {
 
             }
         });
+    }
 
+    @Override
 
-        telemetry.setMsTransmissionInterval(50);
-
-        /*
-         * The INIT-loop:
-         * This REPLACES waitForStart!
-         */
-        while (!isStarted() && !isStopRequested()) {
-            ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
-
-            if (currentDetections.size() != 0) {
-                boolean tagFound = false;
-
-                for (AprilTagDetection tag : currentDetections) {
-                    if (tag.id == LEFT || tag.id == MIDDLE || tag.id == RIGHT) {
-                        tagOfInterest = tag;
-                        tagFound = true;
-                        break;
-                    }
-                }
-
-                if (tagFound) {
-                    telemetry.addLine("Tag of interest is in sight!\n\nLocation data:");
-                    tagToTelemetry(tagOfInterest);
-                } else {
-                    telemetry.addLine("Don't see tag of interest :(");
-
-                    if (tagOfInterest == null) {
-                        telemetry.addLine("(The tag has never been seen)");
-                    } else {
-                        telemetry.addLine("\nBut we HAVE seen the tag before; last seen at:");
-                        tagToTelemetry(tagOfInterest);
-                    }
-                }
-
-            } else {
-                telemetry.addLine("Don't see tag of interest :(");
-
-                if (tagOfInterest == null) {
-                    telemetry.addLine("(The tag has never been seen)");
-                } else {
-                    telemetry.addLine("\nBut we HAVE seen the tag before; last seen at:");
-                    tagToTelemetry(tagOfInterest);
-                }
-
-            }
-
-            telemetry.update();
-            sleep(20);
-        }
-
-        /*
-         * The START command just came in: now work off the latest snapshot acquired
-         * during the init loop.
-         */
-
-        super.waitForStart();
-
-        /* Update the telemetry */
-        if (tagOfInterest != null) {
-            telemetry.addLine("Tag snapshot:\n");
-            tagToTelemetry(tagOfInterest);
-            telemetry.update();
-        } else {
-            telemetry.addLine("No tag snapshot available, it was never sighted during the init loop :(");
-            telemetry.update();
-        }
-
-        /* Actually do something useful */
-        if(tagOfInterest ==null||tagOfInterest.id ==LEFT)
-        {
-            everything.goBackward(.2);
-            sleep(700);
-            everything.Stop();
-            everything.turnRight(.2);
-            sleep(2200);
-            everything.Stop();
-            everything.goForward(.2);
-            sleep(2400);
-            everything.Stop();
-            everything.turnRight(.2);
-            sleep(2200);
-            everything.Stop();
-            everything.goForward(.2);
-            sleep(3000);
-            everything.Stop();
-        } else if(tagOfInterest.id ==MIDDLE) {
-            everything.goBackward(.2);
-            sleep(3500);
-            everything.Stop();
-        } else {
-            everything.goBackward(.2);
-            sleep(500);
-            everything.Stop();
-            everything.turnLeft(.2);
-            sleep(2200);
-            everything.Stop();
-            everything.goForward(.2);
-            sleep(2900);
-            everything.Stop();
-            everything.turnLeft(.2);
-            sleep(2200);
-            everything.Stop();
-            everything.goForward(.2);
-            sleep(3000);
-            everything.Stop();
-        }
-
+    public void loop() {
 
     }
 
-    void tagToTelemetry(AprilTagDetection detection)
+    public class ExamplePipeline extends OpenCvPipeline
     {
-        telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
-        telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
-        telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
-        telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
-        telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
-        telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
-        telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
-    }
+        Mat Screen = new Mat();
+        Mat leftCrop;
+        Mat rightCrop;
+        Double leftavgfin;
+        Double rightavgfin;
+        Mat outPut = new Mat();
+        Scalar rectColor = new Scalar(255.0, 0.0, 0.0);
+
+        public Mat processFrame(Mat input) {
+            Mat YCbCr = new Mat();
+            Imgproc.cvtColor(input, YCbCr, Imgproc.COLOR_RGB2YCrCb);
+            telemetry.addLine("pipeline running");
+
+
+            Rect rightRect = new Rect(1, 1, 399, 447);
+            Rect leftRect = new Rect(400, 1, 399, 447);
+
+            input.copyTo(outPut);
+            Imgproc.rectangle(outPut, rightRect, rectColor, 2);
+            Imgproc.rectangle(outPut, leftRect, rectColor, 2);
+
+            leftCrop = YCbCr.submat(leftRect);
+            rightCrop = YCbCr.submat(rightRect);
+
+            Core.extractChannel(leftCrop, leftCrop, 1);
+            Core.extractChannel(rightCrop, rightCrop, 1);
+
+            Scalar leftavg = Core.mean(leftCrop);
+            Scalar rightavg = Core.mean(rightCrop);
+
+            leftavgfin = leftavg.val[0];
+            rightavgfin = rightavg.val[0];
+
+            return (outPut);
+        }
+
 }
