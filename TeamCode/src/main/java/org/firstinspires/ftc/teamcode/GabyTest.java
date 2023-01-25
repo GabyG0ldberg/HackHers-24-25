@@ -44,8 +44,8 @@ public class GabyTest extends LinearOpMode {
     DcMotor bR;
     DcMotor ls;
     Servo cl;
-    Rev2mDistanceSensor ds1;
-    Rev2mDistanceSensor ds2;
+   // Rev2mDistanceSensor ds1;
+   // Rev2mDistanceSensor ds2;
 
     AprilTagDetection tagOfInterest = null;
 
@@ -58,10 +58,10 @@ public class GabyTest extends LinearOpMode {
         //t = telemetry.addData("count").get(Telemetry.class, "t");
         ls = hardwareMap.get(DcMotor.class, "ls");
         cl = hardwareMap.get(Servo.class, "cl");
-        ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
-        ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
+       // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
+        //ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
         //cs = hardwareMap.get(ColorSensor.class, "cs");
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, ds1, ds2, camera);
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl,camera);
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);

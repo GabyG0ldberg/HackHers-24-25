@@ -26,8 +26,8 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
     private OpenCvWebcam wc;
     DcMotor ls;
     Servo cl;
-    Rev2mDistanceSensor ds1;
-    Rev2mDistanceSensor ds2;
+    //Rev2mDistanceSensor ds1;
+    //Rev2mDistanceSensor ds2;
     //comment for the sake of existing
 
     public void init() {
@@ -40,9 +40,9 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
         ls = hardwareMap.get(DcMotor.class, "ls");
         cl = hardwareMap.get(Servo.class,"cl");
-        ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
-        ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, ds1, ds2, wc);
+       // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
+       // ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, wc);
 
     }
 
@@ -64,16 +64,16 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             everything.setMotorPower(bR, -1);
         }
         if (gamepad1.y) {
-            everything.setMotorPower(ls, -1);
-        }
-        if (gamepad1.a) {
             everything.setMotorPower(ls, 1);
         }
-        if (gamepad1.right_bumper) {
-            everything.setServoPower(cl, 0.8);
+        if (gamepad1.a) {
+            everything.setMotorPower(ls, -1);
+        }
+        if (gamepad1.right_bumper) { //claw closes a set amount
+            everything.setServoPower(cl, 0.75);
         }
         if (gamepad1.left_bumper) {
-            everything.setServoPower(cl, 0.65);
+            everything.setServoPower(cl, 0.55);
         }
 
         everything.setMotorPower(fL, 0);
