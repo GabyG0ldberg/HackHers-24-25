@@ -20,8 +20,6 @@ public class HackHers_Lib {
     public OpenCvWebcam webcam;
     public DcMotor linearSlide;
     public Servo claw;
-    //public Rev2mDistanceSensor distance1;
-    //public Rev2mDistanceSensor distance2;
 
 
 
@@ -34,8 +32,6 @@ public class HackHers_Lib {
         this.backRight = br;
         this.linearSlide = ls;
         this.claw = cl;
-       // this.distance1 = ds1;
-        //this.distance2 = ds2;
        // this.telemetry = t;
         this.webcam = wc;
     }

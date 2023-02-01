@@ -9,63 +9,67 @@ import java.io.BufferedInputStream;
 
 // autonomous program that drives bot forward a set distance, stops then
 // backs up to the starting point using encoders to measure the distance.
-    
-    @Autonomous(name="GabyTestJr")
-    public class GabyTestJr extends LinearOpMode {
-        private HackHers_Lib everything;
-        DcMotor ls;
+
+@Autonomous(name="GabyTestJr")
+public class GabyTestJr extends LinearOpMode {
+    private HackHers_Lib everything;
+    DcMotor ls;
 
 
-        @Override
-        public void runOpMode() throws InterruptedException {
-            ls = hardwareMap.get(DcMotor.class, "ls");
+    @Override
+    public void runOpMode() throws InterruptedException {
+        ls = hardwareMap.get(DcMotor.class, "ls");
 
 
-            // You will need to set this based on your robot's
-            // gearing to get forward control input to result in
-            // forward motion.
-            ls.setDirection(DcMotor.Direction.FORWARD);
+        // You will need to set this based on your robot's
+        // gearing to get forward control input to result in
+        // forward motion.
+        ls.setDirection(DcMotor.Direction.FORWARD);
 
+        // reset encoder counts kept by motors.
+        ls.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Thread.sleep(500);
+        // set motors to run forward for 5000 encoder counts.
+        ls.setTargetPosition(500);
 
+        Thread.sleep(500);
+        // set motors to run to target encoder position and stop with brakes on.
+        ls.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            // reset encoder counts kept by motors.
-            ls.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        telemetry.addData("Mode", "waiting");
+        telemetry.update();
 
-            // set motors to run forward for 5000 encoder counts.
+        // wait for start button.
 
+        waitForStart();
 
-            // set motors to run to target encoder position and stop with brakes on.
-            ls.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        telemetry.addData("Mode", "running");
+        telemetry.update();
 
-            telemetry.addData("Mode", "waiting");
+        // set both motors to 25% power. Movement will start. Sign of power is
+        // ignored as sign of target encoder position controls direction when
+        // running to position.
+
+        ls.setPower(0.2);
+
+        // wait while opmode is active and left motor is busy running to position.
+
+        while (opModeIsActive() && ls.isBusy() && ls.isBusy())  //fL.getCurrentPosition() < fL.getTargetPosition())
+        {
+            telemetry.addData("encoder-fwd-left", ls.getCurrentPosition() + "  busy=" + ls.isBusy());
             telemetry.update();
+            idle();
+        }
 
-            // wait for start button.
+        // set motor power to zero to turn off motors. The motors stop on their own but
+        // power is still applied so we turn off the power.
 
-            waitForStart();
+        ls.setPower(0.0);
+    }
 
-            telemetry.addData("Mode", "running");
-            telemetry.update();
+}
 
-            // set both motors to 25% power. Movement will start. Sign of power is
-            // ignored as sign of target encoder position controls direction when
-            // running to position.
-
-
-            // wait while opmode is active and left motor is busy running to position.
-
-            while (opModeIsActive() && ls.isBusy())  //fL.getCurrentPosition() < fL.getTargetPosition())
-            {
-                telemetry.addData("encoder-fwd-left", ls.getCurrentPosition() + "  busy=" + ls.isBusy());
-                telemetry.update();
-                idle();
-            }
-
-            // set motor power to zero to turn off motors. The motors stop on their own but
-            // power is still applied so we turn off the power.
-
-            ls.setPower(0.0);
-            // wait 5 sec to you can observe the final encoder position.
+        // wait 5 sec to you can observe the final encoder position.
 
             /*resetRuntime();
 
@@ -114,11 +118,3 @@ import java.io.BufferedInputStream;
             }
 
              */
-        }
-
-
-
-    }
-
-
-
