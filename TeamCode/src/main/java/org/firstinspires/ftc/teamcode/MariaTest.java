@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 
 
-
+// gaby Test except it strafes instead of turns
     @Autonomous
     public class MariaTest extends LinearOpMode {
         OpenCvWebcam camera;
