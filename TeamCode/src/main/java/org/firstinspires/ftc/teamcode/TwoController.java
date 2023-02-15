@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
-
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -15,9 +17,12 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvWebcam;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
-public class BarbarasWorldFamousTeleOp extends OpMode {
+public class TwoController extends OpMode {
     private HackHers_Lib everything;
     DcMotor fL;
     DcMotor fR;
@@ -40,8 +45,8 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
         ls = hardwareMap.get(DcMotor.class, "ls");
         cl = hardwareMap.get(Servo.class,"cl");
-       // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
-       // ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
+        // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
+        // ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
         everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, wc);
 
     }
@@ -78,6 +83,19 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             everything.setServoPower(cl, .82);
         }
         if (gamepad1.left_bumper) { //open
+            everything.setServoPower(cl, 0.70);
+        }
+
+        if(gamepad2.dpad_up) {
+            everything.setMotorPower(ls, -1);
+        }
+        if(gamepad2.dpad_down) {
+            everything.setMotorPower(ls, 1);
+        }
+        if (gamepad2.b) { //claw closes a set amount
+            everything.setServoPower(cl, .82);
+        }
+        if (gamepad2.x) { //open
             everything.setServoPower(cl, 0.70);
         }
 

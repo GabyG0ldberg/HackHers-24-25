@@ -193,8 +193,12 @@ public class HackHers_Lib {
         return false;
     }
 
-    private void resetStartTime() {
-        resetStartTime();
+    public void Open(){
+        this.claw.setPosition(0.70);
+    }
+
+    public void Close(){
+        this.claw.setPosition(0.82);
     }
 //    public void DriveForwardToDist(double dist, double power){
 //        while((distance1.getDistance(DistanceUnit.CM)<=dist && distance2.getDistance(DistanceUnit.CM)<=dist)){
