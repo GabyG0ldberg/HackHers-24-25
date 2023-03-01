@@ -136,41 +136,7 @@ public class GabyTest extends LinearOpMode {
          */
 
         super.waitForStart();
-        everything.Close();
-        sleep(2000);
-        ls = hardwareMap.get(DcMotor.class, "ls");
-        //ls.setDirection(DcMotor.Direction.REVERSE);
-        //ls.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //ls.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
-        //ls.setTargetPosition(700);  // set motors to run forward for 3500 encoder counts.
-        //ls.setMode(DcMotor.RunMode.RUN_TO_POSITION); // set motors to run to target encoder position and stop with brakes on.
-        telemetry.addData("Mode", "waiting");
-        telemetry.update();
-        everything.goBackward(.2);
-        sleep(6500);
-        everything.Stop();
-        everything.turnRight(.2);
-        sleep(2200);
-        everything.Stop();
-        everything.strafeLeft(.2);
-        sleep(400);
-        everything.Stop();
-        ls.setPower(-1);
-        sleep(1200);
-        ls.setPower(0);
-        everything.Open();
-        everything.Stop();
-        sleep(500);
-        everything.strafeRight(.2);
-        sleep(400);
-        everything.Stop();
-        everything.turnLeft(.2);
-        sleep(2200);
-        everything.Stop();
-        everything.goForward(.2);
-        sleep(1500);
-        everything.Stop();
-//works good at 13.8 V
+
         /* Update the telemetry */
         if (tagOfInterest != null) {
             telemetry.addLine("Tag snapshot:\n");
@@ -184,19 +150,30 @@ public class GabyTest extends LinearOpMode {
         /* Actually do something useful */
         if(tagOfInterest ==null||tagOfInterest.id ==LEFT)
         {
-            everything.strafeRight(.3);
-            sleep(2700);
+               /* everything.goBackward(.2);
+                sleep(700);
+                everything.Stop();
+                everything.turnRight(.2);
+                sleep(2200); */
+
+            everything.strafeRight(.2);
+            sleep(4500);
+            everything.Stop();
+            everything.goBackward(.2);
+            sleep(3000);
             everything.Stop();
         } else if(tagOfInterest.id ==MIDDLE) {
-            everything.goForward(.2);
-            sleep(500);
+            everything.goBackward(.2);
+            sleep(3500);
             everything.Stop();
         } else {
-            everything.strafeLeft(.3);
-            sleep(2700);
+            everything.strafeLeft(.2);
+            sleep(4500);
+            everything.Stop();
+            everything.goBackward(.2);
+            sleep(3000);
             everything.Stop();
         }
-        
 
 
     }

@@ -162,7 +162,7 @@ import java.util.ArrayList;
                 sleep(2200); */
 
                 everything.strafeRight(.2);
-                sleep(4125);
+                sleep(4500);
                 everything.Stop();
                 everything.goBackward(.2);
                 sleep(3000);
