@@ -137,6 +137,10 @@ public class GabyTest extends LinearOpMode {
 
         super.waitForStart();
 
+        everything.goBackward(.3);
+        sleep(100);
+        everything.Stop();
+
         /* Update the telemetry */
         if (tagOfInterest != null) {
             telemetry.addLine("Tag snapshot:\n");
@@ -156,22 +160,22 @@ public class GabyTest extends LinearOpMode {
                 everything.turnRight(.2);
                 sleep(2200); */
 
-            everything.strafeRight(.2);
-            sleep(4500);
+            everything.strafeRight(.3);
+            sleep(2100);
             everything.Stop();
-            everything.goBackward(.2);
-            sleep(3000);
+            everything.goBackward(.3);
+            sleep(1300);
             everything.Stop();
         } else if(tagOfInterest.id ==MIDDLE) {
-            everything.goBackward(.2);
-            sleep(3500);
+            everything.goBackward(.3);
+            sleep(1500);
             everything.Stop();
         } else {
-            everything.strafeLeft(.2);
-            sleep(4500);
+            everything.strafeLeft(.3);
+            sleep(2100);
             everything.Stop();
-            everything.goBackward(.2);
-            sleep(3000);
+            everything.goBackward(.3);
+            sleep(1300);
             everything.Stop();
         }
 
