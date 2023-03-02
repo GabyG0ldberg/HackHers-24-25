@@ -44,7 +44,7 @@ public class TwoController extends OpMode {
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
         ls = hardwareMap.get(DcMotor.class, "ls");
-        cl = hardwareMap.get(Servo.class,"cl");
+        cl = hardwareMap.tryGet(Servo.class,"cl");
         // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         // ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
         everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, wc);
@@ -55,7 +55,8 @@ public class TwoController extends OpMode {
     @Override
     public void loop() {
         everything.omniDrive(gamepad1.right_stick_y, gamepad1.right_stick_x, gamepad1.left_stick_x);
-
+        cl = hardwareMap.tryGet(Servo.class,"cl");
+        telemetry.log().add(cl.getConnectionInfo());
         if (gamepad1.dpad_down) {
             everything.setMotorPower(fL, 1);
         }

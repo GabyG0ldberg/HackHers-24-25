@@ -47,7 +47,7 @@ public class HackHers_Lib {
     public void setMotorPower(DcMotor motor, float power){
         motor.setPower(power);
     }
-    public void setServoPower(Servo servo, double power) {claw.setPosition(power); }
+    public void setServoPower(Servo servo, double power) {servo.setPosition(power); }
 
     public void omniDrive(float v, float h, float r){
         float[] sum = PaulMath.omniCalc(v, h, r);
