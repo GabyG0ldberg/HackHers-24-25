@@ -79,10 +79,10 @@ public class TwoController extends OpMode {
         }
 
         if (gamepad1.right_bumper) { //claw closes a set amount
-            everything.setServoPower(cl, .58);
+            everything.setServoPower(cl, 1);
         }
         if (gamepad1.left_bumper) { //open
-            everything.setServoPower(cl, 0.40);
+            everything.setServoPower(cl, 0);
         }
 
         if(gamepad2.dpad_up) {
@@ -92,10 +92,10 @@ public class TwoController extends OpMode {
             everything.setMotorPower(ls, 1);
         }
         if (gamepad2.b) { //claw closes a set amount
-            everything.setServoPower(cl, .58);
+            everything.setServoPower(cl, 1);
         }
         if (gamepad2.x) { //open
-            everything.setServoPower(cl, 0.40);
+            everything.setServoPower(cl, 0);
         }
 
         everything.setMotorPower(fL, 0);

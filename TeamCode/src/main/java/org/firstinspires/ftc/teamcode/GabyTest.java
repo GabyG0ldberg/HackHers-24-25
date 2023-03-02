@@ -161,7 +161,7 @@ public class GabyTest extends LinearOpMode {
                 sleep(2200); */
 
             everything.strafeRight(.3);
-            sleep(2100);
+            sleep(2000);
             everything.Stop();
             everything.goBackward(.3);
             sleep(1300);
@@ -172,7 +172,7 @@ public class GabyTest extends LinearOpMode {
             everything.Stop();
         } else {
             everything.strafeLeft(.3);
-            sleep(2100);
+            sleep(2000);
             everything.Stop();
             everything.goBackward(.3);
             sleep(1300);
