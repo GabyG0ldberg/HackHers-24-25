@@ -75,10 +75,13 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
         // a lot of issues with this claw code, claw opens all the way with one click but wont close at all
         if (gamepad1.right_bumper) { //claw closes a set amount
-            everything.setServoPower(cl, .42);
+            everything.setServoPower(cl, .45);
         }
         if (gamepad1.left_bumper) { //open
-            everything.setServoPower(cl, .6);
+            everything.setServoPower(cl, .55);
+        }
+        if (gamepad1.x) {
+            everything.setServoPower(cl,.50);
         }
 
         everything.setMotorPower(fL, 0);
