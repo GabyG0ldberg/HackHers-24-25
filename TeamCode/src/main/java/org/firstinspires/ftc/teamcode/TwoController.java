@@ -87,6 +87,9 @@ public class TwoController extends OpMode {
         if (gamepad1.x) { //claw stops/at middle
             everything.setServoPower(cl,.50);
         }
+        if (gamepad2.y) {
+            everything.setMotorPower(ls, -1);
+        }
         if (gamepad2.a) {
             everything.setMotorPower(ls, 1);
         }
