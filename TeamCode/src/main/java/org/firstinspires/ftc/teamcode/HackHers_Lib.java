@@ -138,7 +138,7 @@ public class HackHers_Lib {
     }
 
     public void goForward(double power){
-        this.frontLeft.setPower(-power);
+        this.frontLeft.setPower(power);
         this.frontRight.setPower(power);
         this.backLeft.setPower(-power);
         this.backRight.setPower(power);

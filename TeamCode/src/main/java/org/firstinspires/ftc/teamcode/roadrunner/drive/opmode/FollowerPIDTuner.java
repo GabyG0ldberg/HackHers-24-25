@@ -1,3 +1,4 @@
+/*
 package org.firstinspires.ftc.teamcode.roadrunner.drive.opmode;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
+*/
 /*
  * Op mode for preliminary tuning of the follower PID coefficients (located in the drive base
  * classes). The robot drives in a DISTANCE-by-DISTANCE square indefinitely. Utilization of the
@@ -20,7 +22,8 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
  * If you are using SampleMecanumDrive, you should be tuning TRANSLATIONAL_PID and HEADING_PID.
  * If you are using SampleTankDrive, you should be tuning AXIAL_PID, CROSS_TRACK_PID, and HEADING_PID.
  * These coefficients can be tuned live in dashboard.
- */
+ *//*
+
 @Config
 @Autonomous(group = "drive")
 public class FollowerPIDTuner extends LinearOpMode {
@@ -53,3 +56,4 @@ public class FollowerPIDTuner extends LinearOpMode {
         }
     }
 }
+*/

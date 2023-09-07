@@ -1,3 +1,4 @@
+/*
 package org.firstinspires.ftc.teamcode.roadrunner.drive.opmode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -16,6 +17,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 import java.util.Objects;
 
+*/
 /**
  * This routine is designed to calculate the maximum velocity your bot can achieve under load. It
  * will also calculate the effective kF value for your velocity PID.
@@ -23,7 +25,8 @@ import java.util.Objects;
  * Upon pressing start, your bot will run at max power for RUNTIME seconds.
  * <p>
  * Further fine tuning of kF may be desired.
- */
+ *//*
+
 @Config
 @Autonomous(group = "drive")
 public class MaxVelocityTuner extends LinearOpMode {
@@ -82,3 +85,4 @@ public class MaxVelocityTuner extends LinearOpMode {
         return inchesPerSec / (2 * Math.PI * DriveConstants.WHEEL_RADIUS) / DriveConstants.GEAR_RATIO * DriveConstants.TICKS_PER_REV;
     }
 }
+*/

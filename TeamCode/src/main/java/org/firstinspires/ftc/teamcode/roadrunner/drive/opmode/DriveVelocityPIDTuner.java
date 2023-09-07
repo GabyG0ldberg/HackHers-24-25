@@ -1,3 +1,4 @@
+/*
 package org.firstinspires.ftc.teamcode.roadrunner.drive.opmode;
 
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ACCEL;
@@ -24,6 +25,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 import java.util.List;
 
+*/
 /*
  * This routine is designed to tune the PID coefficients used by the REV Expansion Hubs for closed-
  * loop velocity control. Although it may seem unnecessary, tuning these coefficients is just as
@@ -47,7 +49,8 @@ import java.util.List;
  * Pressing Y/Δ (Xbox/PS4) will pause the tuning process and enter driver override, allowing the
  * user to reset the position of the bot in the event that it drifts off the path.
  * Pressing B/O (Xbox/PS4) will cede control back to the tuning process.
- */
+ *//*
+
 @Config
 @Autonomous(group = "drive")
 public class DriveVelocityPIDTuner extends LinearOpMode {
@@ -169,3 +172,4 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
         }
     }
 }
+*/
