@@ -11,14 +11,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.auton.AprilTagDetectionPipeline;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvWebcam;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.apriltag.AprilTagDetection;
-import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.firstinspires.ftc.teamcode.auton.AprilTagDetectionPipeline;
+
 import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;

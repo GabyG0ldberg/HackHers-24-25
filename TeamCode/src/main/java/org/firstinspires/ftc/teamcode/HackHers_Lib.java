@@ -1,14 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 public class HackHers_Lib {
@@ -211,6 +207,5 @@ public class HackHers_Lib {
 //            goBackward(.2);
 //        }
 //    }
-
 
 }
