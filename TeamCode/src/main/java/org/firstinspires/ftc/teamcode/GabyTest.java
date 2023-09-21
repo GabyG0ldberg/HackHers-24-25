@@ -56,12 +56,8 @@ public class GabyTest extends LinearOpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
-        //t = telemetry.addData("count").get(Telemetry.class, "t");
         ls = hardwareMap.get(DcMotor.class, "ls");
         cl = hardwareMap.get(Servo.class, "cl");
-       // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
-        //ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        //cs = hardwareMap.get(ColorSensor.class, "cs");
         everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl,camera);
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);

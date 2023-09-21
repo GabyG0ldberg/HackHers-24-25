@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
- class PropDetector extends OpenCvPipeline {
-    enum PropLocation {
+ public class PropDetectorThePipeLine extends OpenCvPipeline {
+    public enum PropLocation {
         LEFT,
         RIGHT,
         NONE
@@ -27,7 +27,7 @@ import java.util.List;
      *
      * @param width The width of the image (check your camera)
      */
-    public PropDetector(int width) {
+    public PropDetectorThePipeLine(int width) {
         this.width = width;
     }
 

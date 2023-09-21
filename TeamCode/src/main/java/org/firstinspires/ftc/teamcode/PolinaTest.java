@@ -7,10 +7,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.auton.AprilTagDetectionPipeline;
+import org.firstinspires.ftc.teamcode.auton.PropDetectorThePipeLine;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
@@ -19,17 +21,12 @@ import java.util.ArrayList;
 
 @Autonomous
 public class PolinaTest extends LinearOpMode {
-    OpenCvWebcam camera;
-    AprilTagDetectionPipeline aprilTagDetectionPipeline;
-    int LEFT = 12;
-    int MIDDLE = 16;
-    int RIGHT = 5;
-    double fx = 578.272;
-    double fy = 578.272;
-    double cx = 402.145;
-    double cy = 221.506;
-    double tagsize = 0.166;
-    public static final double FEET_PER_METER = 3.28084;
+    int width = 320;
+    int height = 240;
+    // store as variable here so we can access the location
+    PropDetectorThePipeLine detector = new PropDetectorThePipeLine(width);
+    OpenCvCamera camera;
+
     private HackHers_Lib everything;
     DcMotor fL;
     DcMotor fR;
@@ -48,18 +45,11 @@ public class PolinaTest extends LinearOpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
-        //t = telemetry.addData("count").get(Telemetry.class, "t");
         ls = hardwareMap.get(DcMotor.class, "ls");
         cl = hardwareMap.get(Servo.class, "cl");
-       // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
-        //ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        //cs = hardwareMap.get(ColorSensor.class, "cs");
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl,camera);
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);
-        aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
+        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, (OpenCvWebcam) camera);
+        camera = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK);
 
-        camera.setPipeline(aprilTagDetectionPipeline);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
@@ -72,8 +62,7 @@ public class PolinaTest extends LinearOpMode {
             }
         });
 
-
-
+        camera.setPipeline(detector);
 
         telemetry.setMsTransmissionInterval(50);
 
@@ -81,49 +70,7 @@ public class PolinaTest extends LinearOpMode {
          * The INIT-loop:
          * This REPLACES waitForStart!
          */
-        while (!isStarted() && !isStopRequested()) {
-            ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
 
-            if (currentDetections.size() != 0) {
-                boolean tagFound = false;
-
-                for (AprilTagDetection tag : currentDetections) {
-                    if (tag.id == LEFT || tag.id == MIDDLE || tag.id == RIGHT) {
-                        tagOfInterest = tag;
-                        tagFound = true;
-                        break;
-                    }
-                }
-
-                if (tagFound) {
-                    telemetry.addLine("Tag of interest is in sight!\n\nLocation data:");
-                    tagToTelemetry(tagOfInterest);
-                } else {
-                    telemetry.addLine("Don't see tag of interest :(");
-
-                    if (tagOfInterest == null) {
-                        telemetry.addLine("(The tag has never been seen)");
-                    } else {
-                        telemetry.addLine("\nBut we HAVE seen the tag before; last seen at:");
-                        tagToTelemetry(tagOfInterest);
-                    }
-                }
-
-            } else {
-                telemetry.addLine("Don't see tag of interest :(");
-
-                if (tagOfInterest == null) {
-                    telemetry.addLine("(The tag has never been seen)");
-                } else {
-                    telemetry.addLine("\nBut we HAVE seen the tag before; last seen at:");
-                    tagToTelemetry(tagOfInterest);
-                }
-
-            }
-
-            telemetry.update();
-            sleep(20);
-        }
 
         /*
          * The START command just came in: now work off the latest snapshot acquired
@@ -143,42 +90,14 @@ public class PolinaTest extends LinearOpMode {
         }
 
         /* Actually do something useful */
-        if(tagOfInterest ==null||tagOfInterest.id ==LEFT)
-        {
-            everything.goBackward(.2);
-            sleep(700);
-            everything.Stop();
-            everything.turnRight(.2);
-            sleep(2200);
-            everything.Stop();
-            everything.goForward(.2);
-            sleep(2400);
-            everything.Stop();
-            everything.turnRight(.2);
-            sleep(2200);
-            everything.Stop();
-            everything.goForward(.2);
-            sleep(3000);
-            everything.Stop();
-        } else if(tagOfInterest.id ==MIDDLE) {
-            everything.goBackward(.2);
-            sleep(3500);
+        PropDetectorThePipeLine.PropLocation location = detector.getLocation();
+        if (location != PropDetectorThePipeLine.PropLocation.NONE) {
+            everything.strafeRight(.3);
+            sleep(2000);
             everything.Stop();
         } else {
-            everything.goBackward(.2);
-            sleep(500);
-            everything.Stop();
-            everything.turnLeft(.2);
-            sleep(2200);
-            everything.Stop();
-            everything.goForward(.2);
-            sleep(2900);
-            everything.Stop();
-            everything.turnLeft(.2);
-            sleep(2200);
-            everything.Stop();
-            everything.goForward(.2);
-            sleep(3000);
+            everything.strafeLeft(.3);
+            sleep(2000);
             everything.Stop();
         }
 
@@ -188,9 +107,6 @@ public class PolinaTest extends LinearOpMode {
     void tagToTelemetry(AprilTagDetection detection)
     {
         telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
-        telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
-        telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
-        telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
         telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
         telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
         telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
