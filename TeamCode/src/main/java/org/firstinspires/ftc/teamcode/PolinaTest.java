@@ -26,7 +26,6 @@ public class PolinaTest extends LinearOpMode {
     // store as variable here so we can access the location
     PropDetectorThePipeLine detector = new PropDetectorThePipeLine(width);
     OpenCvCamera camera;
-
     private HackHers_Lib everything;
     DcMotor fL;
     DcMotor fR;
@@ -36,9 +35,6 @@ public class PolinaTest extends LinearOpMode {
     Servo cl;
    // Rev2mDistanceSensor ds1;
    // Rev2mDistanceSensor ds2;
-
-    AprilTagDetection tagOfInterest = null;
-
     @Override
     public void runOpMode() throws InterruptedException {
         fL = hardwareMap.get(DcMotor.class, "fl");
@@ -78,16 +74,6 @@ public class PolinaTest extends LinearOpMode {
          */
 
         super.waitForStart();
-
-        /* Update the telemetry */
-        if (tagOfInterest != null) {
-            telemetry.addLine("Tag snapshot:\n");
-            tagToTelemetry(tagOfInterest);
-            telemetry.update();
-        } else {
-            telemetry.addLine("No tag snapshot available, it was never sighted during the init loop :(");
-            telemetry.update();
-        }
 
         /* Actually do something useful */
         PropDetectorThePipeLine.PropLocation location = detector.getLocation();
