@@ -24,7 +24,6 @@ public class PolinaTest extends LinearOpMode {
     int width = 320;
     int height = 240;
     // store as variable here so we can access the location
-    PropDetectorThePipeLine detector = new PropDetectorThePipeLine(width);
     OpenCvCamera camera;
     private HackHers_Lib everything;
     DcMotor fL;
@@ -44,21 +43,29 @@ public class PolinaTest extends LinearOpMode {
         ls = hardwareMap.get(DcMotor.class, "ls");
         cl = hardwareMap.get(Servo.class, "cl");
         everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, (OpenCvWebcam) camera);
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK);
 
-        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
-            @Override
-            public void onOpened() {
-                camera.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
-            }
 
-            @Override
-            public void onError(int errorCode) {
+        PropDetectorThePipeLine detector = new PropDetectorThePipeLine(width);
 
-            }
-        });
-
+        //int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);
         camera.setPipeline(detector);
+
+
+        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+                @Override
+                public void onOpened() {
+                    camera.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
+                }
+
+                @Override
+                public void onError(int errorCode) {
+
+                }
+            });
+
 
         telemetry.setMsTransmissionInterval(50);
 
@@ -66,7 +73,17 @@ public class PolinaTest extends LinearOpMode {
          * The INIT-loop:
          * This REPLACES waitForStart!
          */
-
+        while (!isStarted() && !isStopRequested()) {
+            PropDetectorThePipeLine.PropLocation location = detector.getLocation();
+            if (location != PropDetectorThePipeLine.PropLocation.NONE) {
+                telemetry.addLine("SAW SOMETHING MAYBE?!");
+                telemetry.update();
+                break;
+            } else {
+                telemetry.addLine("DIDNT SEE ANYTHING LOSER");
+                telemetry.update();
+            }
+        }
 
         /*
          * The START command just came in: now work off the latest snapshot acquired
@@ -75,9 +92,13 @@ public class PolinaTest extends LinearOpMode {
 
         super.waitForStart();
 
+
+
         /* Actually do something useful */
         PropDetectorThePipeLine.PropLocation location = detector.getLocation();
         if (location != PropDetectorThePipeLine.PropLocation.NONE) {
+            telemetry.addLine("SAW SOMETHING MAYBE?!");
+            telemetry.update();
             everything.strafeRight(.3);
             sleep(2000);
             everything.Stop();
@@ -85,16 +106,11 @@ public class PolinaTest extends LinearOpMode {
             everything.strafeLeft(.3);
             sleep(2000);
             everything.Stop();
+            telemetry.addLine("DIDNT SEE ANYTHING LOSER");
+            telemetry.update();
+
         }
 
 
-    }
-
-    void tagToTelemetry(AprilTagDetection detection)
-    {
-        telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
-        telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
-        telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
-        telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
     }
 }
