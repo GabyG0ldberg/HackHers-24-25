@@ -25,6 +25,7 @@ public class PolinaTest extends LinearOpMode {
     int height = 240;
     // store as variable here so we can access the location
     OpenCvCamera camera;
+    PropDetectorThePipeLine pipeline;
     private HackHers_Lib everything;
     DcMotor fL;
     DcMotor fR;
@@ -48,9 +49,10 @@ public class PolinaTest extends LinearOpMode {
 
 
         PropDetectorThePipeLine detector = new PropDetectorThePipeLine(width);
+        pipeline = new PropDetectorThePipeLine(640);
 
         //int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);
+        //camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);
         camera.setPipeline(detector);
 
 

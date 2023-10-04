@@ -131,7 +131,6 @@ public class GabyTest extends LinearOpMode {
          * The START command just came in: now work off the latest snapshot acquired
          * during the init loop.
          */
-
         super.waitForStart();
 
         everything.goBackward(.3);
