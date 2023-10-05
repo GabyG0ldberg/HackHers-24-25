@@ -96,11 +96,15 @@ import org.openftc.easyopencv.OpenCvPipeline;
             /*
              * The core values which define the location and size of the sample regions
              */
-            static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(109,98);
-            static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(181,98);
-            static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(253,98);
-            static final int REGION_WIDTH = 20;
-            static final int REGION_HEIGHT = 20;
+            static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(30,290);
+            static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(375,290);
+            static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(450,290);
+
+           //static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(109,98);
+           //            static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(181,98);
+           //            static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(253,98);
+            static final int REGION_WIDTH = 49;
+            static final int REGION_HEIGHT = 45;
 
             /*
              * Points which actually define the sample region rectangles, derived from above values
