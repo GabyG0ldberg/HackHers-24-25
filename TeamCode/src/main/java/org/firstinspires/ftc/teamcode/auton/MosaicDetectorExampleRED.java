@@ -165,6 +165,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode
             Scalar lowerRed = new Scalar(85, 50, 40);         // lower color border for RED
             Scalar upperRed = new Scalar(135, 255, 255);
             Core.inRange(hsvMat, lowerRed, upperRed, frame);
+
         }
 
         @Override
