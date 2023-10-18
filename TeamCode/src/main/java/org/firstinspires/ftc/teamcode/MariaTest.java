@@ -1,10 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import static org.firstinspires.ftc.teamcode.auton.AprilTagAutonomousInitDetectionExample.FEET_PER_METER;
-import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition.CENTER;
-import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition.LEFT;
-import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition.RIGHT;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;

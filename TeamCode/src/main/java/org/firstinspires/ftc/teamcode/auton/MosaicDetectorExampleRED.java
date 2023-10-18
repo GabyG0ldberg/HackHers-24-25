@@ -22,15 +22,13 @@ import org.openftc.easyopencv.OpenCvPipeline;
  * the sample regions over the first 3 stones.
  */
 @TeleOp
-public class MosaicDetectorExampleRED extends LinearOpMode
-{
+public class MosaicDetectorExampleRED extends LinearOpMode {
 
     OpenCvInternalCamera camera;
     MosaicDeterminationPipeline pipeline;
 
     @Override
-    public void runOpMode()
-    {
+    public void runOpMode() {
         /**
          * NOTE: Many comments have been omitted from this sample for the
          * sake of conciseness. If you're just starting out with EasyOpenCv,
@@ -48,17 +46,14 @@ public class MosaicDetectorExampleRED extends LinearOpMode
         // landscape orientation, though.
         camera.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
 
-        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
-        {
+        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
-            public void onOpened()
-            {
-                camera.startStreaming(640,480, OpenCvCameraRotation.SIDEWAYS_LEFT);
+            public void onOpened() {
+                camera.startStreaming(640, 480, OpenCvCameraRotation.SIDEWAYS_LEFT);
             }
 
             @Override
-            public void onError(int errorCode)
-            {
+            public void onError(int errorCode) {
                 /*
                  * This will be called if the camera could not be opened
                  */
@@ -67,8 +62,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode
 
         waitForStart();
 
-        while (opModeIsActive())
-        {
+        while (opModeIsActive()) {
             telemetry.addData("Analysis", pipeline.getAnalysis());
             telemetry.update();
 
@@ -77,45 +71,27 @@ public class MosaicDetectorExampleRED extends LinearOpMode
         }
     }
 
-    public static class MosaicDeterminationPipeline extends OpenCvPipeline
-    {
+    public static class MosaicDeterminationPipeline extends OpenCvPipeline {
         static final Rect LeftROI = new Rect(
-                new Point(30,290),
-                new Point(79,335));
+                new Point(30, 290),
+                new Point(79, 335));
         static final Rect MiddleROI = new Rect(
-                new Point(345,290),
-                new Point(375,380));
+                new Point(345, 290),
+                new Point(375, 380));
         static final Rect RightROI = new Rect(
-                new Point(450,290),
-                new Point(79,335));
-
+                new Point(450, 290),
+                new Point(79, 335));
         static double PERCENT_COLOR_THRESHOLD = 0.4;
-
         Telemetry telemetry;
         Mat frame = new Mat();
+
         public enum Location {
             LEFT,
             RIGHT,
-            NOT_FOUND
+            MIDDLE
         }
-        /*
-         * An enum to define the skystone position
-         */
-        public enum SkystonePosition
-        {
-            LEFT,
-            CENTER,
-            RIGHT
-        }
+        private volatile Location location = Location.LEFT;
 
-
-
-        @Override
-        public void init(Mat firstFrame)
-        {
-
-        }
-       // public MosaicDetectorExampleRED(Telemetry t) { telemetry = t; }
         @Override
         public Mat processFrame(Mat input) {
 
@@ -147,48 +123,42 @@ public class MosaicDetectorExampleRED extends LinearOpMode
             boolean stoneRight = rightValue > PERCENT_COLOR_THRESHOLD;
             boolean stoneMiddle = middleValue > PERCENT_COLOR_THRESHOLD;
 
-            if (stoneLeft)
+            if (stoneLeft) {
+                location = Location.LEFT;
+                telemetry.addData("PROP Location", "LEFT");
+            }
+            else if (stoneRight) {
+                location = Location.RIGHT;
+                telemetry.addData("PROP Location", "right");
+            }
+            else if (stoneMiddle) {
+                location = Location.MIDDLE;
+                telemetry.addData("PROP Location", "MIDDLE");
+            }
+            else{
+                telemetry.addData("PROP Location", "NO PROP");
+            }
 
-            /*
-             * Overview of what we're doing:
-             *
-             * We first convert to YCrCb color space, from RGB color space.
-             * Why do we do this? Well, in the RGB color space, chroma and
-             * luma are intertwined. In YCrCb, chroma and luma are separated.
-             * YCrCb is a 3-channel color space, just like RGB. YCrCb's 3 channels
-             * are Y, the luma channel (which essentially just a B&W image), the
-             * Cr channel, which records the difference from red, and the Cb channel,
-             * which records the difference from blue. Because chroma and luma are
-             * not related in YCrCb, vision code written to look for certain values
-             * in the Cr/Cb channels will not be severely affected by differing
-             * light intensity, since that difference would most likely just be
-             * reflected in the Y channel.
-             *
-             * After we've converted to YCrCb, we extract just the 2nd channel, the
-             * Cb channel. We do this because stones are bright yellow and contrast
-             * STRONGLY on the Cb channel against everything else, including SkyStones
-             * (because SkyStones have a black label).
-             *
-             * We then take the average pixel value of 3 different regions on that Cb
-             * channel, one positioned over each stone. The brightest of the 3 regions
-             * is where we assume the SkyStone to be, since the normal stones show up
-             * extremely darkly.
-             *
-             * We also draw rectangles on the screen showing where the sample regions
-             * are, as well as drawing a solid rectangle over top the sample region
-             * we believe is on top of the SkyStone.
-             *
-             * In order for this whole process to work correctly, each sample region
-             * should be positioned in the center of each of the first 3 stones, and
-             * be small enough such that only the stone is sampled, and not any of the
-             * surroundings.
-             */
+            telemetry.update();
 
-            /*
-             * Get the Cb channel of the input frame after conversion to YCrCb
-
-        }     */
+            Imgproc.cvtColor(frame, frame, Imgproc.COLOR_GRAY2RGB);
 
 
+            Scalar colorSkystone = new Scalar(0, 255, 0);
+
+            Imgproc.rectangle(frame, LeftROI, colorSkystone);
+            Imgproc.rectangle(frame, RightROI, colorSkystone);
+
+            return frame;
+
+        }
+
+        public Location getAnalysis()
+        {
+
+            return location;
+
+        }
+    }
 }
 

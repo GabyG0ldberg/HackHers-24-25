@@ -1,24 +1,25 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExampleRED.MosaicDeterminationPipeline.Location.LEFT;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample;
 import org.firstinspires.ftc.teamcode.auton.MosaicDetectorExampleRED;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-// gaby Test except it strafes instead of turns
+//
     @Autonomous
     public class MariaTestRED extends LinearOpMode {
     OpenCvWebcam camera;
     MosaicDetectorExampleRED.MosaicDeterminationPipeline pipeline;
-    MosaicDetectorExampleRED.MosaicDeterminationPipeline.SkystonePosition snapshotAnalysis = MosaicDetectorExampleRED.MosaicDeterminationPipeline.SkystonePosition.LEFT;
+    //MosaicDetectorExampleRED.MosaicDeterminationPipeline.Location snapshotAnalysis = MosaicDetectorExampleRED.MosaicDeterminationPipeline.Location.LEFT;
 
     private HackHers_Lib everything;
     DcMotor fL;
@@ -77,15 +78,15 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 
         super.waitForStart();
-        snapshotAnalysis = pipeline.getAnalysis();
+        //snapshotAnalysis = pipeline.getAnalysis();
 
         /*
          * Show that snapshot on the telemetry
          */
-        telemetry.addData("Snapshot post-START analysis", snapshotAnalysis);
+        telemetry.addData("Snapshot post-START analysis", pipeline.getAnalysis());
         telemetry.update();
 
-        switch (snapshotAnalysis){
+        switch (pipeline.getAnalysis()){
             case LEFT:
             {
                 everything.goBackward(.3);
@@ -98,17 +99,13 @@ import org.openftc.easyopencv.OpenCvWebcam;
                 sleep(2000);
                 everything.Stop();
             }
-            case CENTER:
+            case MIDDLE:
             {
                 everything.strafeLeft(.3);
                 sleep(2000);
                 everything.Stop();
             }
         }
-
-        /* Update the telemetry */
-
-
 
     }
 
