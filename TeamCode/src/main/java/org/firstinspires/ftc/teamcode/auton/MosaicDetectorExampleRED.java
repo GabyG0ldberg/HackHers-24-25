@@ -25,7 +25,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 public class MosaicDetectorExampleRED extends LinearOpMode {
 
     OpenCvInternalCamera camera;
-    MosaicDeterminationPipeline pipeline;
+    MosaicDeterminationPipelineRED pipeline;
 
     @Override
     public void runOpMode() {
@@ -38,7 +38,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-        pipeline = new MosaicDeterminationPipeline();
+        pipeline = new MosaicDeterminationPipelineRED();
         camera.setPipeline(pipeline);
 
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
@@ -71,7 +71,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
         }
     }
 
-    public static class MosaicDeterminationPipeline extends OpenCvPipeline {
+    public static class MosaicDeterminationPipelineRED extends OpenCvPipeline {
         static final Rect LeftROI = new Rect(
                 new Point(30, 290),
                 new Point(79, 335));
@@ -155,9 +155,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
 
         public Location getAnalysis()
         {
-
             return location;
-
         }
     }
 }

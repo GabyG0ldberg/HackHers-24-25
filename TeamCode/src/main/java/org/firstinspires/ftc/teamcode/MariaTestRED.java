@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExampleRED.MosaicDeterminationPipeline.Location.LEFT;
+import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExampleRED.MosaicDeterminationPipelineRED.Location.LEFT;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample;
 import org.firstinspires.ftc.teamcode.auton.MosaicDetectorExampleRED;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -18,8 +19,8 @@ import org.openftc.easyopencv.OpenCvWebcam;
     @Autonomous
     public class MariaTestRED extends LinearOpMode {
     OpenCvWebcam camera;
-    MosaicDetectorExampleRED.MosaicDeterminationPipeline pipeline;
-    //MosaicDetectorExampleRED.MosaicDeterminationPipeline.Location snapshotAnalysis = MosaicDetectorExampleRED.MosaicDeterminationPipeline.Location.LEFT;
+    MosaicDetectorExampleRED.MosaicDeterminationPipelineRED pipeline;
+    MosaicDetectorExampleRED.MosaicDeterminationPipelineRED.Location snapshotAnalysis = MosaicDetectorExampleRED.MosaicDeterminationPipelineRED.Location.LEFT;
 
     private HackHers_Lib everything;
     DcMotor fL;
@@ -31,7 +32,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        fL = hardwareMap.get(DcMotor.class, "fl");
+        fL = hardwareMap.get(DcMotor.class, "fL");
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
@@ -40,8 +41,9 @@ import org.openftc.easyopencv.OpenCvWebcam;
         everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, camera);
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);
-        pipeline = new MosaicDetectorExampleRED.MosaicDeterminationPipeline();
+        pipeline = new MosaicDetectorExampleRED.MosaicDeterminationPipelineRED();
         camera.setPipeline(pipeline);
+
 
 
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -78,7 +80,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 
         super.waitForStart();
-        //snapshotAnalysis = pipeline.getAnalysis();
+        snapshotAnalysis = pipeline.getAnalysis();
 
         /*
          * Show that snapshot on the telemetry

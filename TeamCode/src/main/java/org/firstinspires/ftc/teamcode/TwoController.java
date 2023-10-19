@@ -36,7 +36,7 @@ public class TwoController extends OpMode {
     //comment for the sake of existing
 
     public void init() {
-        fL = hardwareMap.get(DcMotor.class, "fl");
+        fL = hardwareMap.get(DcMotor.class, "fL");
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
