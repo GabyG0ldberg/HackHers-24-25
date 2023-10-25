@@ -6,7 +6,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
-import org.opencv.core.Range;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
@@ -29,12 +28,6 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        /**
-         * NOTE: Many comments have been omitted from this sample for the
-         * sake of conciseness. If you're just starting out with EasyOpenCv,
-         * you should take a look at {@link InternalCamera1Example} or its
-         * webcam counterpart, {@link WebcamExample} first.
-         */
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
@@ -66,31 +59,35 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
             telemetry.addData("Analysis", pipeline.getAnalysis());
             telemetry.update();
 
-            // Don't burn CPU cycles busy-looping in this sample
+             //Don't burn CPU cycles busy-looping in this sample
             sleep(50);
         }
     }
 
+
     public static class MosaicDeterminationPipelineRED extends OpenCvPipeline {
-        static final Rect LeftROI = new Rect(
-                new Point(30, 290),
-                new Point(79, 335));
-        static final Rect MiddleROI = new Rect(
-                new Point(345, 290),
-                new Point(375, 380));
-        static final Rect RightROI = new Rect(
-                new Point(450, 290),
-                new Point(79, 335));
-        static double PERCENT_COLOR_THRESHOLD = 0.4;
-        Telemetry telemetry;
         Mat frame = new Mat();
+
+        Telemetry telemetry;
 
         public enum Location {
             LEFT,
             RIGHT,
             MIDDLE
         }
-        private volatile Location location = Location.LEFT;
+        private Location location = Location.RIGHT;
+        static final Rect LeftROI = new Rect(
+                new Point(60, 35),
+                new Point(120, 75));
+        static final Rect MiddleROI = new Rect(
+                new Point(121, 80),
+                new Point(121, 85));
+        static final Rect RightROI = new Rect(
+                new Point(140, 35),
+                new Point(200, 75));
+        static double PERCENT_COLOR_THRESHOLD = 0.4;
+
+        //public volatile MosaicDetectorExampleRED(Telemetry t) { telemetry = t; }
 
         @Override
         public Mat processFrame(Mat input) {
@@ -106,18 +103,18 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
             Mat middle = frame.submat(MiddleROI);
             double leftValue = Core.sumElems(left).val[0] / LeftROI.area() / 255;
             double rightValue = Core.sumElems(right).val[0] / RightROI.area() / 255;
-            double middleValue = Core.sumElems(right).val[0] / MiddleROI.area() / 255;
+            double middleValue = Core.sumElems(middle).val[0] / MiddleROI.area() / 255;
 
             left.release();
             right.release();
             middle.release();
 
-            telemetry.addData("Middle raw value", (int) Core.sumElems(middle).val[0]);
-            telemetry.addData("Left raw value", (int) Core.sumElems(left).val[0]);
-            telemetry.addData("Right raw value", (int) Core.sumElems(right).val[0]);
-            telemetry.addData("Left percentage", Math.round(leftValue * 100) + "%");
-            telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
-            telemetry.addData("Middle percentage", Math.round(middleValue * 100) + "%");
+//            telemetry.addData("Middle raw value", (int) Core.sumElems(middle).val[0]);
+//            telemetry.addData("Left raw value", (int) Core.sumElems(left).val[0]);
+//            telemetry.addData("Right raw value", (int) Core.sumElems(right).val[0]);
+//            telemetry.addData("Left percentage", Math.round(leftValue * 100) + "%");
+//            telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
+//            telemetry.addData("Middle percentage", Math.round(middleValue * 100) + "%");
 
             boolean stoneLeft = leftValue > PERCENT_COLOR_THRESHOLD;
             boolean stoneRight = rightValue > PERCENT_COLOR_THRESHOLD;
@@ -125,21 +122,21 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
 
             if (stoneLeft) {
                 location = Location.LEFT;
-                telemetry.addData("PROP Location", "LEFT");
+                //telemetry.addData("PROP Location", "LEFT");
             }
             else if (stoneRight) {
                 location = Location.RIGHT;
-                telemetry.addData("PROP Location", "right");
+                //telemetry.addData("PROP Location", "right");
             }
             else if (stoneMiddle) {
                 location = Location.MIDDLE;
-                telemetry.addData("PROP Location", "MIDDLE");
+                //telemetry.addData("PROP Location", "MIDDLE");
             }
             else{
-                telemetry.addData("PROP Location", "NO PROP");
+                //telemetry.addData("PROP Location", "NO PROP");
             }
 
-            telemetry.update();
+            //telemetry.update();
 
             Imgproc.cvtColor(frame, frame, Imgproc.COLOR_GRAY2RGB);
 
@@ -148,6 +145,8 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
 
             Imgproc.rectangle(frame, LeftROI, colorSkystone);
             Imgproc.rectangle(frame, RightROI, colorSkystone);
+            Imgproc.rectangle(frame, MiddleROI, colorSkystone);
+
 
             return frame;
 
@@ -155,6 +154,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
 
         public Location getAnalysis()
         {
+//
             return location;
         }
     }

@@ -344,6 +344,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
              */
             public SkystonePosition getAnalysis()
             {
+
                 return position;
             }
         }
