@@ -42,6 +42,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
+                telemetry.addLine("Camera was opened");
                 camera.startStreaming(640, 480, OpenCvCameraRotation.SIDEWAYS_LEFT);
             }
 
@@ -50,6 +51,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
                 /*
                  * This will be called if the camera could not be opened
                  */
+                telemetry.addLine("The camera cannot be opened");
             }
         });
 
