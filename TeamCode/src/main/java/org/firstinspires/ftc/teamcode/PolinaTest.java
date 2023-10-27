@@ -31,8 +31,8 @@ public class PolinaTest extends LinearOpMode {
     DcMotor fR;
     DcMotor bL;
     DcMotor bR;
-    DcMotor ls;
-    Servo cl;
+    //DcMotor ls;
+    //Servo cl;
    // Rev2mDistanceSensor ds1;
    // Rev2mDistanceSensor ds2;
     @Override
@@ -41,9 +41,9 @@ public class PolinaTest extends LinearOpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
-        ls = hardwareMap.get(DcMotor.class, "ls");
-        cl = hardwareMap.get(Servo.class, "cl");
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, (OpenCvWebcam) camera);
+       // ls = hardwareMap.get(DcMotor.class, "ls");
+        //cl = hardwareMap.get(Servo.class, "cl");
+        everything = new HackHers_Lib(fL, fR, bL, bR, (OpenCvWebcam) camera);
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK);
 

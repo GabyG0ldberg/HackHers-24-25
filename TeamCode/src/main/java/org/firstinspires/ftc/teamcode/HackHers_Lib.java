@@ -14,20 +14,20 @@ public class HackHers_Lib {
     public DcMotor backLeft;
     public DcMotor backRight;
     public OpenCvWebcam webcam;
-    public DcMotor linearSlide;
+    //public DcMotor linearSlide;
     public Servo claw;
 
 
 
     //public Telemetry telemetry;
 
-    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, DcMotor ls, Servo cl,OpenCvWebcam wc){
+    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br,OpenCvWebcam wc){
         this.frontLeft= fl;
         this.frontRight = fr;
         this.backLeft= bl;
         this.backRight = br;
-        this.linearSlide = ls;
-        this.claw = cl;
+        //this.linearSlide = ls;
+       // this.claw = cl;
        // this.telemetry = t;
         this.webcam = wc;
     }

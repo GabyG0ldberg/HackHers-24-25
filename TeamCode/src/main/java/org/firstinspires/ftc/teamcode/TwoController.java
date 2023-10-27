@@ -47,7 +47,7 @@ public class TwoController extends OpMode {
         cl = hardwareMap.tryGet(Servo.class,"cl");
         // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         // ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, wc);
 
     }
 

@@ -24,8 +24,8 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
     DcMotor bL;
     DcMotor bR;
     private OpenCvWebcam wc;
-    DcMotor ls;
-    Servo cl;
+  //  DcMotor ls;
+    //Servo cl;
     //Rev2mDistanceSensor ds1;
     //Rev2mDistanceSensor ds2;
     //comment for the sake of existing
@@ -38,11 +38,11 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
-        ls = hardwareMap.get(DcMotor.class, "ls");
-        cl = hardwareMap.get(Servo.class,"cl");
+      //  ls = hardwareMap.get(DcMotor.class, "ls");
+        //cl = hardwareMap.get(Servo.class,"cl");
        // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
        // ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, wc);
 
     }
 
@@ -64,29 +64,29 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             everything.setMotorPower(bR, 1);
         }
         if (gamepad1.y) {
-            everything.setMotorPower(ls, -1);
+            //everything.setMotorPower(ls, -1);
         }
         if (gamepad1.a) {
-            everything.setMotorPower(ls, 1);
+            //everything.setMotorPower(ls, 1);
         }
         if (gamepad1.b) {
-            everything.setMotorPower(ls, -.65F);
+            //everything.setMotorPower(ls, -.65F);
         }
 
         if (gamepad1.right_bumper) { //claw closes a set amount
-            everything.setServoPower(cl, .45);
+            //everything.setServoPower(cl, .45);
         }
         if (gamepad1.left_bumper) { //open
-            everything.setServoPower(cl, .55);
+            //everything.setServoPower(cl, .55);
         }
         if (gamepad1.x) { //claw stops/at middle
-            everything.setServoPower(cl,.50);
+            //everything.setServoPower(cl,.50);
         }
 
         everything.setMotorPower(fL,0);
         everything.setMotorPower(fR,0);
         everything.setMotorPower(bL,0);
         everything.setMotorPower(bL,0);
-        everything.setMotorPower(ls, 0);
+        //everything.setMotorPower(ls, 0);
     }
 }

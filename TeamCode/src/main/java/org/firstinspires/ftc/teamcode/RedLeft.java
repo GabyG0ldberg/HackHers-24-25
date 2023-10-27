@@ -70,7 +70,7 @@ public class RedLeft extends LinearOpMode {
        // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         //ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
         //cs = hardwareMap.get(ColorSensor.class, "cs");
-        everything = new HackHers_Lib(fL, fR, bL, bR, ls, cl, camera);
+        everything = new HackHers_Lib(fL, fR, bL, bR, camera);
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);

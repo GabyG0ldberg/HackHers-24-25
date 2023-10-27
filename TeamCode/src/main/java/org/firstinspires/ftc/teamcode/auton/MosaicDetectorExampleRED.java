@@ -42,7 +42,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                telemetry.addLine("Camera was opened");
+               // telemetry.addLine("Camera was opened");
                 camera.startStreaming(640, 480, OpenCvCameraRotation.SIDEWAYS_LEFT);
             }
 
@@ -51,7 +51,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
                 /*
                  * This will be called if the camera could not be opened
                  */
-                telemetry.addLine("The camera cannot be opened");
+                //telemetry.addLine("The camera cannot be opened");
             }
         });
 
@@ -96,9 +96,9 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
 
 
             Imgproc.cvtColor(input, frame, Imgproc.COLOR_RGB2HSV);
-            Scalar lowerRed = new Scalar(0, 94, 87);         // lower color border for RED
-            Scalar upperRed = new Scalar(0, 68, 100);
-            Core.inRange(frame, lowerRed, upperRed, frame);
+            Scalar lowerRed = new Scalar(0, 50, 50);         // lower color border for RED
+            Scalar upperRed = new Scalar(7, 255, 255);
+           //Core.inRange(frame, lowerRed, upperRed, frame);
 
             Mat left = frame.submat(LeftROI);
             Mat right = frame.submat(RightROI);
@@ -140,7 +140,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
 
             //telemetry.update();
 
-            Imgproc.cvtColor(frame, frame, Imgproc.COLOR_GRAY2RGB);
+            //Imgproc.cvtColor(frame, frame, Imgproc.COLOR_GRAY2RGB);
 
 
             Scalar colorSkystone = new Scalar(0, 255, 0);
