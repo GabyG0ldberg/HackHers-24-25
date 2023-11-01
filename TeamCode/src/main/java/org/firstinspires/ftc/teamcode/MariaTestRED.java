@@ -22,6 +22,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
     public class MariaTestRED extends LinearOpMode {
     OpenCvWebcam camera;
     MosaicDetectorExampleRED.MosaicDeterminationPipelineRED pipeline;
+
     //MosaicDetectorExampleRED.MosaicDeterminationPipelineRED.Location snapshotAnalysis = MosaicDetectorExampleRED.MosaicDeterminationPipelineRED.Location.LEFT;
     private HackHers_Lib everything;
     DcMotor fL;
@@ -102,7 +103,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
                 sleep(2000);
                 everything.Stop();
             }
-            case MIDDLE:
+            case CENTER:
             {
                 everything.strafeLeft(.3);
                 sleep(2000);

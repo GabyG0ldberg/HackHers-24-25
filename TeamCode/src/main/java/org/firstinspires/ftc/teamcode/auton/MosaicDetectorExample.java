@@ -145,9 +145,9 @@ import org.openftc.easyopencv.OpenCvPipeline;
             /*
              * Working variables
              */
-            Mat region1_Cr, region2_Cr, region3_Cr;
+            Mat region1_Cb, region2_Cb, region3_Cb;
             Mat YCrCb = new Mat();
-            Mat Cr = new Mat();
+            Mat Cb = new Mat();
             int avg1, avg2, avg3;
 
             // Volatile since accessed by OpMode thread w/o synchronization
@@ -160,7 +160,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
             void inputToCb(Mat input)
             {
                 Imgproc.cvtColor(input, YCrCb, Imgproc.COLOR_RGB2YCrCb);
-                Core.extractChannel(YCrCb, Cr, 2);
+                Core.extractChannel(YCrCb, Cb, 2);
             }
 
             @Override
@@ -182,9 +182,9 @@ import org.openftc.easyopencv.OpenCvPipeline;
                  * buffer. Any changes to the child affect the parent, and the
                  * reverse also holds true.
                  */
-                region1_Cr = Cr.submat(new Rect(region1_pointA, region1_pointB));
-                region2_Cr = Cr.submat(new Rect(region2_pointA, region2_pointB));
-                region3_Cr = Cr.submat(new Rect(region3_pointA, region3_pointB));
+                region1_Cb = Cb.submat(new Rect(region1_pointA, region1_pointB));
+                region2_Cb = Cb.submat(new Rect(region2_pointA, region2_pointB));
+                region3_Cb = Cb.submat(new Rect(region3_pointA, region3_pointB));
             }
 
             @Override
@@ -237,9 +237,9 @@ import org.openftc.easyopencv.OpenCvPipeline;
                  * pixel value of the 3-channel image, and referenced the value
                  * at index 2 here.
                  */
-                avg1 = (int) Core.mean(region1_Cr).val[0];
-                avg2 = (int) Core.mean(region2_Cr).val[0];
-                avg3 = (int) Core.mean(region3_Cr).val[0];
+                avg1 = (int) Core.mean(region1_Cb).val[0];
+                avg2 = (int) Core.mean(region2_Cb).val[0];
+                avg3 = (int) Core.mean(region3_Cb).val[0];
 
                 /*
                  * Draw a rectangle showing sample region 1 on the screen.
