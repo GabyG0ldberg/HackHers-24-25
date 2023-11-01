@@ -70,7 +70,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
     public static class MosaicDeterminationPipelineRED extends OpenCvPipeline {
         Mat frame = new Mat();
 
-        Telemetry telemetry;
+        //Telemetry telemetry;
 
         public enum Location {
             LEFT,
@@ -79,18 +79,19 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
         }
         private Location location = Location.RIGHT;
         static final Rect LeftROI = new Rect(
-                new Point(60, 35),
-                new Point(120, 75));
+                new Point(500, 250),
+                new Point(575, 300));
         static final Rect MiddleROI = new Rect(
-                new Point(121, 80),
-                new Point(121, 85));
+                new Point(300, 250),
+                new Point(375, 300));
         static final Rect RightROI = new Rect(
-                new Point(140, 35),
-                new Point(200, 75));
+                new Point(100, 250),
+                new Point(175, 300));
         static double PERCENT_COLOR_THRESHOLD = 0.4;
 
         //public volatile MosaicDetectorExampleRED(Telemetry t) { telemetry = t; }
-
+        final Scalar BLUE = new Scalar(0, 0, 255);
+        final Scalar GREEN = new Scalar(0, 255, 0);
         @Override
         public Mat processFrame(Mat input) {
 
@@ -98,7 +99,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
             Imgproc.cvtColor(input, frame, Imgproc.COLOR_RGB2HSV);
             Scalar lowerRed = new Scalar(0, 50, 50);         // lower color border for RED
             Scalar upperRed = new Scalar(7, 255, 255);
-           //Core.inRange(frame, lowerRed, upperRed, frame);
+           Core.inRange(frame, lowerRed, upperRed, frame);
 
             Mat left = frame.submat(LeftROI);
             Mat right = frame.submat(RightROI);
@@ -124,15 +125,15 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
 
             if (stoneLeft) {
                 location = Location.LEFT;
-                //telemetry.addData("PROP Location", "LEFT");
+                Imgproc.rectangle(frame, LeftROI, GREEN, -1);
             }
             else if (stoneRight) {
                 location = Location.RIGHT;
-                //telemetry.addData("PROP Location", "right");
+                Imgproc.rectangle(frame, RightROI, GREEN, -1);
             }
             else if (stoneMiddle) {
                 location = Location.MIDDLE;
-                //telemetry.addData("PROP Location", "MIDDLE");
+                Imgproc.rectangle(frame, MiddleROI, GREEN, -1);
             }
             else{
                 //telemetry.addData("PROP Location", "NO PROP");
@@ -143,12 +144,11 @@ public class MosaicDetectorExampleRED extends LinearOpMode {
             //Imgproc.cvtColor(frame, frame, Imgproc.COLOR_GRAY2RGB);
 
 
-            Scalar colorSkystone = new Scalar(0, 255, 0);
+            Scalar colorSkystone = new Scalar(0, 100, 0);
 
             Imgproc.rectangle(frame, LeftROI, colorSkystone);
             Imgproc.rectangle(frame, RightROI, colorSkystone);
             Imgproc.rectangle(frame, MiddleROI, colorSkystone);
-
 
             return frame;
 
