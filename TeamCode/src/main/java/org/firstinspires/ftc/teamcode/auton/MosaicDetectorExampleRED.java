@@ -279,13 +279,13 @@ public class MosaicDetectorExampleRED extends LinearOpMode
              * Find the max of the 3 averages
              */
             int maxOneTwo = Math.min(avg1, avg2);
-            int max = Math.min(maxOneTwo, avg3);
+            int min = Math.min(maxOneTwo, avg3);
 
             /*
              * Now that we found the max, we actually need to go and
              * figure out which sample region that value was from
              */
-            if(max == avg1) // Was it from region 1?
+            if(min == avg1) // Was it from region 1?
             {
                 position = SkystonePosition.LEFT; // Record our analysis
 
@@ -300,7 +300,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode
                         GREEN, // The color the rectangle is drawn in
                         -1); // Negative thickness means solid fill
             }
-            else if(max == avg2) // Was it from region 2?
+            else if(min == avg2) // Was it from region 2?
             {
                 position = SkystonePosition.CENTER; // Record our analysis
 
@@ -315,7 +315,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode
                         GREEN, // The color the rectangle is drawn in
                         -1); // Negative thickness means solid fill
             }
-            else if(max == avg3) // Was it from region 3?
+            else if(min == avg3) // Was it from region 3?
             {
                 position = SkystonePosition.RIGHT; // Record our analysis
 
