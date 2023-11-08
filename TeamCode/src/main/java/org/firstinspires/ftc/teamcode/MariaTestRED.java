@@ -96,16 +96,22 @@ import org.openftc.easyopencv.OpenCvWebcam;
                 everything.goBackward(.3);
                 sleep(2000);
                 everything.Stop();
+                everything.turnRight(.3);
+                sleep(500);
+                everything.Stop();
+                everything.goForward(.3);
+                sleep(6000);
+                everything.Stop();\
             }
             case RIGHT:
             {
-                everything.goForward(.3);
+                everything.goBackward(.3);
                 sleep(2000);
                 everything.Stop();
             }
             case CENTER:
             {
-                everything.strafeLeft(.3);
+                everything.goBackward(.3);
                 sleep(2000);
                 everything.Stop();
             }
