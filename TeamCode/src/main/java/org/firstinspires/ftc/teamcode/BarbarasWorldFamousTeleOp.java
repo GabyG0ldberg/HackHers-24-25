@@ -51,42 +51,42 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
     public void loop() {
         everything.omniDrive(gamepad1.right_stick_y, gamepad1.right_stick_x, gamepad1.left_stick_x);
 
-        if (gamepad1.dpad_down) {
-            everything.setMotorPower(fL, 1);
-        }
-        if (gamepad1.dpad_up) {
-            everything.setMotorPower(fR, 1);
-        }
-        if (gamepad1.dpad_right) {
-            everything.setMotorPower(bL, 1);
-        }
-        if (gamepad1.dpad_left) {
-            everything.setMotorPower(bR, 1);
-        }
-        if (gamepad1.y) {
-            //everything.setMotorPower(ls, -1);
-        }
-        if (gamepad1.a) {
-            //everything.setMotorPower(ls, 1);
-        }
-        if (gamepad1.b) {
-            //everything.setMotorPower(ls, -.65F);
-        }
+//        if (gamepad1.dpad_down) {
+//            everything.setMotorPower(fL, 1);
+//        }
+//        if (gamepad1.dpad_up) {
+//            everything.setMotorPower(fR, 1);
+//        }
+//        if (gamepad1.dpad_right) {
+//            everything.setMotorPower(bL, 1);
+//        }
+//        if (gamepad1.dpad_left) {
+//            everything.setMotorPower(bR, 1);
+//        }
+//        if (gamepad1.y) {
+//            //everything.setMotorPower(ls, -1);
+//        }
+//        if (gamepad1.a) {
+//            //everything.setMotorPower(ls, 1);
+//        }
+//        if (gamepad1.b) {
+//            //everything.setMotorPower(ls, -.65F);
+//        }
+//
+//        if (gamepad1.right_bumper) { //claw closes a set amount
+//            //everything.setServoPower(cl, .45);
+//        }
+//        if (gamepad1.left_bumper) { //open
+//            //everything.setServoPower(cl, .55);
+//        }
+//        if (gamepad1.x) { //claw stops/at middle
+//            //everything.setServoPower(cl,.50);
+//        }
 
-        if (gamepad1.right_bumper) { //claw closes a set amount
-            //everything.setServoPower(cl, .45);
-        }
-        if (gamepad1.left_bumper) { //open
-            //everything.setServoPower(cl, .55);
-        }
-        if (gamepad1.x) { //claw stops/at middle
-            //everything.setServoPower(cl,.50);
-        }
-
-        everything.setMotorPower(fL,0);
-        everything.setMotorPower(fR,0);
-        everything.setMotorPower(bL,0);
-        everything.setMotorPower(bL,0);
+//        everything.setMotorPower(fL,0);
+//        everything.setMotorPower(fR,0);
+//        everything.setMotorPower(bL,0);
+//        everything.setMotorPower(bL,0);
         //everything.setMotorPower(ls, 0);
     }
 }

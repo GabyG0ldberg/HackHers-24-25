@@ -101,7 +101,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
                 everything.Stop();
                 everything.goForward(.3);
                 sleep(6000);
-                everything.Stop();\
+                everything.Stop();
             }
             case RIGHT:
             {

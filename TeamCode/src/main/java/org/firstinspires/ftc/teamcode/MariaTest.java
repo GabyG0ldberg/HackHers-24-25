@@ -90,8 +90,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
         switch (snapshotAnalysis){
             case LEFT:
             {
-                everything.goBackward(.3);
-                sleep(2000);
+                everything.goForward(.3);
+                sleep(3000);
                 everything.Stop();
             }
             case RIGHT:
@@ -102,7 +102,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
             }
             case CENTER:
             {
-                everything.strafeLeft(.3);
+                everything.goForward(.3);
                 sleep(2000);
                 everything.Stop();
             }
