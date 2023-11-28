@@ -77,7 +77,6 @@ public class MariaTestClose extends LinearOpMode {
         sleep(20);
 
 
-
         super.waitForStart();
         snapshotAnalysis = pipeline.getAnalysis();
 
@@ -87,39 +86,36 @@ public class MariaTestClose extends LinearOpMode {
         telemetry.addData("Snapshot post-START analysis", snapshotAnalysis);
         telemetry.update();
 
-        everything.goBackward(.3);
-        sleep(750);
-        everything.Stop();
-        everything.strafeRight(.3);
-        sleep(4000);
-        everything.Stop();
+//        everything.goBackward(.3);
+//        sleep(750);
+//        everything.Stop();
+//        everything.strafeRight(.3);
+//        sleep(4000);
+//        everything.Stop();
 
-//        switch (snapshotAnalysis){
-//            case LEFT:
-//            {
-//                everything.goForward(.1);
-//                sleep(3000);
-//                everything.Stop();
-//            }
-//            case RIGHT:
-//            {
-//                everything.goForward(.3);
-//                sleep(2000);
-//                everything.Stop();
-//            }
-//            case CENTER:
-//            {
-//                everything.goForward(.3);
-//                sleep(2000);
-//                everything.Stop();
-//            }
+        switch (snapshotAnalysis) {
+            case LEFT: {
+                everything.goForward(.1);
+                sleep(3000);
+                everything.Stop();
+            }
+            case RIGHT: {
+                everything.goForward(.3);
+                sleep(2000);
+                everything.Stop();
+            }
+            case CENTER: {
+                everything.goForward(.3);
+                sleep(2000);
+                everything.Stop();
+            }
         }
 
         /* Update the telemetry */
 
 
-
     }
+}
 
 
 

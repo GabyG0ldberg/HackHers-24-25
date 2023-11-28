@@ -86,39 +86,39 @@ public class MariaTestREDClose extends LinearOpMode {
         telemetry.addData("Snapshot post-START analysis", pipeline.getAnalysis());
         telemetry.update();
 
-        everything.goBackward(.3);
-        sleep(750);
-        everything.Stop();
-        everything.strafeLeft(.3);
-        sleep(5000);
-        everything.Stop();
+//        everything.goBackward(.3);
+//        sleep(750);
+//        everything.Stop();
+//        everything.strafeLeft(.3);
+//        sleep(5000);
+//        everything.Stop();
 
-//        switch (pipeline.getAnalysis()){
-//            case LEFT:
-//            {
-//                everything.goBackward(.3);
-//                sleep(2000);
-//                everything.Stop();
-//                everything.turnRight(.3);
-//                sleep(500);
-//                everything.Stop();
-//                everything.goForward(.3);
-//                sleep(6000);
-//                everything.Stop();
-//            }
-//            case RIGHT:
-//            {
-//                everything.goBackward(.3);
-//                sleep(2000);
-//                everything.Stop();
-//            }
-//            case CENTER:
-//            {
-//                everything.goBackward(.3);
-//                sleep(2000);
-//                everything.Stop();
-//            }
-//        }
+        switch (pipeline.getAnalysis()){
+            case LEFT:
+            {
+               everything.goBackward(.3);
+               sleep(2000);
+               everything.Stop();
+               everything.turnRight(.3);
+               sleep(500);
+               everything.Stop();
+               everything.goForward(.3);
+               sleep(6000);
+               everything.Stop();
+           }
+            case RIGHT:
+           {
+               everything.goBackward(.3);
+                sleep(2000);
+                everything.Stop();
+            }
+          case CENTER:
+            {
+                everything.goBackward(.3);
+               sleep(2000);
+               everything.Stop();
+            }
+        }
 
     }
 
