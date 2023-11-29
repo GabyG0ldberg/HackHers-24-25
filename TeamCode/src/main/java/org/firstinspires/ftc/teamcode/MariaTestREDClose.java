@@ -86,13 +86,6 @@ public class MariaTestREDClose extends LinearOpMode {
         telemetry.addData("Snapshot post-START analysis", pipeline.getAnalysis());
         telemetry.update();
 
-//        everything.goBackward(.3);
-//        sleep(750);
-//        everything.Stop();
-//        everything.strafeLeft(.3);
-//        sleep(5000);
-//        everything.Stop();
-
         switch (pipeline.getAnalysis()){
             case LEFT:
             {
