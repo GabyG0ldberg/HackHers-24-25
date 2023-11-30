@@ -149,6 +149,7 @@ public class SensorMRGyro extends LinearOpMode {
       telemetry.addLine().addData("z offset", zAxisOffset).addData("z coeff", zAxisScalingCoefficient);
       telemetry.update();
     }
+      //return null;
   }
 
   String formatRaw(int rawValue) {

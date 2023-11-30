@@ -114,6 +114,7 @@ public class SensorMRCompass extends LinearOpMode {
 
             doTelemetry();
         }
+        //return null;
     }
 
     protected void doTelemetry() {

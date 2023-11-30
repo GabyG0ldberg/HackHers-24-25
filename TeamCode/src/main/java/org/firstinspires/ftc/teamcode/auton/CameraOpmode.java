@@ -54,6 +54,7 @@ public class CameraOpmode {
                 // Grab the skystone
             }
 
+            //return null;
         }
     }
 }

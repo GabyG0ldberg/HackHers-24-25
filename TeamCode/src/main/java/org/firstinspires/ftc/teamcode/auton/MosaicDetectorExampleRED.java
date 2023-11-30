@@ -73,6 +73,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode
             // Don't burn CPU cycles busy-looping in this sample
             sleep(50);
         }
+        //return null;
     }
 
     public static class MosaicDeterminationPipelineRED extends OpenCvPipeline

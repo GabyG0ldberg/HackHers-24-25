@@ -179,6 +179,7 @@ public class ConceptI2cAddressChange extends LinearOpMode {
     //irSeeker.setI2cAddress(newAddress);
     /***************************/
 
+      //return null;
   }
 
   private boolean foundExpectedBytes(int[] byteArray, Lock lock, byte[] cache) {

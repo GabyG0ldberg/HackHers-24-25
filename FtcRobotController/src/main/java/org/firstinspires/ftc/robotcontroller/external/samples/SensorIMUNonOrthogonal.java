@@ -72,7 +72,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
  * Finally, edit this OpMode to use at least one angle around an axis to orient your Hub.
  */
 @TeleOp(name = "Sensor: IMU Non-Orthogonal", group = "Sensor")
-//@Disabled     // Comment this out to add to the OpMode list
+@Disabled     // Comment this out to add to the OpMode list
 public class SensorIMUNonOrthogonal extends LinearOpMode
 {
     // The IMU sensor object
@@ -179,5 +179,6 @@ public class SensorIMUNonOrthogonal extends LinearOpMode
             telemetry.addData("Roll (Y) velocity", "%.2f Deg/Sec", angularVelocity.yRotationRate);
             telemetry.update();
         }
+        //return null;
     }
 }
