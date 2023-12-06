@@ -56,9 +56,6 @@ public class MariaTestClose extends LinearOpMode {
 
             }
         });
-
-        //snapshotAnalysis = pipeline.getAnalysis();
-
         telemetry.setMsTransmissionInterval(50);
 
         /*
@@ -72,10 +69,8 @@ public class MariaTestClose extends LinearOpMode {
             // Don't burn CPU cycles busy-looping in this sample
             sleep(50);
         }
-
         telemetry.update();
         sleep(20);
-
 
         super.waitForStart();
         snapshotAnalysis = pipeline.getAnalysis();
