@@ -105,8 +105,8 @@ public class IMUTester extends LinearOpMode {
                 case LEFT: {
                     targetAngle = 180;
                     everything.turnRight(.2);
-                    if(Math.abs(getTheAngle()-targetAngle)<5){
-                        everything.Stop();
+                    while(Math.abs(orientation.getYaw(AngleUnit.DEGREES)-targetAngle)>5){
+                        orientation = imu.getRobotYawPitchRollAngles();
                     }
                     everything.Stop();
                 }
