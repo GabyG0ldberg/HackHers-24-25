@@ -239,5 +239,33 @@ public class OpenCV extends LinearOpMode {
     }
 }
 
+//    public Orientation getOrientation(){
+//        return imu.getRobotOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
+//    }
+
+//    public float getFirstAngleOrientation(){
+//        return getOrientation().firstAngle;
+//    }
+//
+//    public float getSecondAngleOrientation() {
+//        return getOrientation().secondAngle;
+//    }
+//    public float getThirdAngleOrientation() {
+//        return getOrientation().thirdAngle;
+//    }
+//
+//    public float getTheAngle(){
+//        Orientation angles = getOrientation();
+//        float deltaAngle = getThirdAngleOrientation() - lastAngles.thirdAngle;
+//        if (deltaAngle < -180)
+//            deltaAngle += 360;
+//        else if (deltaAngle > 180)
+//            deltaAngle -= 360;
+//
+//        globalAngle += deltaAngle;
+//
+//        lastAngles = angles;
+//        return globalAngle;
+//    }
 
 

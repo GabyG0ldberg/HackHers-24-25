@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition.LEFT;
+import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition.RIGHT;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -28,7 +31,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 public class IMUTester extends LinearOpMode {
     OpenCvWebcam camera;
     MosaicDetectorExample.MosaicDeterminationPipeline pipeline;
-    MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition snapshotAnalysis = MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition.LEFT;
+    MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition snapshotAnalysis = LEFT;
     private HackHers_Lib everything;
     DcMotor fL;
     DcMotor fR;
@@ -86,83 +89,33 @@ public class IMUTester extends LinearOpMode {
         // Note: if you choose two conflicting directions, this initialization will cause a code exception.
         super.waitForStart();
         snapshotAnalysis = pipeline.getAnalysis();
+        telemetry.addData("Snapshot post-START analysis", snapshotAnalysis);
 
-        while (!isStopRequested()) {
-
-            telemetry.addData("Snapshot post-START analysis", snapshotAnalysis);
-            telemetry.update();
-            telemetry.addData("Hub orientation", "Logo=%s   USB=%s\n ", logoDirection, usbDirection);
-            imu.resetYaw();
             // Retrieve Rotational Angles
-            YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
-            telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
-            telemetry.addData("Pitch (X)", "%.2f Deg.", orientation.getPitch(AngleUnit.DEGREES));
-            telemetry.addData("Roll (Y)", "%.2f Deg.\n", orientation.getRoll(AngleUnit.DEGREES));
-            telemetry.update();
+        YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
+        telemetry.update();
+        double actualAngle = orientation.getYaw(AngleUnit.DEGREES);
 
-
-            switch (snapshotAnalysis) {
-                case LEFT: {
-                    targetAngle = 180;
-                    everything.turnRight(.2);
-                    while(Math.abs(orientation.getYaw(AngleUnit.DEGREES)-targetAngle)>5){
-                        orientation = imu.getRobotYawPitchRollAngles();
-                    }
-                    everything.Stop();
-                }
-                case RIGHT: {
-                    everything.goForward(.3);
-                    sleep(2000);
-                    everything.Stop();
-                }
-                case CENTER: {
-                    everything.goForward(.3);
-                    sleep(2000);
-                    everything.Stop();
-                }
-            }
-
-            if (gamepad1.y) {
-                telemetry.addData("Yaw", "Resetting\n");
+        switch (snapshotAnalysis) {
+            case LEFT:
+            case RIGHT:
+            case CENTER: {
                 imu.resetYaw();
-            } else {
-                telemetry.addData("Yaw", "Press Y (triangle) on Gamepad to reset\n");
-            }
-
-
+                targetAngle = 180;
+                everything.turnRight(.2);
+                while(Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES))-targetAngle)>8) {
+                    orientation = imu.getRobotYawPitchRollAngles();
+                    telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
+                    telemetry.update();
+           }
+                everything.Stop();
         }
     }
+
+  }
 
     public YawPitchRollAngles getAngle(){
         return imu.getRobotYawPitchRollAngles();
     }
 
-    public Orientation getOrientation(){
-        return imu.getRobotOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-    }
-
-    public float getFirstAngleOrientation(){
-        return getOrientation().firstAngle;
-    }
-
-    public float getSecondAngleOrientation() {
-        return getOrientation().secondAngle;
-    }
-    public float getThirdAngleOrientation() {
-        return getOrientation().thirdAngle;
-    }
-
-    public float getTheAngle(){
-        Orientation angles = getOrientation();
-        float deltaAngle = getThirdAngleOrientation() - lastAngles.thirdAngle;
-        if (deltaAngle < -180)
-            deltaAngle += 360;
-        else if (deltaAngle > 180)
-            deltaAngle -= 360;
-
-        globalAngle += deltaAngle;
-
-        lastAngles = angles;
-        return globalAngle;
-    }
 }
