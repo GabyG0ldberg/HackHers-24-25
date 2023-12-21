@@ -31,6 +31,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
     DcMotor bR;
     //DcMotor ls;
     //Servo cl;
+    DcMotor ar;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -38,9 +39,9 @@ import org.openftc.easyopencv.OpenCvWebcam;
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
-        //ls = hardwareMap.get(DcMotor.class, "ls");
+        ar = hardwareMap.get(DcMotor.class, "ar");
         //cl = hardwareMap.get(Servo.class, "cl");
-        everything = new HackHers_Lib(fL, fR, bL, bR, camera);
+        everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar);
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);
         pipeline = new MosaicDetectorExampleRED.MosaicDeterminationPipelineRED();

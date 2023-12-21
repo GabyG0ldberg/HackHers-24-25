@@ -37,6 +37,7 @@ public class IMUTester extends LinearOpMode {
     DcMotor fR;
     DcMotor bL;
     DcMotor bR;
+    DcMotor ar;
     public IMU imu;
     float targetAngle;
     float globalAngle;
@@ -55,7 +56,8 @@ public class IMUTester extends LinearOpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
-        everything = new HackHers_Lib(fL, fR, bL, bR, camera);
+        ar = hardwareMap.get(DcMotor.class, "ar");
+        everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar);
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);
         pipeline = new MosaicDetectorExample.MosaicDeterminationPipeline();

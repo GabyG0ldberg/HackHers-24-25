@@ -38,6 +38,8 @@ public class PolinaTest extends LinearOpMode {
     DcMotor fR;
     DcMotor bL;
     DcMotor bR;
+
+    DcMotor ar;
     public IMU imu;
     RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
     RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.UP;
@@ -49,9 +51,9 @@ public class PolinaTest extends LinearOpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
-       // ls = hardwareMap.get(DcMotor.class, "ls");
+        ar = hardwareMap.get(DcMotor.class, "ar");
         //cl = hardwareMap.get(Servo.class, "cl");
-        everything = new HackHers_Lib(fL, fR, bL, bR, (OpenCvWebcam) camera);
+        everything = new HackHers_Lib(fL, fR, bL, bR, (OpenCvWebcam) camera, ar);
         //int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         imu.initialize(new IMU.Parameters(orientationOnRobot));
 
@@ -78,6 +80,8 @@ public class PolinaTest extends LinearOpMode {
          * The INIT-loop:
          * This REPLACES waitForStart!
          */
+        super.waitForStart();
+
         while (!isStopRequested()) {
             everything.turnRight(.3);
             //telemetry.addData("Hub orientation", "X=%.1f,  Y=%.1f,  Z=%.1f \n", xRotation, yRotation, zRotation);
@@ -106,7 +110,6 @@ public class PolinaTest extends LinearOpMode {
          * during the init loop.
          */
 
-        super.waitForStart();
 
     }
 }

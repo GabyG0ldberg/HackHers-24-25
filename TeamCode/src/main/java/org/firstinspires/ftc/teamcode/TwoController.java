@@ -28,6 +28,7 @@ public class TwoController extends OpMode {
     DcMotor fR;
     DcMotor bL;
     DcMotor bR;
+    DcMotor ar;
     private OpenCvWebcam wc;
     DcMotor ls;
     Servo cl;
@@ -40,6 +41,7 @@ public class TwoController extends OpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
+        ar = hardwareMap.get(DcMotor.class, "ar");
 
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
@@ -47,7 +49,7 @@ public class TwoController extends OpMode {
         cl = hardwareMap.tryGet(Servo.class,"cl");
         // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
         // ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        everything = new HackHers_Lib(fL, fR, bL, bR, wc);
+        everything = new HackHers_Lib(fL, fR, bL, bR, wc, ar);
 
     }
 

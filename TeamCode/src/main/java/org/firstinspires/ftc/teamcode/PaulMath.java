@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode;
 public class PaulMath {
     public static float[] omniCalc(float verticalPower, float horizontalPower, float rotationalPower) {
 
-        float[] vertical = {verticalPower, -verticalPower, verticalPower, -verticalPower};
-        float[] horizontal = {-horizontalPower, -horizontalPower, horizontalPower, horizontalPower};
-        float[] rotational = {-rotationalPower, -rotationalPower, -rotationalPower, -rotationalPower};
+        float[] vertical = {verticalPower, verticalPower, verticalPower, verticalPower};//changed 1 and 3
+        float[] horizontal = {-horizontalPower, horizontalPower, horizontalPower, -horizontalPower}; //changed 0 and 3
+        float[] rotational = {-rotationalPower, rotationalPower, -rotationalPower, rotationalPower}; //changed 1 and 3
         //the first vertical power
 
         float[] sum = new float[4];

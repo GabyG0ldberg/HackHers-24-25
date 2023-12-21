@@ -19,6 +19,8 @@ public class GabyTestJr extends LinearOpMode {
     DcMotorEx bL;
     DcMotorEx bR;
 
+    DcMotor ar;
+
 //ls.setDirection(DcMotor.Direction.REVERSE);
 
     @Override
