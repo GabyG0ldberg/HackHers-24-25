@@ -76,7 +76,7 @@ public class IMUTester extends LinearOpMode {
         telemetry.setMsTransmissionInterval(50);
 
         while (!isStarted() && !isStopRequested()) {
-            telemetry.addData("Realtime analysis", pipeline.getAnalysis());
+            telemetry.addData("Realtime analysis!", pipeline.getAnalysis());
             telemetry.update();
 
             // Don't burn CPU cycles busy-looping in this sample
@@ -95,19 +95,52 @@ public class IMUTester extends LinearOpMode {
         YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         telemetry.update();
         double actualAngle = orientation.getYaw(AngleUnit.DEGREES);
+        telemetry.addLine("start analysis");
+        telemetry.update();
 
         switch (snapshotAnalysis) {
-            case LEFT:
-            case RIGHT:
-            case CENTER: {
+            case LEFT: {
+                telemetry.addLine("left");
+                telemetry.update();
                 imu.resetYaw();
-                targetAngle = 180;
-                everything.turnRight(.2);
-                while(Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES))-targetAngle)>8) {
+                targetAngle = 90;
+                everything.turnLeft(.2);
+                while (Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES)) - targetAngle) > 8) {
                     orientation = imu.getRobotYawPitchRollAngles();
                     telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
                     telemetry.update();
-           }
+                }
+            }
+            case RIGHT:{
+                //System.out.println("turning right");
+                telemetry.addLine("right");
+                telemetry.update();
+
+                imu.resetYaw();
+                targetAngle = 90;
+                everything.turnRight(.2);
+                while (Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES)) - targetAngle) > 8) {
+                    orientation = imu.getRobotYawPitchRollAngles();
+                    telemetry.addData("Yaw ?(Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
+                    telemetry.update();
+                }
+                 }
+            case CENTER: {
+                telemetry.addLine("center after start");
+                telemetry.update();
+                imu.resetYaw();
+                targetAngle = 180;
+               // everything.turnRight(.2);
+
+
+                while(Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES))-targetAngle)>8) {
+                    orientation = imu.getRobotYawPitchRollAngles();
+                   // telemetry.addData("Yaw! (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
+                    telemetry.update();
+                    //everything.turnRight(.3);
+                    everything.goForward(.2);
+
+                }
                 everything.Stop();
         }
     }
