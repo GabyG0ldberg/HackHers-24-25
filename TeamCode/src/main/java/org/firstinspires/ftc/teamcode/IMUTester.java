@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
 import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition.LEFT;
-import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition.RIGHT;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+
 
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -33,16 +34,15 @@ public class IMUTester extends LinearOpMode {
     MosaicDetectorExample.MosaicDeterminationPipeline pipeline;
     MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition snapshotAnalysis = LEFT;
     private HackHers_Lib everything;
-    DcMotor fL;
-    DcMotor fR;
-    DcMotor bL;
-    DcMotor bR;
-    DcMotor ar;
+    DcMotorEx fL;
+    DcMotorEx fR;
+    DcMotorEx bL;
+    DcMotorEx bR;
+    DcMotorEx ar;
     public IMU imu;
     float targetAngle;
     float globalAngle;
     Orientation lastAngles = new Orientation();
-
     RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
     RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.UP;
     RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
@@ -52,12 +52,23 @@ public class IMUTester extends LinearOpMode {
 
         imu = hardwareMap.get(IMU.class, "imu");
 
-        fL = hardwareMap.get(DcMotor.class, "fL");
-        fR = hardwareMap.get(DcMotor.class, "fR");
-        bL = hardwareMap.get(DcMotor.class, "bl");
-        bR = hardwareMap.get(DcMotor.class, "bR");
-        ar = hardwareMap.get(DcMotor.class, "ar");
+        fL = hardwareMap.get(DcMotorEx.class, "fL");
+        fR = hardwareMap.get(DcMotorEx.class, "fR");
+        bL = hardwareMap.get(DcMotorEx.class, "bl");
+        bR = hardwareMap.get(DcMotorEx.class, "bR");
+        ar = hardwareMap.get(DcMotorEx.class, "ar");
+
         everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar);
+        fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        fR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        bL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        bR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        fL.setDirection(DcMotor.Direction.REVERSE);
+        fR.setDirection(DcMotor.Direction.REVERSE);
+        bL.setDirection(DcMotor.Direction.REVERSE);
+        bR.setDirection(DcMotor.Direction.REVERSE);
+
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);
         pipeline = new MosaicDetectorExample.MosaicDeterminationPipeline();
@@ -96,7 +107,6 @@ public class IMUTester extends LinearOpMode {
             // Retrieve Rotational Angles
         YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         telemetry.update();
-        double actualAngle = orientation.getYaw(AngleUnit.DEGREES);
         telemetry.addLine("start analysis");
         telemetry.update();
 
@@ -105,52 +115,93 @@ public class IMUTester extends LinearOpMode {
                 telemetry.addLine("left");
                 telemetry.update();
                 imu.resetYaw();
-                targetAngle = 90;
-                everything.turnLeft(.2);
-                while (Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES)) - targetAngle) > 8) {
-                    orientation = imu.getRobotYawPitchRollAngles();
-                    telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
-                    telemetry.update();
-                }
+                targetAngle = 180;
+                turnRight();
+                everything.Stop();
+                goForward(3500);
+
             }
-            case RIGHT:{
-                //System.out.println("turning right");
+            case RIGHT: {
                 telemetry.addLine("right");
                 telemetry.update();
-
                 imu.resetYaw();
-                targetAngle = 90;
-                everything.turnRight(.2);
-                while (Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES)) - targetAngle) > 8) {
-                    orientation = imu.getRobotYawPitchRollAngles();
-                    telemetry.addData("Yaw ?(Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
-                    telemetry.update();
-                }
+                targetAngle = 180;
+                turnRight();
+                goForward(3500);
+
+//                everything.turnRight(.2);
+//                while (Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES)) - targetAngle) > 8) {
+//                    orientation = imu.getRobotYawPitchRollAngles();
+//                    telemetry.addData("Yaw ?(Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
+//                    telemetry.update();
+//                }
                  }
             case CENTER: {
                 telemetry.addLine("center after start");
                 telemetry.update();
                 imu.resetYaw();
                 targetAngle = 180;
-               // everything.turnRight(.2);
-
-
-                while(Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES))-targetAngle)>8) {
-                    orientation = imu.getRobotYawPitchRollAngles();
-                   // telemetry.addData("Yaw! (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
-                    telemetry.update();
-                    //everything.turnRight(.3);
-                    everything.goForward(.2);
-
-                }
-                everything.Stop();
+                turnRight();
+                goForward(3500);
         }
     }
 
-  }
-
-    public YawPitchRollAngles getAngle(){
-        return imu.getRobotYawPitchRollAngles();
     }
 
+    public void goForward(int targetPosition) {
+        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        fL.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        fR.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        bL.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        bR.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        fL.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on.
+        fR.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on
+        bL.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on.
+        bR.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on
+        telemetry.addData("Mode", "running");
+        telemetry.update();
+        fL.setVelocity(1000);
+        fR.setVelocity(1000);
+        bL.setVelocity(1000);
+        bR.setVelocity(1000);
+        //fR.setPower(0.05);
+        while (Math.abs(fL.getCurrentPosition()) < Math.abs(fL.getTargetPosition()) && Math.abs(fR.getCurrentPosition()) < Math.abs(fR.getTargetPosition()))  //fL.getCurrentPosition() < fL.getTargetPosition() //opModeIsActive() && ls.isBusy()
+        {
+            telemetry.addData("encoder-FORWARD", fL.getCurrentPosition() + "  busy=" + fL.isBusy());
+            telemetry.addData("encoder-FORWARD", fR.getCurrentPosition() + "  busy=" + fR.isBusy());
+            telemetry.addData("encoder-FORWARD", bL.getCurrentPosition() + "  busy=" + bL.isBusy());
+            telemetry.addData("encoder-FORWARD", bR.getCurrentPosition() + "  busy=" + bR.isBusy());
+            telemetry.update();
+            idle();
+        }
+        fL.setVelocity(0);
+        fR.setVelocity(0);
+        bL.setVelocity(0);
+        bR.setVelocity(0);
+    }
+    public void turnLeft() {
+        YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
+        everything.turnLeft(.2);
+        while (Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES)) - targetAngle) > 8) {
+            orientation = imu.getRobotYawPitchRollAngles();
+            telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
+            telemetry.update();
+        }
+        everything.Stop();
+    }
+    public void turnRight(){
+        YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
+        everything.turnRight(.2);
+        while (Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES)) - targetAngle) > 8) {
+            orientation = imu.getRobotYawPitchRollAngles();
+            telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
+            telemetry.update();
+        }
+        everything.Stop();
+    }
 }
+
+

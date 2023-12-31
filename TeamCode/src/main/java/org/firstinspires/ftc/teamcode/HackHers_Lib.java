@@ -135,44 +135,44 @@ public class HackHers_Lib {
 
     public void goForward(double power){
         this.frontLeft.setPower(power);
-        this.frontRight.setPower(power);
+        this.frontRight.setPower(-power);
         this.backLeft.setPower(-power);
-        this.backRight.setPower(power);//change AUTO POWer here
+        this.backRight.setPower(-power);//change AUTO POWer here
     }
 
     public void goBackward(double power){
         this.frontLeft.setPower(power);
-        this.frontRight.setPower(-power);
+        this.frontRight.setPower(power);
         this.backLeft.setPower(power);
-        this.backRight.setPower(-power);
+        this.backRight.setPower(power);
     }
 
     public void turnLeft(double power){
         this.frontLeft.setPower(power);
-        this.frontRight.setPower(power);
+        this.frontRight.setPower(-power);
         this.backLeft.setPower(power);
-        this.backRight.setPower(power);
+        this.backRight.setPower(-power);
     }
 
     public void turnRight(double power){
         this.frontLeft.setPower(-power);
-        this.frontRight.setPower(-power);
+        this.frontRight.setPower(power);
         this.backLeft.setPower(-power);
-        this.backRight.setPower(-power);
+        this.backRight.setPower(power);
     }
 
     public void strafeRight(double power){
         this.frontLeft.setPower(-power);
-        this.frontRight.setPower(-power);
+        this.frontRight.setPower(power);
         this.backLeft.setPower(power);
-        this.backRight.setPower(power);
+        this.backRight.setPower(-power);
     }
 
     public void strafeLeft(double power){
         this.frontLeft.setPower(power);
-        this.frontRight.setPower(power);
+        this.frontRight.setPower(-power);
         this.backLeft.setPower(-power);
-        this.backRight.setPower(-power);
+        this.backRight.setPower(power);
     }
 
     public void Stop(){
