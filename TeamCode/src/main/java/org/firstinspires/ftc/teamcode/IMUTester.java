@@ -116,9 +116,11 @@ public class IMUTester extends LinearOpMode {
                 telemetry.update();
                 imu.resetYaw();
                 targetAngle = 180;
-                turnRight();
-                everything.Stop();
-                goForward(3500);
+                //turnRight();
+                //everything.Stop();
+                goForward(900);//1 SQUARE
+                goBackward(850); //1 SQUARE
+                break;
 
             }
             case RIGHT: {
@@ -127,22 +129,15 @@ public class IMUTester extends LinearOpMode {
                 imu.resetYaw();
                 targetAngle = 180;
                 turnRight();
-                goForward(3500);
-
-//                everything.turnRight(.2);
-//                while (Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES)) - targetAngle) > 8) {
-//                    orientation = imu.getRobotYawPitchRollAngles();
-//                    telemetry.addData("Yaw ?(Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
-//                    telemetry.update();
-//                }
+                goForward(700);
+                break;
                  }
             case CENTER: {
                 telemetry.addLine("center after start");
                 telemetry.update();
                 imu.resetYaw();
-                targetAngle = 180;
-                turnRight();
-                goForward(3500);
+                goBackward(700);
+                break;
         }
     }
 
@@ -163,10 +158,10 @@ public class IMUTester extends LinearOpMode {
         bR.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on
         telemetry.addData("Mode", "running");
         telemetry.update();
-        fL.setVelocity(1000);
-        fR.setVelocity(1000);
-        bL.setVelocity(1000);
-        bR.setVelocity(1000);
+        fL.setVelocity(500);
+        fR.setVelocity(500);
+        bL.setVelocity(500);
+        bR.setVelocity(500);
         //fR.setPower(0.05);
         while (Math.abs(fL.getCurrentPosition()) < Math.abs(fL.getTargetPosition()) && Math.abs(fR.getCurrentPosition()) < Math.abs(fR.getTargetPosition()))  //fL.getCurrentPosition() < fL.getTargetPosition() //opModeIsActive() && ls.isBusy()
         {
@@ -174,6 +169,40 @@ public class IMUTester extends LinearOpMode {
             telemetry.addData("encoder-FORWARD", fR.getCurrentPosition() + "  busy=" + fR.isBusy());
             telemetry.addData("encoder-FORWARD", bL.getCurrentPosition() + "  busy=" + bL.isBusy());
             telemetry.addData("encoder-FORWARD", bR.getCurrentPosition() + "  busy=" + bR.isBusy());
+            telemetry.update();
+            idle();
+        }
+        fL.setVelocity(0);
+        fR.setVelocity(0);
+        bL.setVelocity(0);
+        bR.setVelocity(0);
+    }
+    public void goBackward(int targetPosition) {
+        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        fL.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        fR.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        bL.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        bR.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        fL.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on.
+        fR.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on
+        bL.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on.
+        bR.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on
+        telemetry.addData("Mode", "running");
+        telemetry.update();
+        fL.setVelocity(-500);
+        fR.setVelocity(-500);
+        bL.setVelocity(-500);
+        bR.setVelocity(-500);
+        //fR.setPower(0.05);
+        while (Math.abs(fL.getCurrentPosition()) < Math.abs(fL.getTargetPosition()) && Math.abs(fR.getCurrentPosition()) < Math.abs(fR.getTargetPosition()))  //fL.getCurrentPosition() < fL.getTargetPosition() //opModeIsActive() && ls.isBusy()
+        {
+            telemetry.addData("encoder-BACKWARD", fL.getCurrentPosition() + "  busy=" + fL.isBusy());
+            telemetry.addData("encoder-BACKWARD", fR.getCurrentPosition() + "  busy=" + fR.isBusy());
+            telemetry.addData("encoder-BACKWARD", bL.getCurrentPosition() + "  busy=" + bL.isBusy());
+            telemetry.addData("encoder-BACKWARD", bR.getCurrentPosition() + "  busy=" + bR.isBusy());
             telemetry.update();
             idle();
         }
