@@ -25,6 +25,9 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
     DcMotor bR;
     DcMotor ar;
     private OpenCvWebcam wc;
+
+    Servo cl; //this lie
+
   //  DcMotor ls;
     //Servo cl;
     //Rev2mDistanceSensor ds1;
@@ -37,6 +40,7 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
         ar = hardwareMap.get(DcMotor.class, "ar");
+        cl = hardwareMap.get(Servo.class, "cl");  //this lie
 
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
@@ -44,7 +48,7 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         //cl = hardwareMap.get(Servo.class,"cl");
        // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
        // ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
-        everything = new HackHers_Lib(fL, fR, bL, bR, wc, ar);
+        everything = new HackHers_Lib(fL, fR, bL, bR, wc, ar, cl);//this lie
 
     }
 
@@ -53,12 +57,12 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
     public void loop() {
         everything.omniDrive(gamepad1.right_stick_y, gamepad1.right_stick_x, gamepad1.left_stick_x);
 
-//        if (gamepad1.dpad_down) {
-//            everything.setMotorPower(fL, 1);
-//        }
-//        if (gamepad1.dpad_up) {
-//            everything.setMotorPower(fR, 1);
-//        }
+        if (gamepad1.dpad_down) {
+            everything.setServoPower(cl, .9);
+        }
+        if (gamepad1.dpad_up) {
+            everything.setServoPower(cl, -.9);
+        }
 //        if (gamepad1.dpad_right) {
 //            everything.setMotorPower(bL, 1);
 //        }
@@ -66,24 +70,25 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 //            everything.setMotorPower(bR, 1);
 //        }
 //        if (gamepad1.y) {
-//            //everything.setMotorPower(ls, -1);
+//            everything.setMotorPower(ar, -0.2);
 //        }
-//        if (gamepad1.a) {
-//            //everything.setMotorPower(ls, 1);
-//        }
-//        if (gamepad1.b) {
-//            //everything.setMotorPower(ls, -.65F);
-//        }
-//
-//        if (gamepad1.right_bumper) { //claw closes a set amount
-//            //everything.setServoPower(cl, .45);
-//        }
-//        if (gamepad1.left_bumper) { //open
-//            //everything.setServoPower(cl, .55);
-//        }
-//        if (gamepad1.x) { //claw stops/at middle
-//            //everything.setServoPower(cl,.50);
-//        }
+        if (gamepad1.a) {
+            everything.armDown();
+        }
+        if (gamepad1.b) {
+            everything.armStop();
+        }
+
+        if (gamepad1.right_bumper) { //claw closes a set amount
+            everything.setServoPower(cl, -.45);
+        }
+        if (gamepad1.left_bumper) { //open
+            everything.setServoPower(cl, -.55);
+        }
+        if (gamepad1.x) { //claw stops/at middle
+            everything.armUp();
+        }
+
 
 //        everything.setMotorPower(fL,0);
 //        everything.setMotorPower(fR,0);

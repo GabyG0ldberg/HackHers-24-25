@@ -21,6 +21,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -39,6 +40,8 @@ public class PolinaTest extends LinearOpMode {
     DcMotor bL;
     DcMotor bR;
 
+    Servo cl;
+
     DcMotor ar;
     public IMU imu;
     RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
@@ -52,8 +55,8 @@ public class PolinaTest extends LinearOpMode {
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
         ar = hardwareMap.get(DcMotor.class, "ar");
-        //cl = hardwareMap.get(Servo.class, "cl");
-        everything = new HackHers_Lib(fL, fR, bL, bR, (OpenCvWebcam) camera, ar);
+        cl = hardwareMap.get(Servo.class, "cl");
+        everything = new HackHers_Lib(fL, fR, bL, bR, (OpenCvWebcam) camera, ar, cl);
         //int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         imu.initialize(new IMU.Parameters(orientationOnRobot));
 

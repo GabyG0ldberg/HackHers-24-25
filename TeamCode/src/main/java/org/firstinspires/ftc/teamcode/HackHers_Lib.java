@@ -21,13 +21,13 @@ public class HackHers_Lib {
 
     //public Telemetry telemetry;
 
-    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br,OpenCvWebcam wc, DcMotor ar){
+    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br,OpenCvWebcam wc, DcMotor ar, Servo cl){
         this.frontLeft= fl;
         this.frontRight = fr;
         this.backLeft= bl;
         this.backRight = br;
         this.arm = ar;
-       //this.claw = cl;
+       this.claw = cl;
        // this.telemetry = t;
         this.webcam = wc;
     }
@@ -196,6 +196,19 @@ public class HackHers_Lib {
     public void Close(){
         this.claw.setPosition(0.82);
     }
+
+    public void armUp(){
+        this.arm.setPower(-0.22);
+    }
+    public void armStop(){
+        this.arm.setPower(0.01);
+    }
+
+    public void armDown(){
+        this.arm.setPower(-0.01);
+    }
+
+
 //    public void DriveForwardToDist(double dist, double power){
 //        while((distance1.getDistance(DistanceUnit.CM)<=dist && distance2.getDistance(DistanceUnit.CM)<=dist)){
 //            goForward(power);

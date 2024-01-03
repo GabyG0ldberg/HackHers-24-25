@@ -22,6 +22,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -30,6 +31,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 @Autonomous
 public class MariaTestClose extends LinearOpMode {
+
+
+
     OpenCvWebcam camera;
     MosaicDetectorExample.MosaicDeterminationPipeline pipeline;
     MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition snapshotAnalysis = LEFT;
@@ -39,6 +43,9 @@ public class MariaTestClose extends LinearOpMode {
     DcMotorEx bL;
     DcMotorEx bR;
     DcMotorEx ar;
+
+    Servo cl; //this lie
+
     public IMU imu;
     float targetAngle;
     float globalAngle;
@@ -57,8 +64,10 @@ public class MariaTestClose extends LinearOpMode {
         bL = hardwareMap.get(DcMotorEx.class, "bl");
         bR = hardwareMap.get(DcMotorEx.class, "bR");
         ar = hardwareMap.get(DcMotorEx.class, "ar");
+        cl = hardwareMap.get(Servo.class, "cl");  //this lie
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar);
+
+        everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar, cl);
         fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         fR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -67,6 +76,7 @@ public class MariaTestClose extends LinearOpMode {
         fR.setDirection(DcMotor.Direction.REVERSE);
         bL.setDirection(DcMotor.Direction.REVERSE);
         bR.setDirection(DcMotor.Direction.REVERSE);
+
 
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());

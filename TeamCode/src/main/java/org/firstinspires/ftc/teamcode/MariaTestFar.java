@@ -22,6 +22,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -39,6 +40,8 @@ public class MariaTestFar extends LinearOpMode {
     DcMotorEx bL;
     DcMotorEx bR;
     DcMotorEx ar;
+    Servo cl; //this lie
+
     public IMU imu;
     float targetAngle;
     float globalAngle;
@@ -57,8 +60,11 @@ public class MariaTestFar extends LinearOpMode {
         bL = hardwareMap.get(DcMotorEx.class, "bl");
         bR = hardwareMap.get(DcMotorEx.class, "bR");
         ar = hardwareMap.get(DcMotorEx.class, "ar");
+        cl = hardwareMap.get(Servo.class, "cl");  //this lie
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar);
+
+
+        everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar,cl);
         fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         fR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
