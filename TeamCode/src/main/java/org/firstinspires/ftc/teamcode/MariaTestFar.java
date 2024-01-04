@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample.MosaicD
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -40,7 +41,7 @@ public class MariaTestFar extends LinearOpMode {
     DcMotorEx bL;
     DcMotorEx bR;
     DcMotorEx ar;
-    Servo cl; //this lie
+    CRServo cl; //this lie
 
     public IMU imu;
     float targetAngle;
@@ -60,11 +61,11 @@ public class MariaTestFar extends LinearOpMode {
         bL = hardwareMap.get(DcMotorEx.class, "bl");
         bR = hardwareMap.get(DcMotorEx.class, "bR");
         ar = hardwareMap.get(DcMotorEx.class, "ar");
-        cl = hardwareMap.get(Servo.class, "cl");  //this lie
+        cl = hardwareMap.get(CRServo.class, "cl");  //this lie
 
 
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar,cl);
+        everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar, cl);
         fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         fR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

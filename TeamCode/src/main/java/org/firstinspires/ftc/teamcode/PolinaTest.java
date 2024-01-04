@@ -4,6 +4,7 @@ import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.xyzOrientation;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
@@ -40,7 +41,7 @@ public class PolinaTest extends LinearOpMode {
     DcMotor bL;
     DcMotor bR;
 
-    Servo cl;
+    CRServo cl; //this lie
 
     DcMotor ar;
     public IMU imu;
@@ -55,7 +56,7 @@ public class PolinaTest extends LinearOpMode {
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
         ar = hardwareMap.get(DcMotor.class, "ar");
-        cl = hardwareMap.get(Servo.class, "cl");
+        cl = hardwareMap.get(CRServo.class, "cl");
         everything = new HackHers_Lib(fL, fR, bL, bR, (OpenCvWebcam) camera, ar, cl);
         //int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         imu.initialize(new IMU.Parameters(orientationOnRobot));

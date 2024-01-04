@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample.MosaicD
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -31,9 +32,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 @Autonomous
 public class MariaTestClose extends LinearOpMode {
-
-
-
     OpenCvWebcam camera;
     MosaicDetectorExample.MosaicDeterminationPipeline pipeline;
     MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition snapshotAnalysis = LEFT;
@@ -44,7 +42,8 @@ public class MariaTestClose extends LinearOpMode {
     DcMotorEx bR;
     DcMotorEx ar;
 
-    Servo cl; //this lie
+    //CRServo cl; //this lie
+    CRServo cl; //this lie
 
     public IMU imu;
     float targetAngle;
@@ -64,7 +63,9 @@ public class MariaTestClose extends LinearOpMode {
         bL = hardwareMap.get(DcMotorEx.class, "bl");
         bR = hardwareMap.get(DcMotorEx.class, "bR");
         ar = hardwareMap.get(DcMotorEx.class, "ar");
-        cl = hardwareMap.get(Servo.class, "cl");  //this lie
+        cl = hardwareMap.get(CRServo.class, "cl");  //this lie
+        //cl = hardwareMap.get(CRServo.class, "cl");  //this lie
+
 
 
         everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar, cl);
@@ -125,7 +126,7 @@ public class MariaTestClose extends LinearOpMode {
                 telemetry.addLine("left");
                 telemetry.update();
                 goBackward(1000);
-                targetAngle = 110;
+                targetAngle = 90;
                 turnRight();
                 imu.resetYaw();
                 //drop

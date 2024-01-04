@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample.MosaicD
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -41,7 +42,7 @@ public class MariaTestREDClose extends LinearOpMode {
     DcMotorEx bR;
     DcMotorEx ar;
 
-    Servo cl; //this lie
+    CRServo cl; //this lie
 
     public IMU imu;
     float targetAngle;
@@ -61,7 +62,7 @@ public class MariaTestREDClose extends LinearOpMode {
         bL = hardwareMap.get(DcMotorEx.class, "bl");
         bR = hardwareMap.get(DcMotorEx.class, "bR");
         ar = hardwareMap.get(DcMotorEx.class, "ar");
-        cl = hardwareMap.get(Servo.class, "cl");  //this lie
+        cl = hardwareMap.get(CRServo.class, "cl");  //this lie
 
         everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar, cl);
         fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -120,17 +121,18 @@ public class MariaTestREDClose extends LinearOpMode {
                 telemetry.addLine("left");
                 telemetry.update();
                 goBackward(1000);
-                targetAngle = 110;
-                turnLeft();
-                imu.resetYaw();
-                //drop
-                targetAngle = 20;
+                targetAngle = 90;
                 turnRight();
-                goForward(1800);
+                imu.resetYaw();
+                //everything.strafeRight(.5);
                 //drop
-                everything.armUp();
-                everything.Open();
-                everything.Close();
+//                targetAngle = 20;
+//                turnRight();
+//                goForward(1800);
+//                //drop
+//                everything.armUp();
+//                everything.Open();
+//                everything.Close();
                 break;
 
             }
@@ -139,13 +141,16 @@ public class MariaTestREDClose extends LinearOpMode {
                 telemetry.update();
                 imu.resetYaw();
                 goBackward(1000);
+                everything.strafeLeft(.2);
+                sleep(300);
+                everything.Stop();
                 targetAngle = 90;
                 turnRight();
                 imu.resetYaw();
                 //drop
-                targetAngle = 180;
-                turnRight();
-                goForward(1800);
+//                targetAngle = 180;
+//                turnRight();
+//                goForward(1800);
                 //drop
                 break;
             }
@@ -153,15 +158,15 @@ public class MariaTestREDClose extends LinearOpMode {
                 telemetry.addLine("center after start");
                 telemetry.update();
                 imu.resetYaw();
-                goBackward(1000);
-                targetAngle = 180;
-                turnLeft();
-                imu.resetYaw();
-                //drop
-                targetAngle = 90;
-                turnRight();
-                imu.resetYaw();
-                goForward(1800  );
+                goBackward(2500);
+//                targetAngle = 180;
+//                turnLeft();
+//                imu.resetYaw();
+//                //drop
+//                targetAngle = 90;
+//                turnRight();
+//                imu.resetYaw();
+//                goForward(1800  );
                 //drop
                 break;
             }

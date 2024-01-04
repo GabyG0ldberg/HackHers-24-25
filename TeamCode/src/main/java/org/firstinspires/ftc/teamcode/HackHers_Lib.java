@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -15,13 +16,13 @@ public class HackHers_Lib {
     public DcMotor backRight;
     public OpenCvWebcam webcam;
     public DcMotor arm;
-    public Servo claw;
+    public CRServo claw;
 
 
 
     //public Telemetry telemetry;
 
-    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br,OpenCvWebcam wc, DcMotor ar, Servo cl){
+    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, OpenCvWebcam wc, DcMotor ar, CRServo cl){
         this.frontLeft= fl;
         this.frontRight = fr;
         this.backLeft= bl;
@@ -43,7 +44,9 @@ public class HackHers_Lib {
     public void setMotorPower(DcMotor motor, float power){
         motor.setPower(power);
     }
-    public void setServoPower(Servo servo, double power) {servo.setPosition(power); }
+    public void setServoPower(CRServo servo, double power) {servo.setPower(power); }
+
+    //public void setServoPower(Servo servo, double power) {servo.setPosition(power); }
 
     public void omniDrive(float v, float h, float r){
         float[] sum = PaulMath.omniCalc(v, h, r);
@@ -190,11 +193,11 @@ public class HackHers_Lib {
     }
 
     public void Open(){
-        this.claw.setPosition(0.70);
+        this.claw.setPower(0.9);
     }
 
     public void Close(){
-        this.claw.setPosition(0.82);
+        this.claw.setPower(0);
     }
 
     public void armUp(){

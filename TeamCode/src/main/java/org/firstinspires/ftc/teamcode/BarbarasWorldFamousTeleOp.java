@@ -26,7 +26,9 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
     DcMotor ar;
     private OpenCvWebcam wc;
 
-    Servo cl; //this lie
+    CRServo cl; //this lie
+
+    //Servo cl;
 
   //  DcMotor ls;
     //Servo cl;
@@ -40,7 +42,8 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
         ar = hardwareMap.get(DcMotor.class, "ar");
-        cl = hardwareMap.get(Servo.class, "cl");  //this lie
+        //cl = hardwareMap.get(Servo.class, "cl");  //this lie
+        cl = hardwareMap.get(CRServo.class, "cl");  //this lie
 
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
@@ -58,16 +61,28 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         everything.omniDrive(gamepad1.right_stick_y, gamepad1.right_stick_x, gamepad1.left_stick_x);
 
         if (gamepad1.dpad_down) {
-            everything.setServoPower(cl, .9);
+            cl.setDirection(DcMotorSimple.Direction.FORWARD);
+            cl.setPower(1);
+            telemetry.addLine("DOWN DPAD");
+            telemetry.update();
         }
         if (gamepad1.dpad_up) {
-            everything.setServoPower(cl, -.9);
+            cl.setDirection(DcMotorSimple.Direction.REVERSE);
+            cl.setPower(1);
+            telemetry.addLine("UP DPAD");
+            telemetry.update();
         }
         if (gamepad1.dpad_right) {
-            everything.setServoPower(cl, -.5);
+            cl.setDirection(DcMotorSimple.Direction.REVERSE);
+            cl.setPower(0);
+            telemetry.addLine("RIGHT DPAD");
+            telemetry.update();
         }
         if (gamepad1.dpad_left) {
-            everything.setServoPower(cl, 0.5);
+            cl.setDirection(DcMotorSimple.Direction.FORWARD);
+            cl.setPower(0);
+            telemetry.addLine("LEFT DPAD");
+            telemetry.update();
         }
 //        if (gamepad1.y) {
 //            everything.setMotorPower(ar, -0.2);
