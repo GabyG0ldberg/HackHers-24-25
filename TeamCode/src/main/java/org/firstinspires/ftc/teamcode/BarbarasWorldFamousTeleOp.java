@@ -63,12 +63,12 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         if (gamepad1.dpad_up) {
             everything.setServoPower(cl, -.9);
         }
-//        if (gamepad1.dpad_right) {
-//            everything.setMotorPower(bL, 1);
-//        }
-//        if (gamepad1.dpad_left) {
-//            everything.setMotorPower(bR, 1);
-//        }
+        if (gamepad1.dpad_right) {
+            everything.setServoPower(cl, -.5);
+        }
+        if (gamepad1.dpad_left) {
+            everything.setServoPower(cl, 0.5);
+        }
 //        if (gamepad1.y) {
 //            everything.setMotorPower(ar, -0.2);
 //        }
@@ -80,10 +80,10 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         }
 
         if (gamepad1.right_bumper) { //claw closes a set amount
-            everything.setServoPower(cl, -.45);
+            everything.Open();
         }
         if (gamepad1.left_bumper) { //open
-            everything.setServoPower(cl, -.55);
+            everything.Close();
         }
         if (gamepad1.x) { //claw stops/at middle
             everything.armUp();
