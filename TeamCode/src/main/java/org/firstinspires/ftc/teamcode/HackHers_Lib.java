@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.tel
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.openftc.easyopencv.OpenCvWebcam;
@@ -31,6 +32,7 @@ public class HackHers_Lib {
        this.claw = cl;
        // this.telemetry = t;
         this.webcam = wc;
+        this.arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
 
@@ -193,22 +195,25 @@ public class HackHers_Lib {
     }
 
     public void Open(){
-        this.claw.setPower(0.9);
+        this.claw.setDirection(DcMotorSimple.Direction.FORWARD);
+        this.claw.setPower(1);
     }
 
     public void Close(){
-        this.claw.setPower(0);
+        this.claw.setDirection(DcMotorSimple.Direction.FORWARD);
+        this.claw.setPower(-1);
+
     }
 
     public void armUp(){
-        this.arm.setPower(-0.22);
+        this.arm.setPower(-0.85);
     }
     public void armStop(){
-        this.arm.setPower(0.01);
+        this.arm.setPower(0.00);
     }
 
     public void armDown(){
-        this.arm.setPower(-0.01);
+        this.arm.setPower(0.25);
     }
 
 

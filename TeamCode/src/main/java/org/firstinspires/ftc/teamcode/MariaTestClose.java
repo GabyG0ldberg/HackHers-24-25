@@ -125,14 +125,17 @@ public class MariaTestClose extends LinearOpMode {
             case LEFT: {
                 telemetry.addLine("left");
                 telemetry.update();
-                goBackward(1000);
+                goBackward(1200);
+                everything.strafeLeft(.2);
+                sleep(300);
+                everything.Stop();
                 targetAngle = 90;
                 turnRight();
                 imu.resetYaw();
                 //drop
-                targetAngle = 20;
-                turnLeft();
-                goForward(1800);
+//                targetAngle = 20;
+//                turnLeft();
+//                goForward(1800);
                 //drop
                 break;
 
@@ -141,7 +144,7 @@ public class MariaTestClose extends LinearOpMode {
                 telemetry.addLine("right");
                 telemetry.update();
                 imu.resetYaw();
-                goBackward(1000);
+                goBackward(1200);
                 targetAngle = 90;
                 turnLeft();
                 imu.resetYaw();

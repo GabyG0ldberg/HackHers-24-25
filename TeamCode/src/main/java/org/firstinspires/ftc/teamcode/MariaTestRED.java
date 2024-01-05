@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition.LEFT;
+import static org.firstinspires.ftc.teamcode.auton.MosaicDetectorExampleRED.MosaicDeterminationPipelineRED.SkystonePosition.LEFT;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -17,6 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.teamcode.auton.MosaicDetectorExample;
+import org.firstinspires.ftc.teamcode.auton.MosaicDetectorExampleRED;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -34,8 +35,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 @Autonomous
 public class MariaTestRED extends LinearOpMode {
     OpenCvWebcam camera;
-    MosaicDetectorExample.MosaicDeterminationPipeline pipeline;
-    MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition snapshotAnalysis = LEFT;
+    MosaicDetectorExampleRED.MosaicDeterminationPipelineRED pipeline;
+    MosaicDetectorExampleRED.MosaicDeterminationPipelineRED.SkystonePosition snapshotAnalysis = LEFT;
     private HackHers_Lib everything;
     DcMotorEx fL;
     DcMotorEx fR;
@@ -79,7 +80,7 @@ public class MariaTestRED extends LinearOpMode {
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), cameraMonitorViewId);
-        pipeline = new MosaicDetectorExample.MosaicDeterminationPipeline();
+        pipeline = new MosaicDetectorExampleRED.MosaicDeterminationPipelineRED();
         camera.setPipeline(pipeline);
         imu.initialize(new IMU.Parameters(orientationOnRobot));
 

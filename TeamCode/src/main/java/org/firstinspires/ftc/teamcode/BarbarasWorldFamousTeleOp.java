@@ -67,14 +67,14 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             telemetry.update();
         }
         if (gamepad1.dpad_up) {
-            cl.setDirection(DcMotorSimple.Direction.REVERSE);
-            cl.setPower(1);
+            cl.setDirection(DcMotorSimple.Direction.FORWARD);
+            cl.setPower(-1);
             telemetry.addLine("UP DPAD");
             telemetry.update();
         }
         if (gamepad1.dpad_right) {
             cl.setDirection(DcMotorSimple.Direction.REVERSE);
-            cl.setPower(0);
+            cl.setPower(1);
             telemetry.addLine("RIGHT DPAD");
             telemetry.update();
         }
