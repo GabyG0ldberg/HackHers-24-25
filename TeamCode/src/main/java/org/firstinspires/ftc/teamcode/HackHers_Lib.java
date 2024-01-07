@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.tel
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -16,14 +17,14 @@ public class HackHers_Lib {
     public DcMotor backLeft;
     public DcMotor backRight;
     public OpenCvWebcam webcam;
-    public DcMotor arm;
+    public DcMotorEx arm;
     public CRServo claw;
 
 
 
     //public Telemetry telemetry;
 
-    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, OpenCvWebcam wc, DcMotor ar, CRServo cl){
+    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, OpenCvWebcam wc, DcMotorEx ar, CRServo cl){
         this.frontLeft= fl;
         this.frontRight = fr;
         this.backLeft= bl;
@@ -32,7 +33,12 @@ public class HackHers_Lib {
        this.claw = cl;
        // this.telemetry = t;
         this.webcam = wc;
-        this.arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setDirection(DcMotor.Direction.REVERSE);
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
     }
 
 
@@ -196,7 +202,9 @@ public class HackHers_Lib {
 
     public void Open(){
         this.claw.setDirection(DcMotorSimple.Direction.FORWARD);
-        this.claw.setPower(1);
+        this.claw.setPower(-1);
+        telemetry.addLine("UP DPAD");
+        telemetry.update();
     }
 
     public void Close(){
@@ -206,7 +214,12 @@ public class HackHers_Lib {
     }
 
     public void armUp(){
-        this.arm.setPower(-0.85);
+
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+
+
     }
     public void armStop(){
         this.arm.setPower(0.00);

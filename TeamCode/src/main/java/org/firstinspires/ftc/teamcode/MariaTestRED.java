@@ -121,49 +121,37 @@ public class MariaTestRED extends LinearOpMode {
 
         switch (snapshotAnalysis) {
             case LEFT: {
+                imu.resetYaw();
                 telemetry.addLine("left");
                 telemetry.update();
-                goBackward(1000);
-                targetAngle = 110;
-                turnLeft();
+                goBackward(1200);
+                turnLeft(90);
                 imu.resetYaw();
-                //drop
-                targetAngle = 20;
-                turnRight();
-                goForward(3800);
-                //drop
+                everything.Open();
                 break;
-
             }
             case RIGHT: {
+                imu.resetYaw();
                 telemetry.addLine("right");
                 telemetry.update();
                 imu.resetYaw();
-                goBackward(1000);
-                targetAngle = 90;
-                turnRight();
+                goBackward(1200);
+                everything.strafeLeft(.2);
+                sleep(300);
+                everything.Stop();
+                turnLeft(90);
                 imu.resetYaw();
-                //drop
-                targetAngle = 180;
-                turnRight();
-                goForward(3800);
-                //drop
+                goForward(75);
+                everything.Open();
                 break;
             }
             case CENTER: {
+                imu.resetYaw();
                 telemetry.addLine("center after start");
                 telemetry.update();
                 imu.resetYaw();
-                goBackward(1000);
-                targetAngle = 180;
-                turnLeft();
-                imu.resetYaw();
-                //drop
-                targetAngle = 90;
-                turnRight();
-                imu.resetYaw();
-                goForward(3800);
-                //drop
+                goBackward(2200);
+                everything.Open();
                 break;
             }
         }
@@ -238,7 +226,7 @@ public class MariaTestRED extends LinearOpMode {
         bL.setVelocity(0);
         bR.setVelocity(0);
     }
-    public void turnLeft() {
+    public void turnLeft(float targetAngle) {
         YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         everything.turnLeft(.2);
         while (Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES)) - targetAngle) > 8) {
@@ -248,7 +236,7 @@ public class MariaTestRED extends LinearOpMode {
         }
         everything.Stop();
     }
-    public void turnRight(){
+    public void turnRight(float targetAngle){
         YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         everything.turnRight(.2);
         while (Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES)) - targetAngle) > 8) {

@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 //import com.qualcomm.robotcore.hardware.Servo;
 
@@ -45,7 +46,7 @@ public class GabyTest extends LinearOpMode {
     DcMotor bL;
     DcMotor bR;
 
-    DcMotor ar;
+    DcMotorEx ar;
   //  DcMotor ls;
   CRServo cl; //this lie
     //Servo cl; //this lie
@@ -60,7 +61,7 @@ public class GabyTest extends LinearOpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
-        ar = hardwareMap.get(DcMotor.class, "ar");
+        ar = hardwareMap.get(DcMotorEx.class, "ar");
         cl = hardwareMap.get(CRServo.class, "cl");
         //cl = hardwareMap.get(CRServo.class, "cl");
         everything = new HackHers_Lib(fL, fR, bL, bR,camera, ar, cl);

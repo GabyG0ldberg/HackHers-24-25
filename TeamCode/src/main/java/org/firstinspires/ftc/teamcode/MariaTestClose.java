@@ -22,6 +22,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -123,52 +124,44 @@ public class MariaTestClose extends LinearOpMode {
 
         switch (snapshotAnalysis) {
             case LEFT: {
+                imu.resetYaw();
                 telemetry.addLine("left");
                 telemetry.update();
                 goBackward(1200);
                 everything.strafeLeft(.2);
                 sleep(300);
                 everything.Stop();
-                targetAngle = 90;
-                turnRight();
+                turnLeft(90);
                 imu.resetYaw();
-                //drop
-//                targetAngle = 20;
-//                turnLeft();
-//                goForward(1800);
-                //drop
+                cl.setDirection(DcMotorSimple.Direction.FORWARD);
+                cl.setPower(1);
+                sleep(2000);
                 break;
 
             }
             case RIGHT: {
+                imu.resetYaw();
                 telemetry.addLine("right");
                 telemetry.update();
                 imu.resetYaw();
                 goBackward(1200);
-                targetAngle = 90;
-                turnLeft();
+                turnRight(90);
                 imu.resetYaw();
-                //drop
-                targetAngle = 180;
-                turnLeft();
-                goForward(1800);
-                //drop
+                goForward(150);
+                cl.setDirection(DcMotorSimple.Direction.FORWARD);
+                cl.setPower(1);
+                sleep(2000);
                 break;
             }
             case CENTER: {
+                imu.resetYaw();
                 telemetry.addLine("center after start");
                 telemetry.update();
                 imu.resetYaw();
-                goBackward(1000);
-                targetAngle = 180;
-                turnRight();
-                imu.resetYaw();
-                //drop
-                targetAngle = 90;
-                turnLeft();
-                imu.resetYaw();
-                goForward(1800);
-                //drop
+                goBackward(2025);
+                cl.setDirection(DcMotorSimple.Direction.FORWARD);
+                cl.setPower(1);
+                sleep(2000);
                 break;
             }
         }
@@ -243,7 +236,7 @@ public class MariaTestClose extends LinearOpMode {
         bL.setVelocity(0);
         bR.setVelocity(0);
     }
-    public void turnLeft() {
+    public void turnLeft(float targetAngle) {
         YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         everything.turnLeft(.2);
         while (Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES)) - targetAngle) > 8) {
@@ -253,7 +246,7 @@ public class MariaTestClose extends LinearOpMode {
         }
         everything.Stop();
     }
-    public void turnRight(){
+    public void turnRight(float targetAngle){
         YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         everything.turnRight(.2);
         while (Math.abs(Math.abs(orientation.getYaw(AngleUnit.DEGREES)) - targetAngle) > 8) {

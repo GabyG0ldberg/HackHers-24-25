@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -23,7 +24,7 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
     DcMotor fR;
     DcMotor bL;
     DcMotor bR;
-    DcMotor ar;
+    DcMotorEx ar;
     private OpenCvWebcam wc;
 
     CRServo cl; //this lie
@@ -41,7 +42,7 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         fR = hardwareMap.get(DcMotor.class, "fR");
         bL = hardwareMap.get(DcMotor.class, "bl");
         bR = hardwareMap.get(DcMotor.class, "bR");
-        ar = hardwareMap.get(DcMotor.class, "ar");
+        ar = hardwareMap.get(DcMotorEx.class, "ar");
         //cl = hardwareMap.get(Servo.class, "cl");  //this lie
         cl = hardwareMap.get(CRServo.class, "cl");  //this lie
 
@@ -52,6 +53,10 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
        // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
        // ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
         everything = new HackHers_Lib(fL, fR, bL, bR, wc, ar, cl);//this lie
+        ar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ar.setDirection(DcMotor.Direction.FORWARD);
+        ar.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ar.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
@@ -59,7 +64,7 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
     @Override
     public void loop() {
         everything.omniDrive(gamepad1.right_stick_y, gamepad1.right_stick_x, gamepad1.left_stick_x);
-
+        int currentArmPosition = ar.getCurrentPosition();
         if (gamepad1.dpad_down) {
             cl.setDirection(DcMotorSimple.Direction.FORWARD);
             cl.setPower(1);
@@ -87,9 +92,7 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 //        if (gamepad1.y) {
 //            everything.setMotorPower(ar, -0.2);
 //        }
-        if (gamepad1.a) {
-            everything.armDown();
-        }
+
         if (gamepad1.b) {
             everything.armStop();
         }
@@ -100,8 +103,27 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         if (gamepad1.left_bumper) { //open
             everything.Close();
         }
+
+
         if (gamepad1.x) { //claw stops/at middle
-            everything.armUp();
+            ar.setTargetPosition(500);
+            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ar.setVelocity(200);
+            while (Math.abs(currentArmPosition) < Math.abs(ar.getTargetPosition()))  //fL.getCurrentPosition() < fL.getTargetPosition() //opModeIsActive() && ls.isBusy()
+            {
+                telemetry.addData("encoder-linear-slides", ar.getCurrentPosition() + "  busy=" + fL.isBusy());
+                telemetry.update();
+            }
+        }
+
+        telemetry.addData("arm motor encoder", currentArmPosition);
+        telemetry.update();
+
+
+        if (gamepad1.a) {
+            //ar.setTargetPosition(0);
+            //ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //ar.setVelocity(100);
         }
 
 
