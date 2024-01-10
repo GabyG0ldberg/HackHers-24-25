@@ -106,12 +106,14 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
 
         if (gamepad1.x) { //claw stops/at middle
-            ar.setTargetPosition(500);
+            ar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            ar.setDirection(DcMotor.Direction.REVERSE);
+            ar.setTargetPosition(350);
             ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            ar.setVelocity(200);
-            while (Math.abs(currentArmPosition) < Math.abs(ar.getTargetPosition()))  //fL.getCurrentPosition() < fL.getTargetPosition() //opModeIsActive() && ls.isBusy()
+            ar.setVelocity(120);
+            while (Math.abs(currentArmPosition) < Math.abs(ar.getTargetPosition()))
             {
-                telemetry.addData("encoder-linear-slides", ar.getCurrentPosition() + "  busy=" + fL.isBusy());
+                telemetry.addData("encoder-linear-slides", ar.getCurrentPosition());
                 telemetry.update();
             }
         }
