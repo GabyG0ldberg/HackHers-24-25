@@ -115,7 +115,11 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             {
                 telemetry.addData("encoder-linear-slides", ar.getCurrentPosition());
                 telemetry.update();
+//                if(ar.getCurrentPosition()==200){
+//                    ar.setVelocity(80);
+//                }
             }
+
         }
 
         telemetry.addData("arm motor encoder", currentArmPosition);

@@ -133,6 +133,7 @@ public class MariaTestClose extends LinearOpMode {
                 everything.Stop();
                 turnLeft(90);
                 imu.resetYaw();
+                goForward(150);
                 cl.setDirection(DcMotorSimple.Direction.FORWARD);
                 cl.setPower(1);
                 sleep(2000);
