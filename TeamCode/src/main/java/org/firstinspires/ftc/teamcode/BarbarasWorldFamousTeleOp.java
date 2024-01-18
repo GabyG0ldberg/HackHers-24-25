@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import static java.lang.Math.PI;
+
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -29,13 +31,9 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
     CRServo cl; //this lie
 
-    //Servo cl;
-
-  //  DcMotor ls;
-    //Servo cl;
-    //Rev2mDistanceSensor ds1;
-    //Rev2mDistanceSensor ds2;
-    //comment for the sake of existing
+    float  armHorizontal = 0;
+    float armVertical = 0;
+    float ninety = (float) (Math.PI)/2;
 
     public void init() {
         fL = hardwareMap.get(DcMotor.class, "fL");
@@ -48,15 +46,14 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
-      //  ls = hardwareMap.get(DcMotor.class, "ls");
-        //cl = hardwareMap.get(Servo.class,"cl");
-       // ds1 = hardwareMap.get(Rev2mDistanceSensor.class, "ds1");
-       // ds2 = hardwareMap.get(Rev2mDistanceSensor.class, "ds2");
+
+        float armAngle = (ar.getCurrentPosition()- armHorizontal )*ninety/(armVertical - armHorizontal);
         everything = new HackHers_Lib(fL, fR, bL, bR, wc, ar, cl);//this lie
         ar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ar.setDirection(DcMotor.Direction.FORWARD);
         ar.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         ar.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
     }
 
@@ -113,7 +110,7 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             ar.setVelocity(120);
             while (Math.abs(currentArmPosition) < Math.abs(ar.getTargetPosition()))
             {
-                telemetry.addData("encoder-linear-slides", ar.getCurrentPosition());
+                telemetry.addData("encoder-ARM", ar.getCurrentPosition());
                 telemetry.update();
 //                if(ar.getCurrentPosition()==200){
 //                    ar.setVelocity(80);
