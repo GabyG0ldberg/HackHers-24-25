@@ -17,6 +17,8 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvWebcam;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
@@ -31,9 +33,21 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
     CRServo cl; //this lie
 
-    float  armHorizontal = 0;
-    float armVertical = 0;
+    float  armHorizontal = 91;
+    float armVertical = 346;
     float ninety = (float) (Math.PI)/2;
+
+    float kff = 1;
+
+    float armAngle = (0- armHorizontal )*(ninety/(armVertical - armHorizontal));
+    double armAngleDegrees = armAngle*(180/Math.PI);
+    double F = kff*Math.cos(armAngle);
+
+    public static final double NEW_P = 2.5;
+    public static final double NEW_I = 0.1;
+    public static final double NEW_D = 0.2;
+    public static double NEW_F = 0.5;
+
 
     public void init() {
         fL = hardwareMap.get(DcMotor.class, "fL");
@@ -47,19 +61,40 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
 
-        float armAngle = (ar.getCurrentPosition()- armHorizontal )*ninety/(armVertical - armHorizontal);
         everything = new HackHers_Lib(fL, fR, bL, bR, wc, ar, cl);//this lie
         ar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ar.setDirection(DcMotor.Direction.FORWARD);
         ar.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         ar.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        PIDFCoefficients pidfOrig = ar.getPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);
+        PIDFCoefficients pidfNew = new PIDFCoefficients(pidfOrig.p, pidfOrig.i, pidfOrig.d, NEW_F);
+        //ar.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidfNew);
+        PIDFCoefficients pidfModified = ar.getPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+        telemetry.addData("Runtime (sec)", "%.01f", getRuntime());
+        telemetry.addData("P,I,D,F (orig)", "%.04f, %.04f, %.04f, %.04f",
+                pidfOrig.p, pidfOrig.i, pidfOrig.d, pidfOrig.f);
+        telemetry.addData("P,I,D,F (modified)", "%.04f, %.04f, %.04f, %.04f",
+                pidfModified.p, pidfModified.i, pidfModified.d, pidfModified.f);
+        telemetry.update();
+
+
+
 
     }
 
 
+
     @Override
     public void loop() {
+//        float armAngle = (ar.getCurrentPosition()- armHorizontal )*(ninety/(armVertical - armHorizontal));
+//        double armAngleDegrees = armAngle*(180/Math.PI);
+//        double F = kff*Math.cos(armAngle);
+        NEW_F = 4;
+
+
         everything.omniDrive(gamepad1.right_stick_y, gamepad1.right_stick_x, gamepad1.left_stick_x);
         int currentArmPosition = ar.getCurrentPosition();
         if (gamepad1.dpad_down) {
@@ -105,9 +140,10 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         if (gamepad1.x) { //claw stops/at middle
             ar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             ar.setDirection(DcMotor.Direction.REVERSE);
-            ar.setTargetPosition(350);
+            ar.setTargetPosition(200);
             ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             ar.setVelocity(120);
+            //armAngle = (ar.getCurrentPosition()- armHorizontal )*(ninety/(armVertical - armHorizontal));
             while (Math.abs(currentArmPosition) < Math.abs(ar.getTargetPosition()))
             {
                 telemetry.addData("encoder-ARM", ar.getCurrentPosition());
@@ -120,6 +156,8 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         }
 
         telemetry.addData("arm motor encoder", currentArmPosition);
+        telemetry.addData("angle of arm", armAngleDegrees);
+
         telemetry.update();
 
 
