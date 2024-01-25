@@ -110,23 +110,41 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             telemetry.update();
         }
         if (gamepad1.dpad_right) {
-            cl.setDirection(DcMotorSimple.Direction.REVERSE);
-            cl.setPower(1);
-            telemetry.addLine("RIGHT DPAD");
-            telemetry.update();
+//            cl.setDirection(DcMotorSimple.Direction.REVERSE);
+//            cl.setPower(1);
+//            telemetry.addLine("RIGHT DPAD");
+//            telemetry.update();
         }
         if (gamepad1.dpad_left) {
-            cl.setDirection(DcMotorSimple.Direction.FORWARD);
-            cl.setPower(0);
-            telemetry.addLine("LEFT DPAD");
-            telemetry.update();
+//            cl.setDirection(DcMotorSimple.Direction.FORWARD);
+//            cl.setPower(0);
+//            telemetry.addLine("LEFT DPAD");
+//            telemetry.update();
         }
 //        if (gamepad1.y) {
 //            everything.setMotorPower(ar, -0.2);
 //        }
+//        else{
+//            everything.setMotorPower(ar, 0);;
+//        }
 
         if (gamepad1.b) {
-            everything.armStop();
+            ar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            ar.setDirection(DcMotor.Direction.FORWARD);
+            ar.setTargetPosition(4300);
+            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ar.setVelocity(1300);
+            //armAngle = (ar.getCurrentPosition()- armHorizontal )*(ninety/(armVertical - armHorizontal));
+            while (Math.abs(currentArmPosition) < Math.abs(ar.getTargetPosition()))
+            {
+                telemetry.addData("encoder-ARM", ar.getCurrentPosition());
+                telemetry.update();
+//                if(ar.getCurrentPosition()==200){
+//                    ar.setVelocity(80);
+//                }
+            }
+            ar.setMode(RESET);
+
         }
 
         if (gamepad1.right_bumper) { //claw closes a set amount
@@ -140,9 +158,9 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         if (gamepad1.x) { //claw stops/at middle
             ar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             ar.setDirection(DcMotor.Direction.REVERSE);
-            ar.setTargetPosition(200);
+            ar.setTargetPosition(4300);
             ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            ar.setVelocity(120);
+            ar.setVelocity(1300);
             //armAngle = (ar.getCurrentPosition()- armHorizontal )*(ninety/(armVertical - armHorizontal));
             while (Math.abs(currentArmPosition) < Math.abs(ar.getTargetPosition()))
             {
@@ -167,11 +185,5 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             //ar.setVelocity(100);
         }
 
-
-//        everything.setMotorPower(fL,0);
-//        everything.setMotorPower(fR,0);
-//        everything.setMotorPower(bL,0);
-//        everything.setMotorPower(bL,0);
-        //everything.setMotorPower(ls, 0);
     }
 }
