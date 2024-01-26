@@ -100,90 +100,74 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         if (gamepad1.dpad_down) {
             cl.setDirection(DcMotorSimple.Direction.FORWARD);
             cl.setPower(1);
-            telemetry.addLine("DOWN DPAD");
+            telemetry.addLine("OPEN CLAW");
             telemetry.update();
         }
         if (gamepad1.dpad_up) {
             cl.setDirection(DcMotorSimple.Direction.FORWARD);
             cl.setPower(-1);
-            telemetry.addLine("UP DPAD");
+            telemetry.addLine("CLOSE CLAW");
             telemetry.update();
         }
-        if (gamepad1.dpad_right) {
-//            cl.setDirection(DcMotorSimple.Direction.REVERSE);
-//            cl.setPower(1);
-//            telemetry.addLine("RIGHT DPAD");
-//            telemetry.update();
-        }
-        if (gamepad1.dpad_left) {
-//            cl.setDirection(DcMotorSimple.Direction.FORWARD);
-//            cl.setPower(0);
-//            telemetry.addLine("LEFT DPAD");
-//            telemetry.update();
-        }
-//        if (gamepad1.y) {
-//            everything.setMotorPower(ar, -0.2);
-//        }
-//        else{
-//            everything.setMotorPower(ar, 0);;
-//        }
 
-        if (gamepad1.b) {
-            ar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            ar.setDirection(DcMotor.Direction.FORWARD);
+        if (gamepad1.b) {//GOES DOWN / BACKWARDS BIG
+            ar.setTargetPosition(0);
+            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ar.setVelocity(1300);
+        }
+
+
+        if (gamepad1.y) { //STOPS
+            ar.setVelocity(0);
+        }
+
+        if (gamepad1.a) { //GOES DOWN / BACKWARDS SMALL
+            ar.setTargetPosition(ar.getCurrentPosition()+70);
+            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ar.setVelocity(1300);
+        }
+
+        if (gamepad1.x) { //GOES UP / FORWARD BIG
+
+            ar.setTargetPosition(-4300);
+            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ar.setVelocity(1300);
+            if(ar.getCurrentPosition()== ar.getTargetPosition()){
+                ar.setVelocity(0);
+            }
+        }
+
+        if (gamepad1.dpad_left) {//GOES DOWN / BACKWARDS BIG
+            //ar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            //ar.setDirection(DcMotor.Direction.FORWARD);
             ar.setTargetPosition(4300);
             ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             ar.setVelocity(1300);
-            //armAngle = (ar.getCurrentPosition()- armHorizontal )*(ninety/(armVertical - armHorizontal));
             while (Math.abs(currentArmPosition) < Math.abs(ar.getTargetPosition()))
             {
                 telemetry.addData("encoder-ARM", ar.getCurrentPosition());
                 telemetry.update();
-//                if(ar.getCurrentPosition()==200){
-//                    ar.setVelocity(80);
-//                }
-            }
-            ar.setMode(RESET);
-
-        }
-
-        if (gamepad1.right_bumper) { //claw closes a set amount
-            everything.Open();
-        }
-        if (gamepad1.left_bumper) { //open
-            everything.Close();
-        }
-
-
-        if (gamepad1.x) { //claw stops/at middle
-            ar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            ar.setDirection(DcMotor.Direction.REVERSE);
-            ar.setTargetPosition(4300);
-            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            ar.setVelocity(1300);
-            //armAngle = (ar.getCurrentPosition()- armHorizontal )*(ninety/(armVertical - armHorizontal));
-            while (Math.abs(currentArmPosition) < Math.abs(ar.getTargetPosition()))
-            {
-                telemetry.addData("encoder-ARM", ar.getCurrentPosition());
-                telemetry.update();
-//                if(ar.getCurrentPosition()==200){
-//                    ar.setVelocity(80);
-//                }
             }
 
         }
+
+
+        if (gamepad1.right_bumper) {
+            ar.setVelocity(1500);
+        }
+
+        if (gamepad1.left_bumper) {
+            ar.setVelocity(-1500);
+        }
+
+
+
 
         telemetry.addData("arm motor encoder", currentArmPosition);
         telemetry.addData("angle of arm", armAngleDegrees);
 
         telemetry.update();
 
-
-        if (gamepad1.a) {
-            //ar.setTargetPosition(0);
-            //ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //ar.setVelocity(100);
-        }
 
     }
 }
