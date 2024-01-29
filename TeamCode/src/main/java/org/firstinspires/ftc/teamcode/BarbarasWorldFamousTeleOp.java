@@ -33,6 +33,8 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
     CRServo cl; //this lie
 
+    CRServo apl;
+
     float  armHorizontal = 91;
     float armVertical = 346;
     float ninety = (float) (Math.PI)/2;
@@ -57,11 +59,14 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         ar = hardwareMap.get(DcMotorEx.class, "ar");
         //cl = hardwareMap.get(Servo.class, "cl");  //this lie
         cl = hardwareMap.get(CRServo.class, "cl");  //this lie
+        apl = hardwareMap.get(CRServo.class, "apl");
+
+
 
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, wc, ar, cl);//this lie
+        everything = new HackHers_Lib(fL, fR, bL, bR, wc, ar, cl, apl);//this lie
         ar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ar.setDirection(DcMotor.Direction.FORWARD);
         ar.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -151,13 +156,19 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
         }
 
+        if (gamepad1.dpad_right) {
+            apl.setDirection(DcMotorSimple.Direction.FORWARD);
+            apl.setPower(1);
+            telemetry.addLine("OPEN AIR");
+            telemetry.update();
+        }
 
         if (gamepad1.right_bumper) {
-            ar.setVelocity(1500);
+            ar.setVelocity(1400);
         }
 
         if (gamepad1.left_bumper) {
-            ar.setVelocity(-1500);
+            ar.setVelocity(-1400);
         }
 
 

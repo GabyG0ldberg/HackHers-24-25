@@ -20,11 +20,13 @@ public class HackHers_Lib {
     public DcMotorEx arm;
     public CRServo claw;
 
+    public CRServo airClaw;
+
 
 
     //public Telemetry telemetry;
 
-    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, OpenCvWebcam wc, DcMotorEx ar, CRServo cl){
+    public HackHers_Lib(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, OpenCvWebcam wc, DcMotorEx ar, CRServo cl, CRServo apl){
         this.frontLeft= fl;
         this.frontRight = fr;
         this.backLeft= bl;
@@ -33,6 +35,7 @@ public class HackHers_Lib {
        this.claw = cl;
        // this.telemetry = t;
         this.webcam = wc;
+        this.airClaw = apl;
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setDirection(DcMotor.Direction.REVERSE);
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

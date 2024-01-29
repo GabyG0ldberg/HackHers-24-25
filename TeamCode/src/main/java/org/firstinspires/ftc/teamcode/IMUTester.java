@@ -46,6 +46,8 @@ public class IMUTester extends LinearOpMode {
     //CRServo cl; //this lie
     CRServo cl; //this lie
 
+    CRServo apl;
+
     Orientation lastAngles = new Orientation();
     RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
     RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.UP;
@@ -62,8 +64,10 @@ public class IMUTester extends LinearOpMode {
         bR = hardwareMap.get(DcMotorEx.class, "bR");
         ar = hardwareMap.get(DcMotorEx.class, "ar");
         cl = hardwareMap.get(CRServo.class, "cl");  //this lie
+        apl = hardwareMap.get(CRServo.class, "apl");
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar, cl);
+
+        everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar, cl, apl);
         fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         fR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

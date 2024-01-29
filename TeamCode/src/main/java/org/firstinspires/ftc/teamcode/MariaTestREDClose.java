@@ -48,6 +48,9 @@ public class MariaTestREDClose extends LinearOpMode {
 
     CRServo cl; //this lie
 
+    CRServo apl;
+
+
     public IMU imu;
     float targetAngle;
     float globalAngle;
@@ -67,8 +70,10 @@ public class MariaTestREDClose extends LinearOpMode {
         bR = hardwareMap.get(DcMotorEx.class, "bR");
         ar = hardwareMap.get(DcMotorEx.class, "ar");
         cl = hardwareMap.get(CRServo.class, "cl");  //this lie
+        apl = hardwareMap.get(CRServo.class, "apl");
 
-        everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar, cl);
+
+        everything = new HackHers_Lib(fL, fR, bL, bR, camera, ar, cl, apl);
         fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         fR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
