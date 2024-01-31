@@ -49,7 +49,7 @@ public class GabyTest extends LinearOpMode {
     DcMotorEx ar;
   //  DcMotor ls;
   CRServo cl; //this lie
-    CRServo apl;
+    Servo apl;
    // Rev2mDistanceSensor ds1;
    // Rev2mDistanceSensor ds2;
 
@@ -63,7 +63,7 @@ public class GabyTest extends LinearOpMode {
         bR = hardwareMap.get(DcMotor.class, "bR");
         ar = hardwareMap.get(DcMotorEx.class, "ar");
         cl = hardwareMap.get(CRServo.class, "cl");
-        apl = hardwareMap.get(CRServo.class, "apl");
+        apl = hardwareMap.get(Servo.class, "apl");
 
         //cl = hardwareMap.get(CRServo.class, "cl");
         everything = new HackHers_Lib(fL, fR, bL, bR,camera, ar, cl, apl);

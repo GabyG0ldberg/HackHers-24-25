@@ -46,7 +46,7 @@ public class MariaTestRED extends LinearOpMode {
     public IMU imu;
     CRServo cl; //this lie
 
-    CRServo apl;
+    Servo apl;
 
 
 
@@ -68,7 +68,7 @@ public class MariaTestRED extends LinearOpMode {
         bR = hardwareMap.get(DcMotorEx.class, "bR");
         ar = hardwareMap.get(DcMotorEx.class, "ar");
         cl = hardwareMap.get(CRServo.class, "cl");  //this lie
-        apl = hardwareMap.get(CRServo.class, "apl");
+        apl = hardwareMap.get(Servo.class, "apl");
 
 
 

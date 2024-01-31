@@ -44,7 +44,7 @@ public class PolinaTest extends LinearOpMode {
 
     CRServo cl; //this lie
 
-    CRServo apl;
+    Servo apl;
 
 
     DcMotorEx ar;
@@ -61,7 +61,7 @@ public class PolinaTest extends LinearOpMode {
         bR = hardwareMap.get(DcMotor.class, "bR");
         ar = hardwareMap.get(DcMotorEx.class, "ar");
         cl = hardwareMap.get(CRServo.class, "cl");
-        apl = hardwareMap.get(CRServo.class, "apl");
+        apl = hardwareMap.get(Servo.class, "apl");
 
         everything = new HackHers_Lib(fL, fR, bL, bR, (OpenCvWebcam) camera, ar, cl, apl);
         //int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());

@@ -33,7 +33,7 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
     CRServo cl; //this lie
 
-    CRServo apl;
+    Servo apl;
 
     float  armHorizontal = 91;
     float armVertical = 346;
@@ -59,7 +59,7 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         ar = hardwareMap.get(DcMotorEx.class, "ar");
         //cl = hardwareMap.get(Servo.class, "cl");  //this lie
         cl = hardwareMap.get(CRServo.class, "cl");  //this lie
-        apl = hardwareMap.get(CRServo.class, "apl");
+        apl = hardwareMap.get(Servo.class, "apl");
 
 
 
@@ -134,7 +134,7 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
         if (gamepad1.x) { //GOES UP / FORWARD BIG
 
-            ar.setTargetPosition(-4300);
+            ar.setTargetPosition(-5190);
             ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             ar.setVelocity(1300);
             if(ar.getCurrentPosition()== ar.getTargetPosition()){
@@ -143,23 +143,15 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         }
 
         if (gamepad1.dpad_left) {//GOES DOWN / BACKWARDS BIG
-            //ar.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            //ar.setDirection(DcMotor.Direction.FORWARD);
-            ar.setTargetPosition(4300);
-            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            ar.setVelocity(1300);
-            while (Math.abs(currentArmPosition) < Math.abs(ar.getTargetPosition()))
-            {
-                telemetry.addData("encoder-ARM", ar.getCurrentPosition());
-                telemetry.update();
-            }
-
+            apl.setPosition(0.5);
+            telemetry.addLine("OPEN 45");
+            telemetry.update();
         }
 
         if (gamepad1.dpad_right) {
-            apl.setDirection(DcMotorSimple.Direction.FORWARD);
-            apl.setPower(1);
-            telemetry.addLine("OPEN AIR");
+            //apl.setDirection(DcMotorSimple.Direction.FORWARD);
+            apl.setPosition(0);
+            telemetry.addLine("OPEN 0");
             telemetry.update();
         }
 
