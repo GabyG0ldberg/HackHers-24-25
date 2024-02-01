@@ -35,20 +35,20 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
     Servo apl;
 
-    float  armHorizontal = 91;
-    float armVertical = 346;
-    float ninety = (float) (Math.PI)/2;
+//    float  armHorizontal = 91;
+//    float armVertical = 346;
+//    float ninety = (float) (Math.PI)/2;
 
-    float kff = 1;
-
-    float armAngle = (0- armHorizontal )*(ninety/(armVertical - armHorizontal));
-    double armAngleDegrees = armAngle*(180/Math.PI);
-    double F = kff*Math.cos(armAngle);
-
-    public static final double NEW_P = 2.5;
-    public static final double NEW_I = 0.1;
-    public static final double NEW_D = 0.2;
-    public static double NEW_F = 0.5;
+   // float kff = 1;
+//
+//    float armAngle = (0- armHorizontal )*(ninety/(armVertical - armHorizontal));
+//    double armAngleDegrees = armAngle*(180/Math.PI);
+//    double F = kff*Math.cos(armAngle);
+//
+//    public static final double NEW_P = 2.5;
+//    public static final double NEW_I = 0.1;
+//    public static final double NEW_D = 0.2;
+//    public static double NEW_F = 0.5;
 
 
     public void init() {
@@ -63,6 +63,7 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
 
 
+        
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
 
@@ -126,20 +127,16 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             ar.setVelocity(0);
         }
 
-        if (gamepad1.a) { //GOES DOWN / BACKWARDS SMALL
+        if (gamepad1.a) { //GOES DOWN / BACKWARDS INCREMENTALLY
             ar.setTargetPosition(ar.getCurrentPosition()+70);
             ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            ar.setVelocity(1300);
+            ar.setVelocity(1450);
         }
 
-        if (gamepad1.x) { //GOES UP / FORWARD BIG
-
-            ar.setTargetPosition(-5190);
+        if (gamepad1.x) { //GOES UP / INCREMENTALLY
+            ar.setTargetPosition(ar.getCurrentPosition()-70);
             ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            ar.setVelocity(1300);
-            if(ar.getCurrentPosition()== ar.getTargetPosition()){
-                ar.setVelocity(0);
-            }
+            ar.setVelocity(1700);
         }
 
         if (gamepad1.dpad_left) {//GOES DOWN / BACKWARDS BIG
@@ -155,13 +152,21 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             telemetry.update();
         }
 
-        if (gamepad1.right_bumper) {
-            ar.setVelocity(1400);
+        if (gamepad1.right_bumper) { //GOES UP BIG ALL AT ONCE
+            ar.setTargetPosition(-5000);
+            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ar.setVelocity(1300);
+              if(ar.getCurrentPosition()== ar.getTargetPosition()){
+                ar.setVelocity(0);
+            }
         }
 
-        if (gamepad1.left_bumper) {
-            ar.setVelocity(-1400);
-        }
+//        if (gamepad1.left_bumper) {
+//
+//        }
+      //  if(ar.getCurrentPosition()== ar.getTargetPosition()){
+//                ar.setVelocity(0);
+//            }
 
 
 
