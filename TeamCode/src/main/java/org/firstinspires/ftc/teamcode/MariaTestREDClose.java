@@ -133,6 +133,7 @@ public class MariaTestREDClose extends LinearOpMode {
                 goBackward(1200);
                 turnLeft(90);
                 imu.resetYaw();
+                goForward(75);
                 cl.setDirection(DcMotorSimple.Direction.FORWARD);
                 cl.setPower(1);
                 sleep(2000);

@@ -35,20 +35,20 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
     Servo apl;
 
-//    float  armHorizontal = 91;
-//    float armVertical = 346;
-//    float ninety = (float) (Math.PI)/2;
+    float  armHorizontal = 91;
+    float armVertical = 346;
+    float ninety = (float) (Math.PI)/2;
 
-   // float kff = 1;
-//
-//    float armAngle = (0- armHorizontal )*(ninety/(armVertical - armHorizontal));
-//    double armAngleDegrees = armAngle*(180/Math.PI);
-//    double F = kff*Math.cos(armAngle);
-//
-//    public static final double NEW_P = 2.5;
-//    public static final double NEW_I = 0.1;
-//    public static final double NEW_D = 0.2;
-//    public static double NEW_F = 0.5;
+    float kff = 1;
+
+    float armAngle = (0- armHorizontal )*(ninety/(armVertical - armHorizontal));
+    double armAngleDegrees = armAngle*(180/Math.PI);
+    double F = kff*Math.cos(armAngle);
+
+    public static final double NEW_P = 2.5;
+    public static final double NEW_I = 0.1;
+    public static final double NEW_D = 0.2;
+    public static double NEW_F = 0.5;
 
 
     public void init() {
