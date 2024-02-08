@@ -2,9 +2,14 @@ package org.firstinspires.ftc.teamcode;
 
 
 import static java.lang.Math.PI;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.ElapsedTime.Resolution;
+
+
 
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -24,10 +29,10 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class BarbarasWorldFamousTeleOp extends OpMode {
     private HackHers_Lib everything;
-    DcMotor fL;
-    DcMotor fR;
-    DcMotor bL;
-    DcMotor bR;
+    DcMotorEx fL;
+    DcMotorEx fR;
+    DcMotorEx bL;
+    DcMotorEx bR;
     DcMotorEx ar;
     private OpenCvWebcam wc;
 
@@ -49,21 +54,21 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
     public static final double NEW_I = 0.1;
     public static final double NEW_D = 0.2;
     public static double NEW_F = 0.5;
+    ElapsedTime myTimer;
 
 
     public void init() {
-        fL = hardwareMap.get(DcMotor.class, "fL");
-        fR = hardwareMap.get(DcMotor.class, "fR");
-        bL = hardwareMap.get(DcMotor.class, "bl");
-        bR = hardwareMap.get(DcMotor.class, "bR");
+        fL = hardwareMap.get(DcMotorEx.class, "fL");
+        fR = hardwareMap.get(DcMotorEx.class, "fR");
+        bL = hardwareMap.get(DcMotorEx.class, "bl");
+        bR = hardwareMap.get(DcMotorEx.class, "bR");
         ar = hardwareMap.get(DcMotorEx.class, "ar");
         //cl = hardwareMap.get(Servo.class, "cl");  //this lie
         cl = hardwareMap.get(CRServo.class, "cl");  //this lie
         apl = hardwareMap.get(Servo.class, "apl");
 
+        myTimer = new ElapsedTime(Resolution.SECONDS);
 
-
-        
         int webcamID = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         wc = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.getAll(WebcamName.class).get(0), webcamID);
 
@@ -116,11 +121,11 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             telemetry.update();
         }
 
-        if (gamepad1.b) {//GOES DOWN / BACKWARDS BIG
-            ar.setTargetPosition(0);
-            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            ar.setVelocity(1300);
-        }
+//        if (gamepad1.b) {//GOES DOWN / BACKWARDS BIG
+//            ar.setTargetPosition(0);
+//            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            ar.setVelocity(1300);
+//        }
 
 
         if (gamepad1.y) { //STOPS
@@ -133,11 +138,11 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             ar.setVelocity(1450);
         }
 
-        if (gamepad1.x) { //GOES UP / INCREMENTALLY
-            ar.setTargetPosition(ar.getCurrentPosition()-70);
-            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            ar.setVelocity(1700);
-        }
+//        if (gamepad1.x) { //GOES UP / INCREMENTALLY
+//            ar.setTargetPosition(ar.getCurrentPosition()-70);
+//            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            ar.setVelocity(1700);
+//        }
 
         if (gamepad1.dpad_left) {//GOES DOWN / BACKWARDS BIG
             apl.setPosition(0.5);
@@ -161,6 +166,60 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
             }
         }
 
+        if (gamepad1.x) { //GOES UP / INCREMENTALLY
+            ar.setTargetPosition(-1600);
+            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ar.setVelocity(1700);
+            if(ar.getCurrentPosition()== ar.getTargetPosition()){
+                ar.setVelocity(0);
+            }
+            goBackward(400);
+            myTimer.reset();
+            if(myTimer.time() > 2000){
+                cl.setDirection(DcMotorSimple.Direction.FORWARD);
+                cl.setPower(1);
+                goBackward(400);
+
+            }
+        }
+
+        if (gamepad1.b) { //GOES UP / INCREMENTALLY
+            ar.setTargetPosition(-1600);
+            ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ar.setVelocity(1700);
+            if(ar.getCurrentPosition()== ar.getTargetPosition()){
+                ar.setVelocity(0);
+            }
+            goBackward(400);
+            myTimer.reset();
+            if(myTimer.seconds() > 2.0){
+                cl.setDirection(DcMotorSimple.Direction.FORWARD);
+                cl.setPower(1);
+                telemetry.addLine("OPEN 45");
+                telemetry.update();
+            }
+//            while(myTimer.milliseconds() > 2000){
+//                ar.setTargetPosition(-1450);
+//                ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                ar.setVelocity(1700);
+//                if(ar.getCurrentPosition()== ar.getTargetPosition()){
+//                    ar.setVelocity(0);
+//                }
+//                cl.setDirection(DcMotorSimple.Direction.FORWARD);
+//                cl.setPower(1);
+//                myTimer.reset();i
+//
+//                while(myTimer.milliseconds() > 1000){
+//                    goForward(50);
+//                    break;
+//                }
+//                break;
+//            }
+
+        }
+
+
+
 //        if (gamepad1.left_bumper) {
 //
 //        }
@@ -173,9 +232,85 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
 
         telemetry.addData("arm motor encoder", currentArmPosition);
         telemetry.addData("angle of arm", armAngleDegrees);
+        telemetry.addData("current time", myTimer.seconds());
+        if(myTimer.time() > 2000){
+            cl.setDirection(DcMotorSimple.Direction.FORWARD);
+            cl.setPower(1);
+            goBackward(400);
+
+        }
+
 
         telemetry.update();
 
 
+    }
+
+    public void goBackward(int targetPosition) {
+        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        fL.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        fR.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        bL.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        bR.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        fL.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on.
+        fR.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on
+        bL.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on.
+        bR.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on
+        telemetry.addData("Mode", "running");
+        telemetry.update();
+        fL.setVelocity(-500);
+        fR.setVelocity(-500);
+        bL.setVelocity(-500);
+        bR.setVelocity(-500);
+        while (Math.abs(fL.getCurrentPosition()) < Math.abs(fL.getTargetPosition()) && Math.abs(fR.getCurrentPosition()) < Math.abs(fR.getTargetPosition()))  //fL.getCurrentPosition() < fL.getTargetPosition() //opModeIsActive() && ls.isBusy()
+        {
+            telemetry.addData("encoder-FORWARD", fL.getCurrentPosition() + "  busy=" + fL.isBusy());
+            telemetry.addData("encoder-FORWARD", fR.getCurrentPosition() + "  busy=" + fR.isBusy());
+            telemetry.addData("encoder-FORWARD", bL.getCurrentPosition() + "  busy=" + bL.isBusy());
+            telemetry.addData("encoder-FORWARD", bR.getCurrentPosition() + "  busy=" + bR.isBusy());
+            telemetry.update();
+
+        }
+        fL.setVelocity(0);
+        fR.setVelocity(0);
+        bL.setVelocity(0);
+        bR.setVelocity(0);
+    }
+
+    public void goForward(int targetPosition) {
+        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);  // reset encoder counts kept by motors.
+        fL.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        fR.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        bL.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        bR.setTargetPosition(targetPosition);  // set motors to run forward for 3500 encoder counts.
+        fL.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on.
+        fR.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on
+        bL.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on.
+        bR.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // set motors to run to target encoder position and stop with brakes on
+        telemetry.addData("Mode", "running");
+        telemetry.update();
+        fL.setVelocity(500);
+        fR.setVelocity(500);
+        bL.setVelocity(500);
+        bR.setVelocity(500);
+        //fR.setPower(0.05);
+        while (Math.abs(fL.getCurrentPosition()) < Math.abs(fL.getTargetPosition()) && Math.abs(fR.getCurrentPosition()) < Math.abs(fR.getTargetPosition()))  //fL.getCurrentPosition() < fL.getTargetPosition() //opModeIsActive() && ls.isBusy()
+        {
+            telemetry.addData("encoder-FORWARD", fL.getCurrentPosition() + "  busy=" + fL.isBusy());
+            telemetry.addData("encoder-FORWARD", fR.getCurrentPosition() + "  busy=" + fR.isBusy());
+            telemetry.addData("encoder-FORWARD", bL.getCurrentPosition() + "  busy=" + bL.isBusy());
+            telemetry.addData("encoder-FORWARD", bR.getCurrentPosition() + "  busy=" + bR.isBusy());
+            telemetry.update();
+        }
+        fL.setVelocity(0);
+        fR.setVelocity(0);
+        bL.setVelocity(0);
+        bR.setVelocity(0);
     }
 }
