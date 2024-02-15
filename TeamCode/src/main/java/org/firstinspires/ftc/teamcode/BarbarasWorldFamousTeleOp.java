@@ -56,6 +56,9 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
     public static double NEW_F = 0.5;
     ElapsedTime myTimer;
 
+    public boolean timeTwo = false;
+
+    public boolean go = false;
 
     public void init() {
         fL = hardwareMap.get(DcMotorEx.class, "fL");
@@ -184,37 +187,16 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         }
 
         if (gamepad1.b) { //GOES UP / INCREMENTALLY
-            ar.setTargetPosition(-1600);
+            ar.setTargetPosition(-1500);
             ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             ar.setVelocity(1700);
             if(ar.getCurrentPosition()== ar.getTargetPosition()){
                 ar.setVelocity(0);
             }
+
             goBackward(400);
             myTimer.reset();
-            if(myTimer.seconds() > 2.0){
-                cl.setDirection(DcMotorSimple.Direction.FORWARD);
-                cl.setPower(1);
-                telemetry.addLine("OPEN 45");
-                telemetry.update();
-            }
-//            while(myTimer.milliseconds() > 2000){
-//                ar.setTargetPosition(-1450);
-//                ar.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//                ar.setVelocity(1700);
-//                if(ar.getCurrentPosition()== ar.getTargetPosition()){
-//                    ar.setVelocity(0);
-//                }
-//                cl.setDirection(DcMotorSimple.Direction.FORWARD);
-//                cl.setPower(1);
-//                myTimer.reset();i
-//
-//                while(myTimer.milliseconds() > 1000){
-//                    goForward(50);
-//                    break;
-//                }
-//                break;
-//            }
+            go = true;
 
         }
 
@@ -233,10 +215,23 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         telemetry.addData("arm motor encoder", currentArmPosition);
         telemetry.addData("angle of arm", armAngleDegrees);
         telemetry.addData("current time", myTimer.seconds());
-        if(myTimer.time() > 2000){
+        if(go == true || myTimer.seconds() > 2000.0){
             cl.setDirection(DcMotorSimple.Direction.FORWARD);
+            telemetry.addLine("wwwww");
+            telemetry.update();
+
             cl.setPower(1);
             goBackward(400);
+            go = false;
+
+        }
+
+        if(myTimer.seconds() > 7000.0){
+            cl.setDirection(DcMotorSimple.Direction.FORWARD);
+            cl.setPower(1);
+//            cl.setDirection(DcMotorSimple.Direction.FORWARD);
+//            cl.setPower(-1);
+            telemetry.addLine("working");
 
         }
 
@@ -265,15 +260,15 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         fR.setVelocity(-500);
         bL.setVelocity(-500);
         bR.setVelocity(-500);
-        while (Math.abs(fL.getCurrentPosition()) < Math.abs(fL.getTargetPosition()) && Math.abs(fR.getCurrentPosition()) < Math.abs(fR.getTargetPosition()))  //fL.getCurrentPosition() < fL.getTargetPosition() //opModeIsActive() && ls.isBusy()
-        {
-            telemetry.addData("encoder-FORWARD", fL.getCurrentPosition() + "  busy=" + fL.isBusy());
-            telemetry.addData("encoder-FORWARD", fR.getCurrentPosition() + "  busy=" + fR.isBusy());
-            telemetry.addData("encoder-FORWARD", bL.getCurrentPosition() + "  busy=" + bL.isBusy());
-            telemetry.addData("encoder-FORWARD", bR.getCurrentPosition() + "  busy=" + bR.isBusy());
-            telemetry.update();
-
-        }
+//        while (Math.abs(fL.getCurrentPosition()) < Math.abs(fL.getTargetPosition()) && Math.abs(fR.getCurrentPosition()) < Math.abs(fR.getTargetPosition()))  //fL.getCurrentPosition() < fL.getTargetPosition() //opModeIsActive() && ls.isBusy()
+//        {
+//            telemetry.addData("encoder-FORWARD", fL.getCurrentPosition() + "  busy=" + fL.isBusy());
+//            telemetry.addData("encoder-FORWARD", fR.getCurrentPosition() + "  busy=" + fR.isBusy());
+//            telemetry.addData("encoder-FORWARD", bL.getCurrentPosition() + "  busy=" + bL.isBusy());
+//            telemetry.addData("encoder-FORWARD", bR.getCurrentPosition() + "  busy=" + bR.isBusy());
+//            telemetry.update();
+//
+//        }
         fL.setVelocity(0);
         fR.setVelocity(0);
         bL.setVelocity(0);
@@ -300,14 +295,14 @@ public class BarbarasWorldFamousTeleOp extends OpMode {
         bL.setVelocity(500);
         bR.setVelocity(500);
         //fR.setPower(0.05);
-        while (Math.abs(fL.getCurrentPosition()) < Math.abs(fL.getTargetPosition()) && Math.abs(fR.getCurrentPosition()) < Math.abs(fR.getTargetPosition()))  //fL.getCurrentPosition() < fL.getTargetPosition() //opModeIsActive() && ls.isBusy()
-        {
-            telemetry.addData("encoder-FORWARD", fL.getCurrentPosition() + "  busy=" + fL.isBusy());
-            telemetry.addData("encoder-FORWARD", fR.getCurrentPosition() + "  busy=" + fR.isBusy());
-            telemetry.addData("encoder-FORWARD", bL.getCurrentPosition() + "  busy=" + bL.isBusy());
-            telemetry.addData("encoder-FORWARD", bR.getCurrentPosition() + "  busy=" + bR.isBusy());
-            telemetry.update();
-        }
+//        while (Math.abs(fL.getCurrentPosition()) < Math.abs(fL.getTargetPosition()) && Math.abs(fR.getCurrentPosition()) < Math.abs(fR.getTargetPosition()))  //fL.getCurrentPosition() < fL.getTargetPosition() //opModeIsActive() && ls.isBusy()
+//        {
+//            telemetry.addData("encoder-FORWARD", fL.getCurrentPosition() + "  busy=" + fL.isBusy());
+//            telemetry.addData("encoder-FORWARD", fR.getCurrentPosition() + "  busy=" + fR.isBusy());
+//            telemetry.addData("encoder-FORWARD", bL.getCurrentPosition() + "  busy=" + bL.isBusy());
+//            telemetry.addData("encoder-FORWARD", bR.getCurrentPosition() + "  busy=" + bR.isBusy());
+//            telemetry.update();
+//        }
         fL.setVelocity(0);
         fR.setVelocity(0);
         bL.setVelocity(0);
