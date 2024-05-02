@@ -208,7 +208,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode
              * reflected in the Y channel.
              *
              * After we've converted to YCrCb, we extract just the 2nd channel, the
-             * Cb channel. We do this because stones are bright yellow and contrast
+             * Cr channel. We do this because stones are bright yellow and contrast
              * STRONGLY on the Cb channel against everything else, including SkyStones
              * (because SkyStones have a black label).
              *
@@ -347,7 +347,7 @@ public class MosaicDetectorExampleRED extends LinearOpMode
         public SkystonePosition getAnalysis()
         {
 
-            return position;
+            return position; //returns position of the cube
         }
     }
 }
