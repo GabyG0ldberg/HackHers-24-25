@@ -37,7 +37,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 public class HARSHINI_TEST extends LinearOpMode {
     OpenCvWebcam camera;
     MosaicDetectorExample.MosaicDeterminationPipeline pipeline;
-    MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition snapshotAnalysis = LEFT;
+    MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition snapshotAnalysis = null;
     private HackHers_Lib everything;
     DcMotorEx fL;
     DcMotorEx fR;
@@ -108,9 +108,9 @@ public class HARSHINI_TEST extends LinearOpMode {
         telemetry.setMsTransmissionInterval(50);
 
         while (!isStarted() && !isStopRequested()) {
-            telemetry.addData("Realtime analysis!", pipeline.getAnalysis());
-            telemetry.update();
 
+            telemetry.addData("Realtime analysis!", pipeline.getAnalysis());
+         telemetry.update();
             // Don't burn CPU cycles busy-looping in this sample
             sleep(50);
         }
@@ -126,17 +126,39 @@ public class HARSHINI_TEST extends LinearOpMode {
         // Retrieve Rotational Angles
         YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         telemetry.update();
-        telemetry.addLine("start analysis");
-        telemetry.update();
 
-        goForward(100000);
+
+        goBackward(100000);
         MosaicDetectorExample.MosaicDeterminationPipeline.SkystonePosition position = null;
-        while(position.equals(null)){
+        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+            @Override
+            public void onOpened() {
+                camera.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
+            }
+
+            @Override
+            public void onError(int errorCode) {
+
+            }
+        });
+
+        while(true){
             position = pipeline.getAnalysis();
+            telemetry.addData("Realtime analysis!", pipeline.getAnalysis());
+            telemetry.update();
         }
-        stop();
+//        telemetry.addData("Realtime analysis!", pipeline.getAnalysis());
+//        telemetry.update();
+        //Stop();
         //comment
         //HELLO!
+    }
+
+    public void Stop(){
+        fL.setVelocity(0);
+        fR.setVelocity(0);
+        bL.setVelocity(0);
+        bR.setVelocity(0);
     }
 
     public void goForward(int targetPosition) {

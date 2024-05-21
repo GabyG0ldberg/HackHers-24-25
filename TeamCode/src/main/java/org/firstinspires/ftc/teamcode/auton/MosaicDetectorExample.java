@@ -152,7 +152,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
             int avg1, avg2, avg3;
 
             // Volatile since accessed by OpMode thread w/o synchronization
-            private volatile SkystonePosition position = SkystonePosition.LEFT;
+            private volatile SkystonePosition position = null;
 
             /*
              * This function takes the RGB frame, converts to YCrCb,
